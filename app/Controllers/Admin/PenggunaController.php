@@ -47,7 +47,7 @@ class PenggunaController extends BaseController
         $encrypter = \Config\Services::encrypter();
 
         $avatar      = $this->request->getFile('input_file');
-        if ($avatar) {
+        if ($avatar != '') {
             $namabaru     = $avatar->getRandomName();
             $avatar->move('docs/img/img_pengguna/', $namabaru);
         } else {
@@ -56,7 +56,7 @@ class PenggunaController extends BaseController
 
         $data = array(
             'username' => $this->request->getPost('input_username'),
-            'password' => base64_encode($encrypter->encrypt($this->request->getVar('input_password'))),
+            'password' => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
             'email' => $this->request->getPost('input_email'),
             'nama_lengkap' => $this->request->getPost('input_nama'),
             'no_hp' => $this->request->getPost('input_no_hp'),
@@ -64,6 +64,7 @@ class PenggunaController extends BaseController
             'status' => $this->request->getPost('input_status'),
             'file' => "docs/img/img_pengguna/" . $namabaru
         );
+
         $model = new Model_pengguna();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
@@ -73,25 +74,19 @@ class PenggunaController extends BaseController
     public function update_pengguna()
     {
         $session = session();
-        // if (!$session->get('username_login') || $session->get('level_login') == 'User') {
-        //     return redirect()->to('/booking_hotel/Admin/Login');
-        // }
         $encrypter = \Config\Services::encrypter();
 
         $model = new Model_pengguna();
         $avatar      = $this->request->getFile('edit_file');
-        if ($avatar) {
+        if ($avatar != '') {
             $namabaru     = $avatar->getRandomName();
             $avatar->move('docs/img/img_pengguna/', $namabaru);
-        } else {
-            $namabaru = 'noimage.jpg';
         }
         
         $id = $this->request->getPost('id_pengguna');
         $data = array(
             'username' => $this->request->getPost('edit_username'),
-            // 'password' => base64_encode($encrypter->encrypt($this->request->getVar('edit_password'))),
-            'password' => $encrypter->encrypt(base64_encode($this->request->getVar('edit_password'))),
+            'password' => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
             'email' => $this->request->getPost('edit_email'),
             'nama_lengkap' => $this->request->getPost('edit_nama'),
             'no_hp' => $this->request->getPost('edit_no_hp'),
@@ -102,9 +97,10 @@ class PenggunaController extends BaseController
         );
 
         $data_foto = $model->detail_data($id)->getRowArray();
+        // dd($data_foto['file']);
 
         if ($data_foto != null) {
-            if ($data_foto['file'] != 'noimage.jpg') {
+            if ($data_foto['file'] != 'docs/img/img_pengguna/noimage.jpg') {
                 if (file_exists($data_foto['file'])) {
                     unlink($data_foto['file']);
                 }
@@ -126,7 +122,7 @@ class PenggunaController extends BaseController
             $data_foto = $model->detail_data($id)->getRowArray();
 
             if ($data_foto != null) {
-                if ($data_foto['file'] != 'noimage.jpg') {
+                if ($data_foto['file'] != 'docs/img/img_pengguna/noimage.jpg') {
                     if (file_exists($data_foto['file'])) {
                         unlink($data_foto['file']);
                     }
@@ -152,17 +148,17 @@ class PenggunaController extends BaseController
     {
         $model = new Model_pengguna();
         $encrypter = \Config\Services::encrypter();
+
         $data_pengguna = $model->detail_data($id_pengguna)->getResultArray();
         $data_password = $model->detail_data($id_pengguna)->getRowArray();
-        // $password = $encrypter->decrypt(base64_decode($data_password['password']));
-        // $password = base64_decode($encrypter->decrypt($data_password['password']));
-        // dd($password);
+        $password = $encrypter->decrypt(base64_decode($data_password['password']));
+
         $respon = json_decode(json_encode($data_pengguna), true);
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id'] = $value['id'];
             $isi['username'] = $value['username'];
-            $isi['password'] = $value['password'];
+            $isi['password'] = $password;
             $isi['nama_lengkap'] = $value['nama_lengkap'];
             $isi['email'] = $value['email'];
             $isi['no_hp'] = $value['no_hp'];

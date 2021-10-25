@@ -210,7 +210,7 @@ class KamarController extends BaseController
 
         $data_foto = $model->detail_data($id)->getRowArray();
         if ($data_foto != null) {
-            if ($data_foto['nama_foto'] != 'noimage.jpg') {
+            if ($data_foto['nama_foto'] != 'docs/img/img_kamar/noimage.jpg') {
                 if (file_exists($data_foto['nama_foto'])) {
                     unlink($data_foto['nama_foto']);
                 }
@@ -233,7 +233,7 @@ class KamarController extends BaseController
         $data_foto = $model->detail_data($id)->getRowArray();
 
         if ($data_foto != null) {
-            if ($data_foto['nama_foto'] != 'noimage.jpg') {
+            if ($data_foto['nama_foto'] != 'docs/img/img_kamar/noimage.jpg') {
                 if (file_exists($data_foto['nama_foto'])) {
                     unlink($data_foto['nama_foto']);
                 }

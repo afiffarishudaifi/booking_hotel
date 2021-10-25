@@ -340,30 +340,30 @@
                 }
           
               });
-            $("#edit_username").keyup(function(){
+            // $("#edit_username").keyup(function(){
 
-                var edit_username = $(this).val().trim();
+            //     var edit_username = $(this).val().trim();
           
-                if(edit_username != ''){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/PenggunaController/cek_username'); ?>' + '/' + edit_username,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_username").html('Username telah dipakai,coba yang lain');
-                                $("#edit_username").val(edit_username);
-                            }else{
-                                $("#error_edit_username").html('');
-                            }
-                        }, error: function () {
+            //     if(edit_username != ''){
+            //         $.ajax({
+            //             type: 'GET',
+            //             dataType: 'json',
+            //             url: '<?php echo base_url('Admin/PenggunaController/cek_username'); ?>' + '/' + edit_username,
+            //             success: function (data) {
+            //                 if(data['results']>0){
+            //                     $("#error_edit_username").html('Username telah dipakai,coba yang lain');
+            //                     $("#edit_username").val(edit_username);
+            //                 }else{
+            //                     $("#error_edit_username").html('');
+            //                 }
+            //             }, error: function () {
             
-                            alert('error');
-                        }
-                    });
-                }
+            //                 alert('error');
+            //             }
+            //         });
+            //     }
           
-            });
+            // });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
@@ -415,9 +415,9 @@
                     }
 
                     if (json.file != '' || json.file != null) {
-                        $("#foto_lama").attr("src", "../../../../" + json.file) ;
+                        $("#foto_lama").attr("src", "http://localhost:8080/booking_hotel/" + json.file) ;
                     } else {
-                        $("#foto_lama").attr("src", "../../../../noimage.jpg");
+                        $("#foto_lama").attr("src", "http://localhost:8080/booking_hotel/docs/img/img_pengguna/noimage.jpg");
                     }
                 });
         }
