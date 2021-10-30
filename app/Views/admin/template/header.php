@@ -1,3 +1,4 @@
+<?php $session = session(); ?>
 <div id="header" class="header navbar-default">
     <!-- begin navbar-header -->
     <div class="navbar-header">
@@ -19,17 +20,23 @@
     <!-- begin header-nav -->
     <ul class="navbar-nav d-flex flex-grow-1">
         <li class="navbar-form flex-grow-1">
+            
         </li>
-        <li class="total_tempat">
+        <li>
+            <a href="<?= base_url('Frontend/FrontendController'); ?>" data-toggle="tooltip" data-placement="top" title="Katalog">
+                <i class="fas fa-box"></i>
+            </a>
+        </li>
+        <li class="total_pemesanan">
             <a href="" data-toggle="tooltip" data-placement="top" title="Pemesanan Baru">
                 <i class="fa fa-bell"></i>
-                <span class="label label-primary" id="total_tempat"></span>
+                <span class="label label-primary" id="total_pemesanan"><?= $jumlah_pemesanan; ?></span>
             </a>
         </li>
         <li class="dropdown navbar-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="" alt="" />
-                <span class="d-none d-md-inline">Adam Schwartz</span> <b class="caret"></b>
+                <span class="d-none d-md-inline"><?= $session->get('username_login'); ?></span> <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="" class="dropdown-item">Pengaturan</a>
@@ -55,7 +62,7 @@
         <p><i class="fa fa-question-circle"></i> Apakah anda yakin ingin keluar? <br /></p>
         <div class="actionsBtns">
             <center>
-                <a href="" class="btn btn-default btn-danger">Keluar</a>
+                <a href="<?php echo base_url('Login/logout'); ?>" class="btn btn-default btn-danger">Keluar</a>
                 <button class="btn btn-default" data-dismiss="modal">Batal</button>
             </center>
         </div>

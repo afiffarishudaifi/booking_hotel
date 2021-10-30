@@ -301,12 +301,12 @@
         $(document).ready(function(){
             setInterval(function(){
                 $.ajax({
-                    url:"<?= base_url()?>/Dashboard/Dashboard/jumlah_pengajuan",
+                    url:"<?= base_url()?>/Admin/Dashboard/jumlah_pemesanan",
                     type:"POST",
                     dataType:"json",
                     data:{},
                     success:function(data){
-                        $('#total_tempat').html(data.total_tempat);
+                        $('#total_pemesanan').html(data.total_pemesanan);
                     }
                 })
             }, 5000)

@@ -27,6 +27,7 @@ class Model_dashboard extends Model
         $db      = \Config\Database::connect();
         $builder = $db->table('pengguna');
         $builder->selectCount('id');
+        $builder->where('status','customer');
         return $builder->get();
     }
 

@@ -19,12 +19,12 @@ class FasilitasController extends BaseController
     public function index()
     {
         $session = session();
-        // if (!$session->get('username_login') || $session->get('level_login') == 'User') {
-        //     return redirect()->to('/booking_hotel/Admin/Login');
-        // }
+        if (!$session->get('username_login') || $session->get('status_login') == 'Customer') {
+            return redirect()->to('/Login');
+        }
 
-        // $model_dash = new Model_dashboard();
-        // $jumlah_pemesanan = $model_dash->jumlah_pemesanan();
+        $model_dash = new Model_dashboard();
+        $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
 
         $model = new Model_fasilitas();
         $fasilitas = $model->view_data()->getResultArray();
@@ -32,8 +32,8 @@ class FasilitasController extends BaseController
             'judul' => 'Fasilitas',
             'page_header' => 'Fasilitas',
             'panel_title' => 'Tabel Fasilitas',
-            'fasilitas' => $fasilitas
-            // 'jml_pemesanan' => $jumlah_pemesanan
+            'fasilitas' => $fasilitas,
+            'jumlah_pemesanan' => $jumlah_pemesanan['id']
         ];
         return view('admin/vTFasilitas', $data);
     }

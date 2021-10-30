@@ -19,12 +19,12 @@ class PemesananController extends BaseController
     public function index()
     {
         $session = session();
-        // if (!$session->get('username_login') || $session->get('level_login') == 'User') {
-        //     return redirect()->to('/booking_hotel/Admin/Login');
-        // }
+        if (!$session->get('username_login') || $session->get('status_login') == 'Customer') {
+            return redirect()->to('/Login');
+        }
 
-        // $model_dash = new Model_dashboard();
-        // $jumlah_pemesanan = $model_dash->jumlah_pemesanan();
+        $model_dash = new Model_dashboard();
+        $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
 
         $model = new Model_Pemesanan();
         $pemesanan = $model->view_data()->getResultArray();
@@ -32,8 +32,8 @@ class PemesananController extends BaseController
             'judul' => 'Pemesanan',
             'page_header' => 'Pemesanan',
             'panel_title' => 'Tabel Pemesanan',
-            'pemesanan' => $pemesanan
-            // 'jml_pemesanan' => $jumlah_pemesanan
+            'pemesanan' => $pemesanan,
+            'jumlah_pemesanan' => $jumlah_pemesanan['id']
         ];
         return view('admin/vTPemesanan', $data);
     }

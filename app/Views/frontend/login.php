@@ -26,7 +26,7 @@
 
     <!-- begin login-cover -->
     <div class="login-cover">
-        <div class="login-cover-image" style="background-image: url(../booking_hotel/docs/img/img_logo/login-bg.jpg)" data-id="login-cover-image"></div>
+        <div class="login-cover-image" style="background-image: url(../../booking_hotel/docs/img/img_logo/login-bg.jpg)" data-id="login-cover-image"></div>
         <div class="login-cover-bg"></div>
     </div>
     <!-- end login-cover -->
@@ -40,7 +40,7 @@
                 <div class="row" style="padding-top: 20px;">
                     <div class="col-md-3">
                         <center>
-                            <div class="widget-img rounded widget-img-lg" style="background-image: url(../booking_hotel/docs/img/img_logo/logo.png); height: 80px; width: 80px;">
+                            <div class="widget-img rounded widget-img-lg" style="background-image: url(../../booking_hotel/docs/img/img_logo/logo.png); height: 80px; width: 80px;">
                             </div>
                         </center>
                     </div>

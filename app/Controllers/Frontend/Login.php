@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Frontend;
+
+use App\Controllers\BaseController;
 use App\Models\Model_login;
 
 class Login extends BaseController
@@ -16,7 +18,7 @@ class Login extends BaseController
         }
 
         helper(['form']);
-        return view('login');
+        return view('frontend/login');
     }
 
     public function login()
@@ -33,7 +35,7 @@ class Login extends BaseController
             $status = $data['status'];
             $verify_pass =  $encrypter->decrypt(base64_decode($pass));
             if ($verify_pass == $password) {
-                if ($status == 'admin' || $status == 'Admin') {
+                if ($status == 'Customer' || $status == 'customer') {
                     $ses_data = [
                         'user_id'       => $data['id'],
                         'username_login'     => $data['nama_lengkap'],
@@ -43,24 +45,24 @@ class Login extends BaseController
                         'is_admin'     => TRUE
                     ];
                     $session->set($ses_data);
-                    return redirect()->to('/Admin/Dashboard');
+                    return redirect()->to('/Customer/Dashboard');
                 } else {
                     $session->setFlashdata('msg', 'Kamu Bukan Admin');
-                    return redirect()->to('/booking_hotel/Login');
+                    return redirect()->to('/booking_hotel/Frontend/LoginController');
                 }
             } else {
                 $session->setFlashdata('msg', 'Password Tidak Sesuai');
-                return redirect()->to('/booking_hotel/Login');
+                return redirect()->to('/booking_hotel/Frontend/LoginController');
             }
         } else {
             $session->setFlashdata('msg', 'Email Tidak di Temukan');
-            return redirect()->to('/booking_hotel/Login');
+            return redirect()->to('/booking_hotel/Frontend/LoginController');
         }
     }
     public function logout()
     {
         $session = session();
         $session->destroy();
-        return redirect()->to('/Login');
+        return redirect()->to('/Frontend/LoginController');
     }
 }

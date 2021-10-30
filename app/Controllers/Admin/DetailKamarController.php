@@ -19,12 +19,12 @@ class DetailKamarController extends BaseController
     public function view($id)
     {
         $session = session();
-        // if (!$session->get('username_login') || $session->get('level_login') == 'User') {
-        //     return redirect()->to('/booking_hotel/Admin/Login');
-        // }
+        if (!$session->get('username_login') || $session->get('status_login') == 'Customer') {
+            return redirect()->to('/Login');
+        }
 
-        // $model_dash = new Model_dashboard();
-        // $jumlah_pemesanan = $model_dash->jumlah_pemesanan();
+        $model_dash = new Model_dashboard();
+        $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
 
         $model = new Model_detail_Kamar();
         $detail_kamar = $model->view_data($id)->getResultArray();
@@ -34,8 +34,8 @@ class DetailKamarController extends BaseController
             'page_header' => 'Detail Kamar ' . $nama_kamar['nama_kamar'],
             'panel_title' => 'Tabel Detail Kamar',
             'detail_kamar' => $detail_kamar,
-            'id_kamar' => $id
-            // 'jml_pemesanan' => $jumlah_pemesanan
+            'id_kamar' => $id,
+            'jumlah_pemesanan' => $jumlah_pemesanan['id']
         ];
         return view('admin/vTDetailKamar', $data);
     }

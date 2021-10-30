@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>Color Admin | Dashboard</title>
+	<title><?= $judul; ?></title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	<meta content="" name="description" />
 	<meta content="" name="author" />
+    <link rel="icon" href="<?= base_url() ?>/docs/img/img_logo/logo.png">
 	
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet" />
@@ -53,10 +54,10 @@
 				<!-- begin col-3 -->
 				<div class="col-xl-3 col-md-6">
 					<div class="widget widget-stats bg-blue">
-						<div class="stats-icon"><i class="fa fa-desktop"></i></div>
+						<div class="stats-icon"><i class="fa fa-users"></i></div>
 						<div class="stats-info">
-							<h4>TOTAL VISITORS</h4>
-							<p>3,291,922</p>	
+							<h4>TOTAL PENGGUNA</h4>
+							<p><?= $total_pengguna; ?></p>	
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
@@ -67,10 +68,10 @@
 				<!-- begin col-3 -->
 				<div class="col-xl-3 col-md-6">
 					<div class="widget widget-stats bg-info">
-						<div class="stats-icon"><i class="fa fa-link"></i></div>
+						<div class="stats-icon"><i class="fas fa-door-open"></i></div>
 						<div class="stats-info">
-							<h4>BOUNCE RATE</h4>
-							<p>20.44%</p>	
+							<h4>TOTAL KAMAR KOSONG</h4>
+							<p><?= $total_kamar_kosong; ?></p>	
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
@@ -81,10 +82,10 @@
 				<!-- begin col-3 -->
 				<div class="col-xl-3 col-md-6">
 					<div class="widget widget-stats bg-orange">
-						<div class="stats-icon"><i class="fa fa-users"></i></div>
+						<div class="stats-icon"><i class="fas fa-door-closed"></i></div>
 						<div class="stats-info">
-							<h4>UNIQUE VISITORS</h4>
-							<p>1,291,922</p>	
+							<h4>TOTAL KAMAR TERISI</h4>
+							<p><?= $total_kamar_terisi; ?></p>	
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
@@ -95,10 +96,10 @@
 				<!-- begin col-3 -->
 				<div class="col-xl-3 col-md-6">
 					<div class="widget widget-stats bg-red">
-						<div class="stats-icon"><i class="fa fa-clock"></i></div>
+						<div class="stats-icon"><i class="fas fa-hotel"></i></div>
 						<div class="stats-info">
-							<h4>AVG TIME ON SITE</h4>
-							<p>00:12:23</p>	
+							<h4>PEMESANAN BULAN INI</h4>
+							<p><?= $total_pemesanan_bulan_ini; ?></p>	
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
@@ -140,6 +141,22 @@
 		<!-- end scroll to top btn -->
 	</div>
 	<!-- end page container -->
+
+	 <script type="text/javascript">
+        $(document).ready(function(){
+            setInterval(function(){
+                $.ajax({
+                    url:"<?= base_url()?>/Admin/Dashboard/jumlah_pemesanan",
+                    type:"POST",
+                    dataType:"json",
+                    data:{},
+                    success:function(data){
+                        $('#total_pemesanan').html(data.total_pemesanan);
+                    }
+                })
+            }, 5000)
+        })
+    </script>
 	
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="<?= base_url() ?>/docs/dashboard/assets/js/app.min.js"></script>

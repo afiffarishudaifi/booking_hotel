@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\Frontend;
 
 use App\Controllers\BaseController;
 use App\Models\Model_dashboard;
 
-class Dashboard extends BaseController
+class FrontendController extends BaseController
 {
 
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') == 'Customer') {
-            return redirect()->to('Login');
-        }
 
         $model = new Model_dashboard();
         $id = $session->get('user_id');
-    	$tanggal = $this->request->getPost('daterange');
+        $tanggal = $this->request->getPost('daterange');
         if ($tanggal == null && $tanggal == '') {
             $akhir = date('Y-m-d');
             $awal = date('Y-m-d', strtotime('-30 days', strtotime($akhir)));
@@ -81,15 +78,7 @@ class Dashboard extends BaseController
         ];
         helper(['form']);
 
-        return view('admin/index', $data);
-    }
-
-    public function jumlah_pemesanan()
-    {
-        $model = new Model_dashboard();
-        $jumlah_pemesanan = $model->jumlah_pemesanan()->getRowArray();
-        $result['total_pemesanan'] = $jumlah_pemesanan['id'];
-        echo json_encode($result);
+        return view('frontend/index', $data);
     }
 
 }

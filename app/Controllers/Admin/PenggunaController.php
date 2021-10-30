@@ -19,12 +19,12 @@ class PenggunaController extends BaseController
     public function index()
     {
         $session = session();
-        // if (!$session->get('username_login') || $session->get('level_login') == 'User') {
-        //     return redirect()->to('/booking_hotel/Admin/Login');
-        // }
+        if (!$session->get('username_login') || $session->get('status_login') == 'Customer') {
+            return redirect()->to('/Login');
+        }
 
         $model_dash = new Model_dashboard();
-        $jumlah_pemesanan = $model_dash->jumlah_pemesanan();
+        $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
 
         $model = new Model_pengguna();
         $pengguna = $model->view_data()->getResultArray();
@@ -33,7 +33,7 @@ class PenggunaController extends BaseController
             'page_header' => 'Pengguna',
             'panel_title' => 'Tabel Pengguna',
             'pengguna' => $pengguna,
-            'jml_pemesanan' => $jumlah_pemesanan
+            'jumlah_pemesanan' => $jumlah_pemesanan['id']
         ];
         return view('admin/vTPengguna', $data);
     }
@@ -41,9 +41,6 @@ class PenggunaController extends BaseController
     public function add_pengguna()
     {
         $session = session();
-        // if (!$session->get('username_login') || $session->get('level_login') == 'User') {
-        //     return redirect()->to('/booking_hotel/Admin/Login');
-        // }
         $encrypter = \Config\Services::encrypter();
 
         $avatar      = $this->request->getFile('input_file');
@@ -97,7 +94,6 @@ class PenggunaController extends BaseController
         );
 
         $data_foto = $model->detail_data($id)->getRowArray();
-        // dd($data_foto['file']);
 
         if ($data_foto != null) {
             if ($data_foto['file'] != 'docs/img/img_pengguna/noimage.jpg') {

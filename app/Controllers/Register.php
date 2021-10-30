@@ -1,18 +1,17 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\Model_login;
+use App\Models\Model_pengguna;
 
-class Login extends BaseController
+class Register extends BaseController
 {
     public function index()
     {
         $session = session();
-
         if ($session->get('username_login') || $session->get('status_login') == 'Admin') {
-            return redirect()->to('Admin/Dashboard');
+            return redirect()->to('/Admin/Dashboard');
         } else if ($session->get('username_login') || $session->get('status_login') == 'Customer') {
-            return redirect()->to('Customer/Dashboard');
+            return redirect()->to('/Customer/Dashboard');
         }
 
         helper(['form']);
@@ -43,24 +42,24 @@ class Login extends BaseController
                         'is_admin'     => TRUE
                     ];
                     $session->set($ses_data);
-                    return redirect()->to('/Admin/Dashboard');
+                    return redirect()->to('Admin/Dashboard');
                 } else {
                     $session->setFlashdata('msg', 'Kamu Bukan Admin');
-                    return redirect()->to('/booking_hotel/Login');
+                    return redirect()->to('/booking_hotel/index.php/Login');
                 }
             } else {
                 $session->setFlashdata('msg', 'Password Tidak Sesuai');
-                return redirect()->to('/booking_hotel/Login');
+                return redirect()->to('/booking_hotel/index.php/Login');
             }
         } else {
             $session->setFlashdata('msg', 'Email Tidak di Temukan');
-            return redirect()->to('/booking_hotel/Login');
+            return redirect()->to('/booking_hotel/index.php/Login');
         }
     }
     public function logout()
     {
         $session = session();
         $session->destroy();
-        return redirect()->to('/Login');
+        return redirect()->to('/booking_hotel/index.php/Login');
     }
 }
