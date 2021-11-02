@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2021 at 07:02 AM
+-- Generation Time: Nov 02, 2021 at 01:54 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -89,16 +89,17 @@ CREATE TABLE `kamar` (
   `id` int(11) NOT NULL,
   `id_kategori` int(11) NOT NULL,
   `nama_kamar` varchar(100) NOT NULL,
-  `status_kamar` enum('terisi','kosong') NOT NULL
+  `status_kamar` enum('terisi','kosong') NOT NULL,
+  `biaya` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kamar`
 --
 
-INSERT INTO `kamar` (`id`, `id_kategori`, `nama_kamar`, `status_kamar`) VALUES
-(1, 1, 'Melati 1', 'kosong'),
-(2, 2, 'mawar 2', 'kosong');
+INSERT INTO `kamar` (`id`, `id_kategori`, `nama_kamar`, `status_kamar`, `biaya`) VALUES
+(1, 1, 'Melati 1', 'kosong', 50000),
+(2, 2, 'mawar 2', 'kosong', 130000);
 
 -- --------------------------------------------------------
 
@@ -125,6 +126,20 @@ INSERT INTO `kategori_kamar` (`id`, `nama_kategori`, `deskripsi`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `nilai_latihan`
+--
+
+CREATE TABLE `nilai_latihan` (
+  `id` int(11) NOT NULL,
+  `id_pengguna` int(11) NOT NULL,
+  `nilai` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pemesanan`
 --
 
@@ -135,7 +150,8 @@ CREATE TABLE `pemesanan` (
   `tanggal_pesan` datetime NOT NULL DEFAULT current_timestamp(),
   `tanggal_masuk` datetime NOT NULL,
   `tanggal_keluar` datetime NOT NULL,
-  `status_pemesanan` enum('pengajuan','terkonfirmasi') NOT NULL
+  `status_pemesanan` enum('pengajuan','terkonfirmasi') NOT NULL,
+  `total_biaya` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -201,6 +217,12 @@ ALTER TABLE `kategori_kamar`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `nilai_latihan`
+--
+ALTER TABLE `nilai_latihan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
@@ -249,10 +271,16 @@ ALTER TABLE `kategori_kamar`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `nilai_latihan`
+--
+ALTER TABLE `nilai_latihan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pengguna`

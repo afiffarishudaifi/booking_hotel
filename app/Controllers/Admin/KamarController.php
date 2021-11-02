@@ -45,6 +45,7 @@ class KamarController extends BaseController
         $data = array(
             'nama_kamar'     => $this->request->getPost('input_nama'),
             'status_kamar'     => $this->request->getPost('input_status'),
+            'biaya'     => $this->request->getPost('input_biaya'),
             'id_kategori'     => $this->request->getPost('input_kategori')
         );
         $model = new Model_kamar();
@@ -62,6 +63,7 @@ class KamarController extends BaseController
         $data = array(
             'nama_kamar'     => $this->request->getPost('edit_nama'),
             'id_kategori'     => $this->request->getPost('edit_kategori'),
+            'biaya'     => $this->request->getPost('edit_biaya'),
             'status_kamar'     => $this->request->getPost('edit_status'),
             'id'     => $this->request->getPost('id_kamar')
         );

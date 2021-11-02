@@ -64,16 +64,26 @@ $session = session();
                                 } ?>"><a href="<?= base_url('Admin/PenggunaController'); ?>">Pengguna</a></li>
                 </ul>
             </li>
-            <li class="<?php
+            <li class="has-sub <?php
                                 if (
-                                    $uri->getSegment(2) == 'PemesananController' 
+                                    $uri->getSegment(2) == 'PemesananController' || $uri->getSegment(2) == 'KonfirmasiPemesananController'
                                 ) {
                                     echo "active";
                                 } ?>">
-                <a href="widget.html">
+                <a href="javascript:;">
                     <i class="material-icons">assignment</i>
-                    <span>Pemesanan </span> 
+                    <span>Pemesanan</span>
                 </a>
+                <ul class="sub-menu">
+                    <li class="<?php
+                                if ($uri->getSegment(2) == 'PemesananController') {
+                                    echo "active";
+                                } ?>"><a href="<?= base_url('Admin/PemesananController'); ?>">Pemesanan</a></li>
+                    <li class="<?php
+                                if ($uri->getSegment(2) == 'KonfirmasiPemesananController') {
+                                    echo "active";
+                                } ?>"><a href="<?= base_url('Admin/KonfirmasiPemesananController'); ?>">Konfirmasi Pemesanan</a></li>
+                </ul>
             </li>
             <li>
                 <a href="widget.html">

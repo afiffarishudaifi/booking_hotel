@@ -26,7 +26,7 @@ class Model_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->select('kamar.id as id, kamar.nama_kamar, kamar.status_kamar, kategori_kamar.id as id_kategori, kategori_kamar.nama_kategori');
+        $builder->select('kamar.id as id, kamar.nama_kamar, kamar.status_kamar, kategori_kamar.id as id_kategori, kategori_kamar.nama_kategori, biaya');
         $builder->join('kategori_kamar', 'kamar.id_kategori = kategori_kamar.id');
         $builder->where('kamar.id', $id);
         return $builder->get();

@@ -15,7 +15,7 @@
         <!-- end #header -->
 
         <!-- begin #sidebar -->
-        <?= $this->include("admin/template/sidebar") ?>
+        <?= $this->include("admin/template/sidebar"); date_default_timezone_set('Asia/Jakarta'); ?>
         <!-- end #sidebar -->
 
         <div id="content" class="content">
@@ -54,31 +54,33 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
+                                        <th class="text-nowrap">Nama Customer</th>
                                         <th class="text-nowrap">Nama Kamar</th>
-                                        <th class="text-nowrap">Status Kamar</th>
-                                        <th class="text-nowrap">Biaya/malam</th>
+                                        <th class="text-nowrap">Tanggal Masuk</th>
+                                        <th class="text-nowrap">Tanggal Keluar</th>
+                                        <th class="text-nowrap">Status Pemesanan</th>
+                                        <th class="text-nowrap">Total Biaya</th>
                                         <th class="text-nowrap">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($kamar as $item) {
+                                    foreach ($pemesanan as $item) {
                                     ?>
                                     <tr>
                                         <td width="1%"><?= $no++; ?></td>
+                                        <td><?= $item['nama_lengkap']; ?></td>
                                         <td><?= $item['nama_kamar']; ?></td>
-                                        <td><?= $item['status_kamar']; ?></td>
-                                        <td><?= $item['biaya']; ?></td>
+                                        <td><?= $item['tanggal_masuk']; ?></td>
+                                        <td><?= $item['tanggal_keluar']; ?></td>
+                                        <td><?= $item['status_pemesanan']; ?></td>
+                                        <td><?= $item['total_biaya']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="<?php base_url() ?>DetailKamarController/view/<?php echo $item['id']; ?>" class="btn btn-circle btn-edit btn-aqua"><i
-                                                class="fas fa-eye"></i></a>
-                                                <a href="<?php base_url() ?>KamarController/view_foto/<?php echo $item['id']; ?>" class="btn btn-circle btn-edit btn-aqua"><i
-                                                class="fas fa-file-image"></i></a>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-circle btn-edit btn-warning"><i
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-circle btn-edit btn-warning btn-sm"><i
                                                         class="fa fa-pen"></i></a>
-                                                <a href="" type="button" onclick="Hapus(<?= $item['id']; ?>)" class="btn btn-circle btn-danger" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
+                                                <a href="" type="button" onclick="Hapus(<?= $item['id']; ?>,<?= $item['id_kamar']; ?>)" class="btn btn-circle btn-danger btn-sm" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
                                     </tr>
@@ -91,7 +93,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/KamarController/delete_kamar'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/PemesananController/delete_pemesanan'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -104,7 +106,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus kamar ini?</h4>
+                            <h4>Apakah Ingin menghapus pemesanan ini?</h4>
 
                         </div>
                         <div class="modal-footer">
@@ -121,13 +123,13 @@
         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
-        <form action="<?php echo base_url('Admin/KamarController/add_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
+        <form action="<?php echo base_url('Admin/PemesananController/add_pemesanan'); ?>" method="post" id="form_add" data-parsley-validate="true">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Kamar </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pemesanan </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -135,27 +137,42 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label>Kategori Kamar</label>
-                                <select name="input_kategori" id="input_kategori" class="form-control">
+                                <label>Nama Kamar</label>
+                                <select name="input_kamar" id="input_kamar" class="form-control" onchange="get_biaya(this.value)">
+                                </select>
+                            </div> 
+
+                            <div class="form-group">
+                                <label>Biaya Kamar/malam</label>
+                                <input type="text" name="input_biaya" id="input_biaya" class="form-control" value="0" readonly="">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nama Pengguna</label>
+                                <select name="input_pengguna" id="input_pengguna" class="form-control">
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Nama Kamar</label>
-                                <input type="text" class="form-control" id="input_nama" name="input_nama"  data-parsley-required="true" placeholder="Masukkan Nama Kamar">
-                                <span class="text-danger" id="error_nama"></span>
+                                <label>Tanggal Masuk</label>
+                                <input type="datetime-local" class="form-control" id="input_masuk" name="input_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result(this.value, $('#input_keluar').val())">
                             </div>
 
                             <div class="form-group">
-                                <label>Biaya Kamar/malam</label>
-                                <input type="number" class="form-control" id="input_biaya" name="input_biaya"  data-parsley-required="true" placeholder="Masukkan Biaya Permalam">
+                                <label>Tanggal Keluar</label>
+                                <input type="datetime-local" class="form-control" id="input_keluar" name="input_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result($('#input_masuk').val(),this.value)">
                             </div>
 
                             <div class="form-group">
-                                <label>Status Kamar</label>
+                                <label>Tagihan Biaya</label>
+                                <input type="text" name="input_hasil_total" value="0" id="input_hasil_total" class="form-control"  readonly="">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Pemesanan</label>
                                 <select name="input_status" class="form-control" id="input_status">
-                                    <option value="kosong" selected="">Kosong</option>
-                                    <option value="terisi">Terisi</option>
+                                    <option value="pengajuan" selected="">Pengajuan</option>
+                                    <option value="terkonfirmasi">Terkonfirmasi</option>
                                 </select>
                             </div>
 
@@ -171,42 +188,58 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/KamarController/update_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+        <form action="<?php echo base_url('Admin/PemesananController/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Kamar </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Pemesanan </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_kamar" id="id_kamar">
+                            <input type="hidden" name="id_pemesanan" id="id_pemesanan">
+                            <input type="hidden" name="edit_kamar_lama" id="edit_kamar_lama">
 
                             <div class="form-group">
-                                <label>Kategori Kamar</label>
-                                <select name="edit_kategori" id="edit_kategori" class="form-control">
+                                <label>Nama Kamar</label>
+                                <select name="edit_kamar" id="edit_kamar" class="form-control" onchange="get_biaya_edit(this.value)">
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Nama Kamar</label>
-                                <input type="text" class="form-control" id="edit_nama" name="edit_nama" data-parsley-required="true" placeholder="Masukkan Nama Kamar">
-                                <span class="text-danger" id="error_edit_nama"></span>
-                            </div>
-
-                            <div class="form-group">
                                 <label>Biaya Kamar/malam</label>
-                                <input type="number" class="form-control" id="edit_biaya" name="edit_biaya"  data-parsley-required="true" placeholder="Masukkan Biaya Permalam">
+                                <input type="text" name="edit_biaya" id="edit_biaya" class="form-control" value="0" readonly="">
                             </div>
 
                             <div class="form-group">
-                                <label>Status Kamar</label>
+                                <label>Nama Pengguna</label>
+                                <select name="edit_pengguna" id="edit_pengguna" class="form-control">
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Masuk</label>
+                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit(this.value, $('#edit_keluar').val())">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Keluar</label>
+                                <input type="datetime-local" class="form-control" id="edit_keluar" name="edit_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit($('#edit_masuk').val(),this.value)">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tagihan Biaya</label>
+                                <input type="text" name="edit_hasil_total" value="0" id="edit_hasil_total" class="form-control"  readonly="">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Pemesanan</label>
                                 <select name="edit_status" class="form-control" id="edit_status">
-                                    <option value="kosong" selected="">Kosong</option>
-                                    <option value="terisi">Terisi</option>
+                                    <option value="pengajuan" selected="">Pengajuan</option>
+                                    <option value="terkonfirmasi">Terkonfirmasi</option>
                                 </select>
                             </div>
 
@@ -269,76 +302,107 @@
                 })
             }, 5000)
         })
+
+        function get_result(masuk, akhir) {
+            var tanggal_masuk = new Date(masuk);
+            var tanggal_akhir = new Date(akhir);
+            var timeDiff=0
+            if (tanggal_akhir) {
+                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
+            }
+
+            var selisih = Math.floor(timeDiff/(86400))
+            var biaya = $('#input_biaya').val()
+
+            var total_biaya = parseInt(selisih) * parseInt(biaya);
+
+            if (isNaN(total_biaya)) {
+                $('#input_hasil_total').val('0')
+            } else {
+                $('#input_hasil_total').val(total_biaya)
+            }
+		}
+
+        function get_result_edit(masuk, akhir) {
+            var tanggal_masuk = new Date(masuk);
+            var tanggal_akhir = new Date(akhir);
+            var timeDiff=0
+            if (tanggal_akhir) {
+                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
+            }
+
+            var selisih = Math.floor(timeDiff/(86400))
+            var biaya = $('#edit_biaya').val()
+
+            var total_biaya = parseInt(selisih) * parseInt(biaya);
+
+            if (isNaN(total_biaya)) {
+                $('#edit_hasil_total').val('0')
+            } else {
+                $('#edit_hasil_total').val(total_biaya)
+            }
+        }
+
+		function get_biaya(id_kamar) {
+			$.ajax({
+                url:"<?= base_url()?>/Admin/PemesananController/biaya_kamar" + "/" + id_kamar,
+                type:"GET",
+                dataType:"json",
+                data:{},
+                success:function(data){
+                    $('#input_biaya').val(data.biaya);
+                }
+            });
+		}
+
+		function get_biaya_edit(id_kamar) {
+			$.ajax({
+                url:"<?= base_url()?>/Admin/PemesananController/biaya_kamar" + "/" + id_kamar,
+                type:"GET",
+                dataType:"json",
+                data:{},
+                success:function(data){
+                    $('#edit_biaya').val(data.biaya);
+                }
+            });
+		}
     </script>
 
     <script type="text/javascript">
         $(function() {
 
-            //===================================================================
-            
-            $("#input_nama").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != ''){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/KamarController/cek_nama'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_nama").html('Nama telah dipakai,coba yang lain');
-                                $("#input_nama").val('');
-                            }else{
-                                $("#error_nama").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-              });
-            $("#edit_nama").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != '' && nama != $('#edit_nama_lama').val()){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/KamarController/cek_nama'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_nama").html('Nama telah dipakai,coba yang lain');
-                                $("#edit_nama").val('');
-                            }else{
-                                $("#error_edit_nama").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-            });
-
-            $('#input_kategori').select2({
-                placeholder: "Pilih Kategori",
+            $('#input_kamar').select2({
+                placeholder: "Pilih Kamar",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/KamarController/data_kategori'); ?>',
+                    url: '<?php echo base_url('Admin/PemesananController/data_kamar'); ?>',
                     dataType: 'json'
                 }
             });
 
-            $('#edit_kategori').select2({
-                placeholder: "Pilih Kategori",
+            $('#edit_kamar').select2({
+                placeholder: "Pilih Kamar",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/KamarController/data_kategori'); ?>',
+                    url: '<?php echo base_url('Admin/PemesananController/data_kamar'); ?>',
+                    dataType: 'json'
+                }
+            });
+
+            $('#input_pengguna').select2({
+                placeholder: "Pilih Pengguna",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/PemesananController/data_pengguna'); ?>',
+                    dataType: 'json'
+                }
+            });
+
+            $('#edit_pengguna').select2({
+                placeholder: "Pilih Pengguna",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/PemesananController/data_pengguna'); ?>',
                     dataType: 'json'
                 }
             });
@@ -346,48 +410,62 @@
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_kategori").val('');
-                $("#input_nama").val('');
-                $("#input_biaya").val('');
+                $("#input_kamar").val();
+                $("#input_pengguna").val('');
+                $("#input_masuk").val('');
+                $("#input_keluar").val('');
                 $("#input_status").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_kategori").val('');
-                $("#input_nama").val('');
-                $("#input_biaya").val('');
+                $("#input_kamar").val('');
+                $("#input_pengguna").val('');
+                $("#input_masuk").val('');
+                $("#input_keluar").val('');
                 $("#input_status").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_kategori").val('');
-                $("#edit_nama").val('');
-                $("#edit_biaya").val('');
+                $("#edit_kamar").val('');
+                $("#edit_pengguna").val('');
+                $("#edit_masuk").val('');
+                $("#edit_keluar").val('');
                 $("#edit_status").val('');
             });
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/KamarController/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/PemesananController/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_kamar').val(json.id);
-                    $('#edit_nama').val(json.nama_kamar);
-                    $('#edit_biaya').val(json.biaya);
+                    $('#id_pemesanan').val(json.id);
+                    $('#edit_kamar_lama').val(json.id_kamar);
 
-                    $('#edit_kategori').append('<option selected value="' + json.id_kategori + '">' + json.nama_kategori +
+                    $('#edit_kamar').append('<option selected value="' + json.id_kamar + '">' + json.nama_kamar +
                         '</option>');
-                    $('#edit_kategori').select2('data', {
-                        id: json.id_kategori,
-                        text: json.nama_kategori
+                    $('#edit_kamar').select2('data', {
+                        id: json.id_kamar,
+                        text: json.nama_kamar
                     });
-                    $('#edit_kategori').trigger('change');
+                    $('#edit_kamar').trigger('change');
 
-                    if (json.status_kamar == 'terisi') {
-                        document.getElementById("edit_status").selectedIndex = 1;
-                    } else {
+                    $('#edit_pengguna').append('<option selected value="' + json.id_pengguna + '">' + json.nama_lengkap +
+                        '</option>');
+                    $('#edit_pengguna').select2('data', {
+                        id: json.id_pengguna,
+                        text: json.nama_lengkap
+                    });
+                    $('#edit_pengguna').trigger('change');
+
+                    $('#edit_masuk').val(json.tanggal_masuk);
+                    $('#edit_keluar').val(json.tanggal_keluar);
+                    $('#edit_hasil_total').val(json.total_biaya);
+
+                    if (json.status_pemesanan == 'pengajuan') {
                         document.getElementById("edit_status").selectedIndex = 0;
+                    } else {
+                        document.getElementById("edit_status").selectedIndex = 1;
                     }
                 });
         }

@@ -13,9 +13,20 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->select('pemesanan.id, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengguna.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar');
+        $builder->select('pemesanan.id, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengguna.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, pemesanan.tanggal_masuk, pemesanan.tanggal_keluar, pemesanan.status_pemesanan, total_biaya');
         $builder->join('pengguna', 'pengguna.id = pemesanan.id_pengguna');
         $builder->join('kamar', 'kamar.id = pemesanan.id_kamar');
+        return $builder->get();
+    }
+
+    public function view_data_konfirmasi()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->select('pemesanan.id, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengguna.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, pemesanan.tanggal_masuk, pemesanan.tanggal_keluar, pemesanan.status_pemesanan, total_biaya');
+        $builder->join('pengguna', 'pengguna.id = pemesanan.id_pengguna');
+        $builder->join('kamar', 'kamar.id = pemesanan.id_kamar');
+        $builder->where('status_pemesanan','pengajuan');
         return $builder->get();
     }
 
@@ -29,7 +40,10 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->where('id', $id);
+        $builder->select("pemesanan.id, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengguna.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, DATE_FORMAT(pemesanan.tanggal_masuk, '%Y-%m-%dT%H:%i') as tanggal_masuk, DATE_FORMAT(pemesanan.tanggal_keluar, '%Y-%m-%dT%H:%i') as tanggal_keluar, pemesanan.status_pemesanan, total_biaya");
+        $builder->join('pengguna', 'pengguna.id = pemesanan.id_pengguna');
+        $builder->join('kamar', 'kamar.id = pemesanan.id_kamar');
+        $builder->where('pemesanan.id', $id);
         return $builder->get();
     }
 
@@ -61,6 +75,16 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
+        $builder->where('status_kamar','kosong');
+        return $builder->get();
+    }
+
+    public function biaya_kamar($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('kamar');
+        $builder->select('biaya');
+        $builder->where('id',$id);
         return $builder->get();
     }
 
