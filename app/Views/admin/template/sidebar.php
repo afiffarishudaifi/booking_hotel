@@ -85,11 +85,26 @@ $session = session();
                                 } ?>"><a href="<?= base_url('Admin/KonfirmasiPemesananController'); ?>">Konfirmasi Pemesanan</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="widget.html">
-                    <i class="material-icons">assignment</i>
-                    <span>Laporan Pemesanan </span> 
+            <li class="has-sub <?php
+                                if (
+                                    $uri->getSegment(2) == 'LaporanController' || $uri->getSegment(2) == 'KonfirmasiPemesananController'
+                                ) {
+                                    echo "active";
+                                } ?>">
+                <a href="javascript:;">
+                    <i class="material-icons">article</i>
+                    <span>Pemesanan</span>
                 </a>
+                <ul class="sub-menu">
+                    <li class="<?php
+                                if ($uri->getSegment(2) == 'LaporanController') {
+                                    echo "active";
+                                } ?>"><a href="<?= base_url('Admin/LaporanController'); ?>">Laporan Pemesanan</a></li>
+                    <li class="<?php
+                                if ($uri->getSegment(2) == 'LaporanPendapatanController') {
+                                    echo "active";
+                                } ?>"><a href="<?= base_url('Admin/LaporanPendapatanController'); ?>">Laporan Pendapatan</a></li>
+                </ul>
             </li>
         </ul>
         <!-- end sidebar nav -->
