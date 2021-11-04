@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class Model_dashboard extends Model
 {
-    protected $table = 'pemesanan';
-    protected $primaryKey = 'id';
+    // protected $table = 'pemesanan';
+    // protected $primaryKey = 'id';
 
     public function pemesanan($params)
     {
@@ -67,6 +67,35 @@ class Model_dashboard extends Model
         $builder->selectCount('id');
         $builder->where('status_pemesanan', 'Pengajuan');
         return $builder->get();
+    }
+
+    public function cek_status_kamar($tanggal)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('kamar');
+        $builder->select('pemesanan.id, kamar.id as id_kamar');
+        $builder->join('pemesanan','pemesanan.id_kamar = kamar.id');
+        $builder->where('pemesanan.tanggal_keluar <=', $tanggal);
+        // $builder->set('status_pemesanan','selesai');
+        return $builder->get();
+    }
+
+    public function update_status_pemesanan($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->where('id', $id);
+        $builder->set('status_pemesanan','selesai');
+        return $builder->update();
+    }
+
+    public function update_status_kamar($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('kamar');
+        $builder->where('id', $id);
+        $builder->set('status_kamar','kosong');
+        return $builder->update();
     }
 
 }

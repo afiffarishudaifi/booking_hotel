@@ -7,6 +7,12 @@ use App\Models\Model_dashboard;
 
 class Dashboard extends BaseController
 {
+    public function __construct()
+    {
+        $this->Model_dashboard = new Model_dashboard();
+        helper('form');
+        date_default_timezone_set('Asia/Jakarta');
+    }
 
     public function index()
     {
@@ -88,6 +94,9 @@ class Dashboard extends BaseController
     {
         $model = new Model_dashboard();
         $jumlah_pemesanan = $model->jumlah_pemesanan()->getRowArray();
+        $cek_status = $model->cek_status_kamar(date("Y-m-d H:i:s"))->getRowArray();
+        $ubah_pemesanan = $model->update_status_pemesanan($cek_status['id']);
+        $ubah_kamar = $model->update_status_kamar($cek_status['id_kamar']);
         $result['total_pemesanan'] = $jumlah_pemesanan['id'];
         echo json_encode($result);
     }

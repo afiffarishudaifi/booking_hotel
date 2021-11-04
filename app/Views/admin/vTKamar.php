@@ -34,18 +34,15 @@
 
             <div class="row">
                 <div class="col-xl-12">
-                    <div class="panel panel-inverse">
+                    <div class="panel panel-warning">
+                        <!-- begin panel-heading -->
                         <div class="panel-heading">
                             <h4 class="panel-title"><?= $panel_title; ?></h4>
                             <div class="panel-heading-btn">
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default"
-                                    data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success"
-                                    data-click="panel-reload"><i class="fa fa-redo"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning"
-                                    data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger"
-                                    data-click="panel-remove"><i class="fa fa-times"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                             </div>
                         </div>
 
@@ -72,13 +69,13 @@
                                         <td><?= $item['biaya']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="<?php base_url() ?>DetailKamarController/view/<?php echo $item['id']; ?>" class="btn btn-circle btn-edit btn-aqua"><i
+                                                <a href="<?php base_url() ?>DetailKamarController/view/<?php echo $item['id']; ?>" class="btn btn-sm btn-edit btn-aqua"><i
                                                 class="fas fa-eye"></i></a>
-                                                <a href="<?php base_url() ?>KamarController/view_foto/<?php echo $item['id']; ?>" class="btn btn-circle btn-edit btn-aqua"><i
+                                                <a href="<?php base_url() ?>KamarController/view_foto/<?php echo $item['id']; ?>" class="btn btn-sm btn-edit btn-aqua"><i
                                                 class="fas fa-file-image"></i></a>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-circle btn-edit btn-warning"><i
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
                                                         class="fa fa-pen"></i></a>
-                                                <a href="" type="button" onclick="Hapus(<?= $item['id']; ?>)" class="btn btn-circle btn-danger" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
+                                                <a href="" type="button" onclick="Hapus(<?= $item['id']; ?>)" class="btn btn-sm btn-danger" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
                                     </tr>

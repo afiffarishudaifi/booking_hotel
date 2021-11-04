@@ -60,7 +60,7 @@
 							<p><?= $total_pengguna; ?></p>	
 						</div>
 						<div class="stats-link">
-							<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+							<a href="<?= base_url('Admin/PenggunaController'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -74,21 +74,21 @@
 							<p><?= $total_kamar_kosong; ?></p>	
 						</div>
 						<div class="stats-link">
-							<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+							<a href="<?= base_url('Admin/KamarController'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
 				<!-- end col-3 -->
 				<!-- begin col-3 -->
 				<div class="col-xl-3 col-md-6">
-					<div class="widget widget-stats bg-orange">
+					<div class="widget widget-stats bg-green">
 						<div class="stats-icon"><i class="fas fa-door-closed"></i></div>
 						<div class="stats-info">
 							<h4>TOTAL KAMAR TERISI</h4>
 							<p><?= $total_kamar_terisi; ?></p>	
 						</div>
 						<div class="stats-link">
-							<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+							<a href="<?= base_url('Admin/KamarController'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -102,7 +102,7 @@
 							<p><?= $total_pemesanan_bulan_ini; ?></p>	
 						</div>
 						<div class="stats-link">
-							<a href="javascript:;">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+							<a href="<?= base_url('Admin/LaporanController'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -114,13 +114,13 @@
 				<!-- begin col-8 -->
 				<div class="col-xl-12">
 					<!-- begin panel -->
-					<div class="panel panel-inverse" data-sortable-id="index-1">
+					<div class="panel panel-warning" data-sortable-id="index-1">
 						<div class="panel-heading">
 							<h4 class="panel-title">Website Analytics (Last 7 Days)</h4>
 							<div class="panel-heading-btn">
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
 						</div>

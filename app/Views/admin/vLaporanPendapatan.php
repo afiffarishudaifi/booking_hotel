@@ -109,10 +109,8 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">ID</th>
-                                        <th class="text-nowrap">Nama Pemesan</th>
-                                        <th class="text-nowrap">Nama Kamar</th>
                                         <th class="text-nowrap">Tanggal Pesan</th>
-                                        <th class="text-nowrap">Status Pemesanan</th>
+                                        <th class="text-nowrap">Pendapatan</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -176,13 +174,11 @@
             placeholder: "Pilih Kategori",
             theme: 'bootstrap4',
             ajax: {
-                url: '<?php echo base_url('Admin/LaporanController/data_kategori'); ?>',
+                url: '<?php echo base_url('Admin/LaporanPendapatanController/data_kategori'); ?>',
                 dataType: 'json'
             }
         });
-        $(function() {
-
-            
+        $(function() {            
             /* Isi Table */
             $('.table').DataTable({
                 "lengthMenu": [
@@ -190,23 +186,17 @@
                     [10, 25, 50, "All"]
                 ],
                 "ajax": {
-                    "url": "<?= base_url() ?>/Admin/LaporanController/data/" + $('#tanggal').val() + '/' + $('#select_kategori').val() + '/' + $('#select_status').val(),
+                    "url": "<?= base_url() ?>/Admin/LaporanPendapatanController/data/" + $('#tanggal').val() + '/' + $('#select_kategori').val() + '/' + $('#select_status').val(),
                     "dataSrc": ""
                 },
                 "columns": [{
                         "data": "id"
                     },
                     {
-                        "data": "nama_lengkap"
+                        "data": "tanggal"
                     },
                     {
-                        "data": "nama_kategori"
-                    },
-                    {
-                        "data": "tanggal_pesan"
-                    },
-                    {
-                        "data": "status_pemesanan"
+                        "data": "total"
                     },
                 ],
                 dom: 'Bfrtip',
@@ -218,12 +208,12 @@
         });
 
         function ganti(kategori, status) {
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanController/data/' + $('#tanggal').val() + '/' + kategori + '/' + status).load();
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanPendapatanController/data/' + $('#tanggal').val() + '/' + kategori + '/' + status).load();
         };
 
         $('#tanggal').on('apply.daterangepicker', function(ev, picker) {
             var tanggal = picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY');
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanController/data/' + tanggal + '/' + $('#select_kategori').val() + '/' + $('#select_status').val()).load();
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanPendapatanController/data/' + tanggal + '/' + $('#select_kategori').val() + '/' + $('#select_status').val()).load();
         });
 
         $(document).ready(function() {

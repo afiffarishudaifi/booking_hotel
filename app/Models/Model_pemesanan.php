@@ -16,6 +16,7 @@ class Model_pemesanan extends Model
         $builder->select('pemesanan.id, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengguna.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, pemesanan.tanggal_masuk, pemesanan.tanggal_keluar, pemesanan.status_pemesanan, total_biaya');
         $builder->join('pengguna', 'pengguna.id = pemesanan.id_pengguna');
         $builder->join('kamar', 'kamar.id = pemesanan.id_kamar');
+        $builder->where('pemesanan.status_pemesanan !=','selesai');
         return $builder->get();
     }
 
