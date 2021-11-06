@@ -9,7 +9,7 @@ $session = session();
                 <a href="javascript:;" data-toggle="nav-profile">
                     <div class="cover with-shadow"></div>
                     <div class="image">
-                        <img src="../assets/img/user/user-13.jpg" alt="" />
+                        <img src="http://localhost:8080/booking_hotel/<?= $session->get('foto'); ?>" alt="" />
                     </div>
                     <div class="info">
                         Admin Sistem
@@ -32,9 +32,9 @@ $session = session();
             </li>
             <li class="has-sub <?php
                                 if (
-                                    $uri->getSegment(2) == 'DetailController' || $uri->getSegment(2) == 'KamarController' ||
-                                    $uri->getSegment(2) == 'KategoriController' || $uri->getSegment(2) == 'FasilitasController' ||
-                                    $uri->getSegment(2) == 'FotoController' || $uri->getSegment(2) == 'DetailKamarController' || $uri->getSegment(2) == 'PenggunaController'
+                                    $uri->getSegment(2) == 'Detail' || $uri->getSegment(2) == 'Kamar' ||
+                                    $uri->getSegment(2) == 'Kategori' || $uri->getSegment(2) == 'Fasilitas' ||
+                                    $uri->getSegment(2) == 'Foto' || $uri->getSegment(2) == 'DetailKamar' || $uri->getSegment(2) == 'Pengguna'
                                 ) {
                                     echo "active";
                                 } ?>">
@@ -44,26 +44,26 @@ $session = session();
                 </a>
                 <ul class="sub-menu">
                     <li class="<?php
-                                if ($uri->getSegment(2) == 'KategoriController') {
+                                if ($uri->getSegment(2) == 'Kategori') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/KategoriController'); ?>">Kategori Kamar</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Kategori'); ?>">Kategori Kamar</a></li>
                     <li class="<?php
-                                if ($uri->getSegment(2) == 'FasilitasController') {
+                                if ($uri->getSegment(2) == 'Fasilitas') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/FasilitasController'); ?>">Fasilitas</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Fasilitas'); ?>">Fasilitas</a></li>
                     <li class="<?php
-                                if ($uri->getSegment(2) == 'KamarController') {
+                                if ($uri->getSegment(2) == 'Kamar') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/KamarController'); ?>">Kamar</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Kamar'); ?>">Kamar</a></li>
                     <li class="<?php
-                                if ($uri->getSegment(2) == 'PenggunaController') {
+                                if ($uri->getSegment(2) == 'Pengguna') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/PenggunaController'); ?>">Pengguna</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Pengguna'); ?>">Pengguna</a></li>
                 </ul>
             </li>
             <li class="has-sub <?php
                                 if (
-                                    $uri->getSegment(2) == 'PemesananController' || $uri->getSegment(2) == 'KonfirmasiPemesananController'
+                                    $uri->getSegment(2) == 'Pemesanan' || $uri->getSegment(2) == 'KonfirmasiPemesanan'
                                 ) {
                                     echo "active";
                                 } ?>">
@@ -73,34 +73,34 @@ $session = session();
                 </a>
                 <ul class="sub-menu">
                     <li class="<?php
-                                if ($uri->getSegment(2) == 'PemesananController') {
+                                if ($uri->getSegment(2) == 'Pemesanan') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/PemesananController'); ?>">Pemesanan</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Pemesanan'); ?>">Pemesanan</a></li>
                     <li class="<?php
-                                if ($uri->getSegment(2) == 'KonfirmasiPemesananController') {
+                                if ($uri->getSegment(2) == 'KonfirmasiPemesanan') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/KonfirmasiPemesananController'); ?>">Konfirmasi Pemesanan</a></li>
+                                } ?>"><a href="<?= base_url('Admin/KonfirmasiPemesanan'); ?>">Konfirmasi Pemesanan</a></li>
                 </ul>
             </li>
             <li class="has-sub <?php
                                 if (
-                                    $uri->getSegment(2) == 'LaporanController' || $uri->getSegment(2) == 'KonfirmasiPemesananController'
+                                    $uri->getSegment(2) == 'Laporan' || $uri->getSegment(2) == 'LaporanPendapatan'
                                 ) {
                                     echo "active";
                                 } ?>">
                 <a href="javascript:;">
                     <i class="material-icons">article</i>
-                    <span>Pemesanan</span>
+                    <span>Laporan</span>
                 </a>
                 <ul class="sub-menu">
                     <li class="<?php
-                                if ($uri->getSegment(2) == 'LaporanController') {
+                                if ($uri->getSegment(2) == 'Laporan') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/LaporanController'); ?>">Laporan Pemesanan</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Laporan'); ?>">Laporan Pemesanan</a></li>
                     <li class="<?php
-                                if ($uri->getSegment(2) == 'LaporanPendapatanController') {
+                                if ($uri->getSegment(2) == 'LaporanPendapatan') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/LaporanPendapatanController'); ?>">Laporan Pendapatan</a></li>
+                                } ?>"><a href="<?= base_url('Admin/LaporanPendapatan'); ?>">Laporan Pendapatan</a></li>
                 </ul>
             </li>
         </ul>

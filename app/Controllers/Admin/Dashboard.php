@@ -17,8 +17,8 @@ class Dashboard extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') == 'Customer') {
-            return redirect()->to('Login');
+        if (!$session->get('username_login') || $session->get('status_login') == 'customer') {
+            return redirect()->to('Login/indexAdmin');
         }
 
         $model = new Model_dashboard();

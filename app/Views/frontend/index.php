@@ -65,10 +65,10 @@
                                  <a class="nav-link" href="#contact">Hubungi Kami</a>
                               </li>
                            </ul>
-                           <?php if ($session->get('status_login') == 'Customer') { ?>
-                              <div class="sign_btn"><a href="<?= base_url('Customer/Dashboard'); ?>"><?= $session->get('nama_login'); ?></a></div>
+                           <?php if ($session->get('status_login') == 'customer') { ?>
+                              <div class="sign_btn"><a href="<?= base_url('Customer/Dashboard'); ?>"><?= $session->get('username_login'); ?></a></div>
                            <?php } else { ?>
-                              <div class="sign_btn"><a href="<?= base_url('Frontend/Login'); ?>">Sign in</a></div>
+                              <div class="sign_btn"><a href="<?= base_url('Login'); ?>">Sign in</a></div>
                            <?php } ?>
                         </div>
                      </nav>

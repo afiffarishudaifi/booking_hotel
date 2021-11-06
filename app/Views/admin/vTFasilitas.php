@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/FasilitasController/delete_fasilitas'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Fasilitas/delete_fasilitas'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -108,7 +108,7 @@
     </div>
 
     <!-- Modal Add Class-->
-    <form action="<?php echo base_url('Admin/FasilitasController/add_fasilitas'); ?>" method="post" id="form_add" data-parsley-validate="true">
+    <form action="<?php echo base_url('Admin/Fasilitas/add_fasilitas'); ?>" method="post" id="form_add" data-parsley-validate="true">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -139,7 +139,7 @@
     <!-- End Modal Add Class-->
 
     <!-- Modal Edit Class-->
-    <form action="<?php echo base_url('Admin/FasilitasController/update_fasilitas'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+    <form action="<?php echo base_url('Admin/Fasilitas/update_fasilitas'); ?>" method="post" id="form_edit" data-parsley-validate="true">
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -227,7 +227,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/FasilitasController/cek_nama'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Fasilitas/cek_nama'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_fasilitas").html('Fasilitas telah dipakai,coba yang lain');
@@ -251,7 +251,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/FasilitasController/cek_nama'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Fasilitas/cek_nama'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_edit_fasilitas").html('Fasilitas telah dipakai,coba yang lain');
@@ -285,7 +285,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/FasilitasController/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Fasilitas/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_fasilitas').val(json.id);
                     $('#edit_fasilitas').val(json.nama_fasilitas);

@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/DetailKamarController/delete_detail_kamar'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/DetailKamar/delete_detail_kamar'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -106,7 +106,7 @@
     </div>
 
     <!-- Modal Add Class-->
-    <form action="<?php echo base_url('Admin/DetailKamarController/add_detail_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
+    <form action="<?php echo base_url('Admin/DetailKamar/add_detail_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -139,7 +139,7 @@
     <!-- End Modal Add Class-->
 
     <!-- Modal Edit Class-->
-    <form action="<?php echo base_url('Admin/DetailKamarController/update_detail_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+    <form action="<?php echo base_url('Admin/DetailKamar/update_detail_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -227,7 +227,7 @@
                 placeholder: "Pilih Fasilitas",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/DetailKamarController/data_fasilitas'); ?>',
+                    url: '<?php echo base_url('Admin/DetailKamar/data_fasilitas'); ?>',
                     dataType: 'json'
                 }
             });
@@ -236,7 +236,7 @@
                 placeholder: "Pilih Fasilitas",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/DetailKamarController/data_fasilitas'); ?>',
+                    url: '<?php echo base_url('Admin/DetailKamar/data_fasilitas'); ?>',
                     dataType: 'json'
                 }
             });
@@ -259,7 +259,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/DetailKamarController/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/DetailKamar/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_detail').val(json.id);
                     $('#id_kamar').val(json.id_kamar);

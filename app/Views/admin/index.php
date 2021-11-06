@@ -17,7 +17,7 @@
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 	<link href="<?= base_url() ?>/docs/dashboard/assets/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet" />
 	<link href="<?= base_url() ?>/docs/dashboard/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
-	<!-- <link href="<?= base_url() ?>/docs/dashboard/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" /> -->
+	<link href="<?= base_url() ?>/docs/dashboard/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
 	<!-- ================== END PAGE LEVEL STYLE ================== -->
 </head>
 <body>
@@ -60,7 +60,7 @@
 							<p><?= $total_pengguna; ?></p>	
 						</div>
 						<div class="stats-link">
-							<a href="<?= base_url('Admin/PenggunaController'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+							<a href="<?= base_url('Admin/Pengguna'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -74,7 +74,7 @@
 							<p><?= $total_kamar_kosong; ?></p>	
 						</div>
 						<div class="stats-link">
-							<a href="<?= base_url('Admin/KamarController'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+							<a href="<?= base_url('Admin/Kamar'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -88,7 +88,7 @@
 							<p><?= $total_kamar_terisi; ?></p>	
 						</div>
 						<div class="stats-link">
-							<a href="<?= base_url('Admin/KamarController'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+							<a href="<?= base_url('Admin/Kamar'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -102,7 +102,7 @@
 							<p><?= $total_pemesanan_bulan_ini; ?></p>	
 						</div>
 						<div class="stats-link">
-							<a href="<?= base_url('Admin/LaporanController'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+							<a href="<?= base_url('Admin/Laporan'); ?>">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -164,7 +164,7 @@
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<!-- <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/gritter/js/jquery.gritter.js"></script> -->
+	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/gritter/js/jquery.gritter.js"></script>
 	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.canvaswrapper.js"></script>
 	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.colorhelpers.js"></script>
 	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.js"></script>

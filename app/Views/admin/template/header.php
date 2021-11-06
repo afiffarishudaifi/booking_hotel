@@ -1,5 +1,5 @@
 <?php $session = session(); ?>
-<div id="header" class="header navbar-default">
+<div id="header" class="header navbar-inverse">
     <!-- begin navbar-header -->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed navbar-toggle-left" data-click="sidebar-minify">
@@ -23,7 +23,7 @@
             
         </li>
         <li>
-            <a href="<?= base_url('Frontend/FrontendController'); ?>" data-toggle="tooltip" data-placement="top" title="Katalog">
+            <a href="<?= base_url('Frontend/Frontend'); ?>" data-toggle="tooltip" data-placement="top" title="Katalog">
                 <i class="fas fa-box"></i>
             </a>
         </li>
@@ -35,11 +35,11 @@
         </li>
         <li class="dropdown navbar-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="" alt="" />
+                <img src="http://localhost:8080/booking_hotel/<?= $session->get('foto'); ?>" alt="" />
                 <span class="d-none d-md-inline"><?= $session->get('username_login'); ?></span> <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="" class="dropdown-item">Pengaturan</a>
+                <a href="<?= base_url('Admin/Pengaturan'); ?>" class="dropdown-item">Pengaturan</a>
                 <div class="dropdown-divider"></div>
                 <a href="" data-toggle="modal" data-target="#logoutModal" class="dropdown-item">Keluar</a>
             </div>

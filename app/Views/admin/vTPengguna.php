@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/PenggunaController/delete_pengguna'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Pengguna/delete_pengguna'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -114,7 +114,7 @@
     </div>
 
     <!-- Modal Add Class-->
-    <form action="<?php echo base_url('Admin/PenggunaController/add_pengguna'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
+    <form action="<?php echo base_url('Admin/Pengguna/add_pengguna'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -185,7 +185,7 @@
     <!-- End Modal Add Class-->
 
     <!-- Modal Edit Class-->
-    <form action="<?php echo base_url('Admin/PenggunaController/update_pengguna'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
+    <form action="<?php echo base_url('Admin/Pengguna/update_pengguna'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -250,7 +250,7 @@
                             <label>Foto Pengguna</label>
                             <br>
                             <input type="file" id="edit_file" name="edit_file"
-                                data-parsley-required="true" multiple />
+                                data-parsley-required="true"/>
                         </div>
 
                     </div>
@@ -321,7 +321,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/PenggunaController/cek_username'); ?>' + '/' + input_username,
+                        url: '<?php echo base_url('Admin/Pengguna/cek_username'); ?>' + '/' + input_username,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_username").html('Username telah dipakai,coba yang lain');
@@ -336,7 +336,7 @@
                     });
                 }
           
-              });
+            });
             // $("#edit_username").keyup(function(){
 
             //     var edit_username = $(this).val().trim();
@@ -345,7 +345,7 @@
             //         $.ajax({
             //             type: 'GET',
             //             dataType: 'json',
-            //             url: '<?php echo base_url('Admin/PenggunaController/cek_username'); ?>' + '/' + edit_username,
+            //             url: '<?php echo base_url('Admin/Pengguna/cek_username'); ?>' + '/' + edit_username,
             //             success: function (data) {
             //                 if(data['results']>0){
             //                     $("#error_edit_username").html('Username telah dipakai,coba yang lain');
@@ -395,7 +395,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/PenggunaController/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Pengguna/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_pengguna').val(json.id);
                     $('#edit_username').val(json.username);

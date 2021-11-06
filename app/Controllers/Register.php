@@ -7,59 +7,54 @@ class Register extends BaseController
 {
     public function index()
     {
-        $session = session();
-        if ($session->get('username_login') || $session->get('status_login') == 'Admin') {
-            return redirect()->to('/Admin/Dashboard');
-        } else if ($session->get('username_login') || $session->get('status_login') == 'Customer') {
-            return redirect()->to('/Customer/Dashboard');
-        }
-
-        helper(['form']);
-        return view('login');
+        return view('vRegistrasi');
     }
 
-    public function login()
+    public function registrasi()
     {
         $session = session();
-        $model = new Model_login();
         $encrypter = \Config\Services::encrypter();
-        $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
-        $data = $model->where('username', $username)->first();
 
-        if ($data) {
-            $pass = $data['password'];
-            $status = $data['status'];
-            $verify_pass =  $encrypter->decrypt(base64_decode($pass));
-            if ($verify_pass == $password) {
-                if ($status == 'admin' || $status == 'Admin') {
-                    $ses_data = [
-                        'user_id'       => $data['id'],
-                        'username_login'     => $data['nama_lengkap'],
-                        'email_login'    => $data['email'],
-                        'status_login'    => $status,
-                        'logged_in'     => TRUE,
-                        'is_admin'     => TRUE
-                    ];
-                    $session->set($ses_data);
-                    return redirect()->to('Admin/Dashboard');
-                } else {
-                    $session->setFlashdata('msg', 'Kamu Bukan Admin');
-                    return redirect()->to('/booking_hotel/index.php/Login');
-                }
-            } else {
-                $session->setFlashdata('msg', 'Password Tidak Sesuai');
-                return redirect()->to('/booking_hotel/index.php/Login');
-            }
+        $avatar      = $this->request->getFile('input_file');
+        if ($avatar != '') {
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_pengguna/', $namabaru);
         } else {
-            $session->setFlashdata('msg', 'Email Tidak di Temukan');
-            return redirect()->to('/booking_hotel/index.php/Login');
+            $namabaru = 'noimage.jpg';
         }
+
+        $data = array(
+            'username' => $this->request->getPost('input_username'),
+            'password' => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
+            'email' => $this->request->getPost('input_email'),
+            'nama_lengkap' => $this->request->getPost('input_nama'),
+            'no_hp' => $this->request->getPost('input_no_hp'),
+            'alamat' => $this->request->getPost('input_alamat'),
+            'status' => 'customer',
+            'file' => "docs/img/img_pengguna/" . $namabaru
+        );
+
+        $model = new Model_pengguna();
+        $model->add_data($data);
+        $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
+        return redirect()->to(base_url('Login'));
     }
-    public function logout()
+
+    public function cek_username($username)
     {
-        $session = session();
-        $session->destroy();
-        return redirect()->to('/booking_hotel/index.php/Login');
+        $model = new Model_pengguna();
+        $cek_username = $model->cek_username($username)->getResultArray();
+        $respon = json_decode(json_encode($cek_username), true);
+        $data['results'] = count($respon);
+        echo json_encode($data);
+    }
+
+    public function cek_email($email)
+    {
+        $model = new Model_pengguna();
+        $cek_email = $model->cek_email($email)->getResultArray();
+        $respon = json_decode(json_encode($cek_email), true);
+        $data['results'] = count($respon);
+        echo json_encode($data);
     }
 }

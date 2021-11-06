@@ -69,9 +69,9 @@
                                         <td><?= $item['biaya']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="<?php base_url() ?>DetailKamarController/view/<?php echo $item['id']; ?>" class="btn btn-sm btn-edit btn-aqua"><i
+                                                <a href="<?php base_url() ?>DetailKamar/view/<?php echo $item['id']; ?>" class="btn btn-sm btn-edit btn-aqua"><i
                                                 class="fas fa-eye"></i></a>
-                                                <a href="<?php base_url() ?>KamarController/view_foto/<?php echo $item['id']; ?>" class="btn btn-sm btn-edit btn-aqua"><i
+                                                <a href="<?php base_url() ?>Kamar/view_foto/<?php echo $item['id']; ?>" class="btn btn-sm btn-edit btn-aqua"><i
                                                 class="fas fa-file-image"></i></a>
                                                 <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
                                                         class="fa fa-pen"></i></a>
@@ -88,7 +88,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/KamarController/delete_kamar'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Kamar/delete_kamar'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -118,7 +118,7 @@
         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
-        <form action="<?php echo base_url('Admin/KamarController/add_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
+        <form action="<?php echo base_url('Admin/Kamar/add_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -168,7 +168,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/KamarController/update_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+        <form action="<?php echo base_url('Admin/Kamar/update_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -281,7 +281,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/KamarController/cek_nama'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Kamar/cek_nama'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_nama").html('Nama telah dipakai,coba yang lain');
@@ -305,7 +305,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/KamarController/cek_nama'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Kamar/cek_nama'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_edit_nama").html('Nama telah dipakai,coba yang lain');
@@ -326,7 +326,7 @@
                 placeholder: "Pilih Kategori",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/KamarController/data_kategori'); ?>',
+                    url: '<?php echo base_url('Admin/Kamar/data_kategori'); ?>',
                     dataType: 'json'
                 }
             });
@@ -335,7 +335,7 @@
                 placeholder: "Pilih Kategori",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/KamarController/data_kategori'); ?>',
+                    url: '<?php echo base_url('Admin/Kamar/data_kategori'); ?>',
                     dataType: 'json'
                 }
             });
@@ -367,7 +367,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/KamarController/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Kamar/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_kamar').val(json.id);
                     $('#edit_nama').val(json.nama_kamar);

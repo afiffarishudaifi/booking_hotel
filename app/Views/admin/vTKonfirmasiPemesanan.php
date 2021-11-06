@@ -93,7 +93,7 @@
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/KonfirmasiPemesananController/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+        <form action="<?php echo base_url('Admin/KonfirmasiPemesanan/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -206,7 +206,7 @@
 
     <script type="text/javascript">
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/PemesananController/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Pemesanan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_pemesanan').val(json.id);
                     $('#edit_kamar_lama').val(json.id_kamar);

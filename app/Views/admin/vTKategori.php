@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/KategoriController/delete_kategori_kamar'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Kategori/delete_kategori_kamar'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -109,7 +109,7 @@
     </div>
 
     <!-- Modal Add Class-->
-    <form action="<?php echo base_url('Admin/KategoriController/add_kategori_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
+    <form action="<?php echo base_url('Admin/Kategori/add_kategori_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -145,7 +145,7 @@
     <!-- End Modal Add Class-->
 
     <!-- Modal Edit Class-->
-    <form action="<?php echo base_url('Admin/KategoriController/update_kategori_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+    <form action="<?php echo base_url('Admin/Kategori/update_kategori_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -238,7 +238,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/KategoriController/cek_nama'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Kategori/cek_nama'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_nama").html('Nama telah dipakai,coba yang lain');
@@ -262,7 +262,7 @@
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/KategoriController/cek_nama'); ?>' + '/' + nama,
+                        url: '<?php echo base_url('Admin/Kategori/cek_nama'); ?>' + '/' + nama,
                         success: function (data) {
                             if(data['results']>0){
                                 $("#error_edit_nama").html('Nama telah dipakai,coba yang lain');
@@ -300,7 +300,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/KategoriController/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Kategori/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_kategori').val(json.id);
                     $('#edit_nama').val(json.nama_kategori);

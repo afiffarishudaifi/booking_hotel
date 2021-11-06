@@ -90,7 +90,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/PemesananController/delete_pemesanan'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Pemesanan/delete_pemesanan'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -120,7 +120,7 @@
         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
-        <form action="<?php echo base_url('Admin/PemesananController/add_pemesanan'); ?>" method="post" id="form_add" data-parsley-validate="true">
+        <form action="<?php echo base_url('Admin/Pemesanan/add_pemesanan'); ?>" method="post" id="form_add" data-parsley-validate="true">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -185,7 +185,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/PemesananController/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+        <form action="<?php echo base_url('Admin/Pemesanan/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -342,7 +342,7 @@
 
 		function get_biaya(id_kamar) {
 			$.ajax({
-                url:"<?= base_url()?>/Admin/PemesananController/biaya_kamar" + "/" + id_kamar,
+                url:"<?= base_url()?>/Admin/Pemesanan/biaya_kamar" + "/" + id_kamar,
                 type:"GET",
                 dataType:"json",
                 data:{},
@@ -354,7 +354,7 @@
 
 		function get_biaya_edit(id_kamar) {
 			$.ajax({
-                url:"<?= base_url()?>/Admin/PemesananController/biaya_kamar" + "/" + id_kamar,
+                url:"<?= base_url()?>/Admin/Pemesanan/biaya_kamar" + "/" + id_kamar,
                 type:"GET",
                 dataType:"json",
                 data:{},
@@ -372,7 +372,7 @@
                 placeholder: "Pilih Kamar",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/PemesananController/data_kamar'); ?>',
+                    url: '<?php echo base_url('Admin/Pemesanan/data_kamar'); ?>',
                     dataType: 'json'
                 }
             });
@@ -381,7 +381,7 @@
                 placeholder: "Pilih Kamar",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/PemesananController/data_kamar'); ?>',
+                    url: '<?php echo base_url('Admin/Pemesanan/data_kamar'); ?>',
                     dataType: 'json'
                 }
             });
@@ -390,7 +390,7 @@
                 placeholder: "Pilih Pengguna",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/PemesananController/data_pengguna'); ?>',
+                    url: '<?php echo base_url('Admin/Pemesanan/data_pengguna'); ?>',
                     dataType: 'json'
                 }
             });
@@ -399,7 +399,7 @@
                 placeholder: "Pilih Pengguna",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/PemesananController/data_pengguna'); ?>',
+                    url: '<?php echo base_url('Admin/Pemesanan/data_pengguna'); ?>',
                     dataType: 'json'
                 }
             });
@@ -434,7 +434,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/PemesananController/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Pemesanan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_pemesanan').val(json.id);
                     $('#edit_kamar_lama').val(json.id_kamar);

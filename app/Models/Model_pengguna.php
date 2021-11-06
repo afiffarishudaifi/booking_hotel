@@ -65,4 +65,13 @@ class Model_pengguna extends Model
         return $builder->get();
     }
 
+    public function cek_email($email)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pengguna');
+        $builder->select('id');
+        $builder->where('pengguna.email', $email);
+        return $builder->get();
+    }
+
 }

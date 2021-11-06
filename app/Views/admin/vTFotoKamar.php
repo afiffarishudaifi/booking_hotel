@@ -84,7 +84,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/KamarController/delete_foto_kamar'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Kamar/delete_foto_kamar'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -114,7 +114,7 @@
         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
-        <form action="<?php echo base_url('Admin/KamarController/add_foto_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
+        <form action="<?php echo base_url('Admin/Kamar/add_foto_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -149,7 +149,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/KamarController/update_foto_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
+        <form action="<?php echo base_url('Admin/Kamar/update_foto_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -260,7 +260,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/KamarController/data_edit_foto'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Kamar/data_edit_foto'); ?>' + '/' + isi, {},
                 function(json) {
                     // console.log(json);
                     $('#id_foto').val(json.id);

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="<?= base_url()?>/docs/admin/assets/img/foto_logo/logo.png">
+    <link rel="icon" href="<?= base_url() ?>/docs/img/img_logo/logo.png">
     <title><?= $judul; ?></title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta content="" name="description" />
@@ -174,7 +174,7 @@
             placeholder: "Pilih Kategori",
             theme: 'bootstrap4',
             ajax: {
-                url: '<?php echo base_url('Admin/LaporanPendapatanController/data_kategori'); ?>',
+                url: '<?php echo base_url('Admin/LaporanPendapatan/data_kategori'); ?>',
                 dataType: 'json'
             }
         });
@@ -186,7 +186,7 @@
                     [10, 25, 50, "All"]
                 ],
                 "ajax": {
-                    "url": "<?= base_url() ?>/Admin/LaporanPendapatanController/data/" + $('#tanggal').val() + '/' + $('#select_kategori').val() + '/' + $('#select_status').val(),
+                    "url": "<?= base_url() ?>/Admin/LaporanPendapatan/data/" + $('#tanggal').val() + '/' + $('#select_kategori').val() + '/' + $('#select_status').val(),
                     "dataSrc": ""
                 },
                 "columns": [{
@@ -208,12 +208,12 @@
         });
 
         function ganti(kategori, status) {
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanPendapatanController/data/' + $('#tanggal').val() + '/' + kategori + '/' + status).load();
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanPendapatan/data/' + $('#tanggal').val() + '/' + kategori + '/' + status).load();
         };
 
         $('#tanggal').on('apply.daterangepicker', function(ev, picker) {
             var tanggal = picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY');
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanPendapatanController/data/' + tanggal + '/' + $('#select_kategori').val() + '/' + $('#select_status').val()).load();
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanPendapatan/data/' + tanggal + '/' + $('#select_kategori').val() + '/' + $('#select_status').val()).load();
         });
 
         $(document).ready(function() {
