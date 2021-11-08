@@ -24,6 +24,5 @@
     <link
         href="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
         rel="stylesheet" />
-    <link href="<?= base_url() ?>/docs/dashboard//assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
     <!-- ================== END PAGE LEVEL STYLE ================== -->
 </head>

@@ -244,11 +244,7 @@
         src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js">
     </script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/gritter/js/jquery.gritter.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/ui-gritter.js"></script>
     <script src="<?php echo base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
-    <link rel="stylesheet" href="<?php echo base_url('/docs/dashboard/assets/plugins/select2/css/select2.min.css') ?>">
-    <link rel="stylesheet" href="<?php echo base_url('/docs/dashboard/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
     <!-- ================== END PAGE LEVEL JS ================== -->
 
 

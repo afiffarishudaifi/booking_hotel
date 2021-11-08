@@ -290,8 +290,6 @@
         src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js">
     </script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/gritter/js/jquery.gritter.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/ui-gritter.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
     <script type="text/javascript">
@@ -337,30 +335,6 @@
                 }
           
             });
-            // $("#edit_username").keyup(function(){
-
-            //     var edit_username = $(this).val().trim();
-          
-            //     if(edit_username != ''){
-            //         $.ajax({
-            //             type: 'GET',
-            //             dataType: 'json',
-            //             url: '<?php echo base_url('Admin/Pengguna/cek_username'); ?>' + '/' + edit_username,
-            //             success: function (data) {
-            //                 if(data['results']>0){
-            //                     $("#error_edit_username").html('Username telah dipakai,coba yang lain');
-            //                     $("#edit_username").val(edit_username);
-            //                 }else{
-            //                     $("#error_edit_username").html('');
-            //                 }
-            //             }, error: function () {
-            
-            //                 alert('error');
-            //             }
-            //         });
-            //     }
-          
-            // });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();

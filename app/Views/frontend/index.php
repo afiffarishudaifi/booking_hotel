@@ -28,6 +28,8 @@
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2/css/select2.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -102,22 +104,23 @@
          <div class="container">
             <div class="row">
                <div class="col-md-12">
-                  <form class="form_book">
+                  <form class="form_book" method="post" action="<?php echo base_url('Frontend/Pencarian/pencarian'); ?>">
                      <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                            <label class="date">Tanggal Masuk</label>
-                           <input class="book_n"  type="date" >
+                           <input class="book_n"  type="datetime-local" name="input_masuk" data-date-format="DD MMMM YYYY">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                            <label class="date">Tanggal Keluar</label>
-                           <input class="book_n"  type="date" >
+                           <input class="book_n"  type="datetime-local" name="input_keluar" data-date-format="DD MMMM YYYY">
                         </div>
                         <div class="col-md-3">
                            <label class="date">Tipe Kamar</label>
-                           <input class="book_n" placeholder="2" type="type" name="2">
+                           <select id="select_kategori" name="input_kategori" class="book_n">
+                           </select>
                         </div>
-                        <div class="col-md-3">
-                           <button class="book_btn">Booking Sekarang</button>
+                        <div class="col-md-1">
+                           <button type="submit" class="book_btn">Cari</button>
                         </div>
                      </div>
                   </form>
@@ -364,6 +367,20 @@
       <script src="<?= base_url() ?>/docs/frontend/js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="<?= base_url() ?>/docs/frontend/js/custom.js"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+      
+    <script src="<?php echo base_url('docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
+
+      <script type="text/javascript">
+         $('#select_kategori').select2({
+            placeholder: "Pilih Kategori",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Frontend/Frontend/data_kategori'); ?>',
+                dataType: 'json'
+            }
+        });
+      </script>
    </body>
 </html>
 

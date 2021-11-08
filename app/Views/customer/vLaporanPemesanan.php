@@ -36,11 +36,11 @@
     <!-- begin #page-container -->
     <div id="page-container" class="fade page-sidebar-fixed page-header-fixed page-with-wide-sidebar page-with-light-sidebar">
         <!-- begin #header -->
-        <?= $this->include("admin/template/header") ?>
+        <?= $this->include("customer/template/header") ?>
         <!-- end #header -->
 
         <!-- begin #sidebar -->
-        <?= $this->include("admin/template/sidebar") ?>
+        <?= $this->include("customer/template/sidebar") ?>
         <!-- end #sidebar -->
 
         <!-- begin #content -->
@@ -110,8 +110,10 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">ID</th>
+                                        <th class="text-nowrap">Nama Pemesan</th>
+                                        <th class="text-nowrap">Nama Kamar</th>
                                         <th class="text-nowrap">Tanggal Pesan</th>
-                                        <th class="text-nowrap">Pendapatan</th>
+                                        <th class="text-nowrap">Status Pemesanan</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -173,11 +175,13 @@
             placeholder: "Pilih Kategori",
             theme: 'bootstrap4',
             ajax: {
-                url: '<?php echo base_url('Admin/LaporanPendapatan/data_kategori'); ?>',
+                url: '<?php echo base_url('Customer/Laporan/data_kategori'); ?>',
                 dataType: 'json'
             }
         });
-        $(function() {            
+        $(function() {
+
+            
             /* Isi Table */
             $('.table').DataTable({
                 "lengthMenu": [
@@ -185,17 +189,23 @@
                     [10, 25, 50, "All"]
                 ],
                 "ajax": {
-                    "url": "<?= base_url() ?>/Admin/LaporanPendapatan/data/" + $('#tanggal').val() + '/' + $('#select_kategori').val() + '/' + $('#select_status').val(),
+                    "url": "<?= base_url() ?>/Customer/Laporan/data/" + $('#tanggal').val() + '/' + $('#select_kategori').val() + '/' + $('#select_status').val(),
                     "dataSrc": ""
                 },
                 "columns": [{
                         "data": "id"
                     },
                     {
-                        "data": "tanggal"
+                        "data": "nama_lengkap"
                     },
                     {
-                        "data": "total"
+                        "data": "nama_kategori"
+                    },
+                    {
+                        "data": "tanggal_pesan"
+                    },
+                    {
+                        "data": "status_pemesanan"
                     },
                 ],
                 dom: 'Bfrtip',
@@ -207,30 +217,15 @@
         });
 
         function ganti(kategori, status) {
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanPendapatan/data/' + $('#tanggal').val() + '/' + kategori + '/' + status).load();
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Customer/Laporan/data/' + $('#tanggal').val() + '/' + kategori + '/' + status).load();
         };
 
         $('#tanggal').on('apply.daterangepicker', function(ev, picker) {
             var tanggal = picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY');
-            $('.table').DataTable().ajax.url('<?= base_url() ?>/Admin/LaporanPendapatan/data/' + tanggal + '/' + $('#select_kategori').val() + '/' + $('#select_status').val()).load();
+            $('.table').DataTable().ajax.url('<?= base_url() ?>/Customer/Laporan/data/' + tanggal + '/' + $('#select_kategori').val() + '/' + $('#select_status').val()).load();
         });
 
-        $(document).ready(function() {
-            setInterval(function(){
-                $.ajax({
-                    url:"<?= base_url()?>/Admin/Dashboard/jumlah_pemesanan",
-                    type:"POST",
-                    dataType:"json",
-                    data:{},
-                    success:function(data){
-                        $('#total_pemesanan').html(data.total_pemesanan);
-                    }
-                })
-            }, 5000)
-        })
-
         $("#btn_reset").click(function (e) {
-            // $('#select_kategori').select2("id", null);
             $("#select_kategori").val('').trigger('change')
             document.getElementById("select_status").selectedIndex = 0;
         });

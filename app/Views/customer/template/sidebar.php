@@ -30,6 +30,23 @@ $session = session();
                     <span>Dashboard</span>
                 </a>
             </li>
+            <li class="has-sub <?php
+                                if (
+                                    $uri->getSegment(2) == 'Laporan' || $uri->getSegment(2) == 'LaporanPendapatan'
+                                ) {
+                                    echo "active";
+                                } ?>">
+                <a href="javascript:;">
+                    <i class="material-icons">article</i>
+                    <span>Laporan</span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="<?php
+                                if ($uri->getSegment(2) == 'Laporan') {
+                                    echo "active";
+                                } ?>"><a href="<?= base_url('Customer/Laporan'); ?>">Laporan Pemesanan</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

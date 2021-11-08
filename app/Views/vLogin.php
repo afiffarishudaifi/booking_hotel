@@ -40,8 +40,10 @@
                 <div class="row" style="padding-top: 20px;">
                     <div class="col-md-3">
                         <center>
-                            <div class="widget-img rounded widget-img-lg" style="background-image: url(../booking_hotel/docs/img/img_logo/logo.png); height: 80px; width: 80px;">
-                            </div>
+                            <a href="<?= base_url('Frontend/Frontend'); ?>" title="Katalog">
+                                <div class="widget-img rounded widget-img-lg" style="background-image: url(../booking_hotel/docs/img/img_logo/logo.png); height: 80px; width: 80px;">
+                                </div>
+                            </a>
                         </center>
                     </div>
                     <div class="col-md-9">
