@@ -25,11 +25,14 @@ class Pencarian extends BaseController
         $param['input_kategori'] = $this->request->getPost('input_kategori');
         $kamar_kosong = $model->view_data($param)->getResultArray();
 
-        // $data = [
-        //     'tanggal_masuk' => $masuk
-        // ];
+        $data = [
+            'judul' => 'Hasil Pencarian',
+            'tanggal_masuk' => $param['input_masuk']
+        ];
 
-        dd($kamar_kosong);
+        // dd($kamar_kosong);
+
+        return view('frontend/vPencarian', $data);
     }
 
     public function data_kategori()
@@ -90,6 +93,25 @@ class Pencarian extends BaseController
         }
 
         echo json_encode($data);
+    }
+
+    public function detail($id)
+    {
+        $session = session();
+        $model = new Model_pencarian();
+        $kamar = $model->detail_kamar(1)->getRowArray();
+        $fasilitas = $model->detail_fasilitas($kamar['id_kamar'])->getResultArray();
+        $foto = $model->detail_foto($kamar['id_kamar'])->getResultArray();
+        $foto_limit = $model->detail_foto_limit($kamar['id_kamar'])->getRowArray();
+        $data = [
+            'judul' => 'Detail Kamar',
+            'kamar' => $kamar,
+            'fasilitas' => $fasilitas,
+            'foto' => $foto,
+            'foto_cover' => $foto_limit['nama_foto']
+        ];
+
+        return view('frontend/vDetailKamar', $data);
     }
 
 }

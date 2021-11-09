@@ -50,4 +50,44 @@ class Model_pencarian extends Model
         return $builder->get();
     }
 
+    public function detail_kamar($id)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('kamar');
+        $builder->select('kamar.id as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id as id_kategori');
+        $builder->join('kategori_kamar', 'kategori_kamar.id=kamar.id_kategori');
+        $builder->join('pemesanan','kamar.id = pemesanan.id_kamar');
+        $builder->where('kamar.id', $id);
+        return $builder->get();
+    }
+
+    public function detail_fasilitas($id)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('detail_kamar');
+        $builder->select('fasilitas.nama_fasilitas');
+        $builder->join('fasilitas', 'detail_kamar.id_fasilitas = fasilitas.id');
+        $builder->where('detail_kamar.id_kamar', $id);
+        return $builder->get();
+    }
+
+    public function detail_foto($id)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('foto');
+        $builder->select('foto.nama_foto');
+        $builder->where('foto.id_kamar', $id);
+        return $builder->get();
+    }
+
+    public function detail_foto_limit($id)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('foto');
+        $builder->select('foto.nama_foto');
+        $builder->where('foto.id_kamar', $id);
+        $builder->limit(1);
+        return $builder->get();
+    }
+
 }

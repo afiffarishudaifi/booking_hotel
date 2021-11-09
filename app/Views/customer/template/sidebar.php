@@ -31,6 +31,15 @@ $session = session();
                 </a>
             </li>
             <li class="has-sub <?php
+                        if ($uri->getSegment(2) == 'Customer') {
+                            echo "active";
+                        } ?>">
+                <a href="<?= base_url('Customer/Pemesanan'); ?>">
+                    <i class="material-icons">assignment</i>
+                    <span>Pemesanan</span>
+                </a>
+            </li>
+            <li class="has-sub <?php
                                 if (
                                     $uri->getSegment(2) == 'Laporan' || $uri->getSegment(2) == 'LaporanPendapatan'
                                 ) {

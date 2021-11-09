@@ -30,9 +30,6 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2/css/select2.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
    </head>
    <!-- body -->
    <body class="main-layout">
@@ -79,9 +76,7 @@
             </div>
          </div>
       </header>
-      <!-- end header inner -->
-      <!-- end header -->
-      <!-- banner -->
+
       <section class="banner_main">
          <div class="container">
             <div class="row">
@@ -98,8 +93,7 @@
             </div>
          </div>
       </section>
-      <!-- end banner -->
-      <!-- form_lebal -->
+
       <section>
          <div class="container">
             <div class="row">
@@ -128,8 +122,7 @@
             </div>
          </div>
       </section>
-      <!-- end form_lebal -->
-      <!-- choose  section -->
+
       <div class="choose">
          <div class="container">
             <div class="row">
@@ -164,8 +157,7 @@
             </div>
          </div>
       </div>
-      <!-- end choose  section -->
-      <!-- our  section -->
+
       <div class="our">
          <div class="container">
             <div class="row d_flex">
@@ -186,8 +178,7 @@
             </div>
          </div>
       </div>
-      <!-- end our  section -->
-      <!-- about -->
+
       <div id="about"  class="about">
          <div class="container-fluid">
             <div class="row d_flex">
@@ -207,8 +198,7 @@
             </div>
          </div>
       </div>
-      <!-- end about -->
-      <!-- testimonial -->
+
       <div class="testimonial">
          <div class="container">
             <div class="row">
@@ -307,8 +297,7 @@
             </div>
          </div>
       </div>
-      <!-- end testimonial -->
-      <!--  footer -->
+
       <footer id="contact">
          <div class="footer">
             <div class="container">
@@ -349,21 +338,20 @@
                <div class="container">
                   <div class="row">
                      <div class="col-md-12">
-                        <p>Copyright 2019 All Right Reserved By <a href="https://html.design/"> Free Html Templates</a></p>
+                        <p>Copyright 2021 All Right Reserved By <a href="https://html.design/"> Hotel Purbaya</a></p>
                      </div>
                   </div>
                </div>
             </div>
          </div>
       </footer>
-      <!-- end footer -->
-      <!-- Javascript files-->
+
       <script src="<?= base_url() ?>/docs/frontend/js/jquery.min.js"></script>
       <script src="<?= base_url() ?>/docs/frontend/js/popper.min.js"></script>
       <script src="<?= base_url() ?>/docs/frontend/js/bootstrap.bundle.min.js"></script>
       <script src="<?= base_url() ?>/docs/frontend/js/jquery-3.0.0.min.js"></script>
       <script src="<?= base_url() ?>/docs/frontend/js/plugin.js"></script>
-      <!-- sidebar -->
+
       <script src="<?= base_url() ?>/docs/frontend/js/jquery.mCustomScrollbar.concat.min.js"></script>
       <script src="<?= base_url() ?>/docs/frontend/js/custom.js"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
