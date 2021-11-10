@@ -167,7 +167,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <center>
-                                        <img id="foto_lama" style="width: 120px; height: 160px;" src="">
+                                        <img id="foto_lama" style="width: 300px; height: 160px;" src="">
                                     </center>
                                 </div>
                             </div>
@@ -263,9 +263,9 @@
                     $('#id_kamar').val(json.id_kamar);
                     // $('#foto_lama').val(json.nama_foto);
                     if (json.nama_foto != '' || json.nama_foto != null) {
-                        $("#foto_lama").attr("src", "../../../../" + json.nama_foto) ;
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + json.nama_foto) ;
                     } else {
-                        $("#foto_lama").attr("src", "../../../../noimage.jpg");
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + "docs/img/img_kamar/noimage.jpg");
                     }
                 });
         }

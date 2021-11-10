@@ -131,7 +131,7 @@ class Kamar extends BaseController
     public function view_foto($id)
     {
         $model_dash = new Model_dashboard();
-        $jumlah_pemesanan = $model_dash->jumlah_pemesanan();
+        $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
 
         $model = new Model_foto_kamar();
         $foto_kamar = $model->view_data($id)->getResultArray();
@@ -141,7 +141,7 @@ class Kamar extends BaseController
             'page_header' => 'Foto Kamar ' . $nama_kamar['nama_kamar'],
             'panel_title' => 'Tabel Foto Kamar',
             'foto_kamar' => $foto_kamar,
-            'jml_pemesanan' => $jumlah_pemesanan,
+            'jumlah_pemesanan' => $jumlah_pemesanan['id'],
             'id' => $id
         ];
         return view('admin/vTFotoKamar', $data);

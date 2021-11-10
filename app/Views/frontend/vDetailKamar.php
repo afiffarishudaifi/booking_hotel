@@ -27,7 +27,7 @@
       <link rel="stylesheet" href="<?= base_url() ?>/docs/frontend/css/jquery.mCustomScrollbar.min.css">
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen"> -->
       <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2/css/select2.min.css') ?>">
       <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
 
@@ -86,7 +86,7 @@
         .hero_in.hotels_detail2 {
           /*width: 1700px;*/
           height: 550px;
-          background: url('https://wisatakemari.com/public/images/e.jpeg') center center no-repeat;
+          background: url('<?= base_url() . '/' . $foto_cover ?>') center center no-repeat;
         }
 
         @media (max-width: 575px) {
@@ -101,7 +101,7 @@
         }
 
         .hero_in.hotels_detail2:before {
-          background: url('https://wisatakemari.com/public/images/e.jpeg') center center no-repeat;
+          background: url('<?= base_url() . '/' . $foto_cover ?>') center center no-repeat;
           -webkit-background-size: cover;
           -moz-background-size: cover;
           -o-background-size: cover;
@@ -202,7 +202,7 @@
                      <?php if ($session->get('status_login') == 'customer') { ?>
                         <div class="sign_btn"><a href="<?= base_url('Customer/Dashboard'); ?>"><?= $session->get('username_login'); ?></a></div>
                      <?php } else { ?>
-                        <div class="sign_btn"><a href="<?= base_url('Login'); ?>">Sign in</a></div>
+                        <div class="sign_btn"><a href="<?= base_url('Login'); ?>">Login</a></div>
                      <?php } ?>
                   </div>
                </nav>
@@ -278,7 +278,7 @@
                            <?php if ($session->get('status_login') == 'customer') { ?>
                               <div class="sign_btn"><a href="<?= base_url('Customer/Dashboard'); ?>"><?= $session->get('username_login'); ?></a></div>
                            <?php } else { ?>
-                              <div class="sign_btn"><a href="<?= base_url('Login'); ?>">Sign in</a></div>
+                              <div class="sign_btn"><a href="<?= base_url('Login'); ?>">Login</a></div>
                            <?php } ?>
                         </div>
                      </nav>
@@ -331,7 +331,7 @@
                           	<h2><i class="fa fa-image"></i> Galeri</h2>
                           	<div class="pictures_grid magnific-gallery clearfix">
                           		<?php foreach ($foto as $item) { ?>
-              									<figure><a href="https://wisatakemari.com/public/images/202107280346550.043360001627444015_73.PNG" title="Foto WisataKemari" data-effect="mfp-zoom-in"><img src="https://wisatakemari.com/public/images/202107280346550.043360001627444015_73.PNG" alt=""></a></figure>
+              									<figure><a href="<?= base_url() . '/' . $item['nama_foto'] ?>" title="Foto Hotel Purbaya" data-effect="mfp-zoom-in"><img src="<?= base_url() . '/' . $item['nama_foto'] ?>" alt=""></a></figure>
               								<?php } ?>
               							</div>
                       </div>
@@ -396,7 +396,7 @@
             <?php } else { ?>
               <center>
                 <h4>Anda harus login untuk dapat melakukan pemesanan</h4>
-                <a href="<?= base_url('Login'); ?>" class="btn btn-primary">Sign in</a>
+                <a href="<?= base_url('Login'); ?>" class="btn btn-primary">Login</a>
               </center>
             <?php } ?>
           </div>

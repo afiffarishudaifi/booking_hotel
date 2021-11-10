@@ -9,7 +9,7 @@ $session = session();
                 <a href="javascript:;" data-toggle="nav-profile">
                     <div class="cover with-shadow"></div>
                     <div class="image">
-                        <img src="http://localhost:8080/booking_hotel/<?= $session->get('foto'); ?>" alt="" />
+                        <img src="<?= base_url() . '/' . $session->get('foto'); ?>" alt="" />
                     </div>
                     <div class="info">
                         <?= $session->get('username_login'); ?>

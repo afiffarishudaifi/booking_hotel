@@ -98,21 +98,20 @@
                   </div>
               </div>
               <div class="row" style="padding-top: 20px;">
-                  <?php for ($i=0; $i < 11; $i++) { ?>
+                  <?php foreach ($kamar as $item) { ?>
                   <div class="col-md-3" style="height: 500px; background-color: ">
                       <div class="row">
                           <div class="col-md-12">
-                              <img src="<?= base_url() ?>/docs/img/img_logo/logo.png" style="width: 100%;">
+                              <img src="<?= base_url() . '/' . $item['nama_foto'] ?>" style="width: 100%;">
                           </div>
                       </div>
                       <div class="row">
                           <div class="col-md-12" style="padding-top: 10px;">
-                              <h4><b>Kamar Melati 1</b></h4>
-                              <p style="text-align: justify;"> Deskirpsi : 
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                              tempor incididunt ut labore et dolore magna aliqua.  </p><br>
-                              Rp 120000/Malam <br>
-                              <a href="<?= base_url('Frontend/Pencarian/detail/2'); ?>" class="btn btn-sm btn-primary">Detail</a>
+                              <h4><b><?= $item['nama_kamar'] ?></b></h4>
+                              <p style="text-align: justify;"> Harga : <?= $item['biaya'] ?>/Malam<br>
+                              Kategori Kamar : <?= $item['nama_kategori'] ?><br>
+                              Status Kamar : <?= $item['status_kamar'] ?></p><br>
+                              <a href="<?= base_url('Frontend/Pencarian/detail/' . $item['id_kamar']); ?>" class="btn btn-sm btn-primary">Detail</a>
                           </div>
                       </div>
                   </div>

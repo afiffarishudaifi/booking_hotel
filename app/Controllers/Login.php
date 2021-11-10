@@ -61,7 +61,7 @@ class Login extends BaseController
                     $session->set($ses_data);
                     return redirect()->to('/Admin/Dashboard');
                 } else {
-                    $session->setFlashdata('msg', 'Kamu Bukan Admin');
+                    $session->setFlashdata('msg', 'Anda Bukan Admin');
                     return redirect()->to('/Login');
                 }
             } else {
@@ -69,7 +69,7 @@ class Login extends BaseController
                 return redirect()->to('/Login');
             }
         } else {
-            $session->setFlashdata('msg', 'Email Tidak di Temukan');
+            $session->setFlashdata('msg', 'Username Tidak di Temukan');
             return redirect()->to('/Login');
         }
     }
@@ -88,7 +88,7 @@ class Login extends BaseController
             $status = $data['status'];
             $verify_pass =  $encrypter->decrypt(base64_decode($pass));
             if ($verify_pass == $password) {
-                if ($status == 'admin' || $status == 'customer') {
+                if ($status == 'customer') {
                     $ses_data = [
                         'user_id' => $data['id'],
                         'username_login' => $data['nama_lengkap'],
@@ -101,7 +101,7 @@ class Login extends BaseController
                     $session->set($ses_data);
                     return redirect()->to('/Customer/Dashboard');
                 } else {
-                    $session->setFlashdata('msg', 'Kamu Bukan Customer');
+                    $session->setFlashdata('msg', 'Anda Bukan Customer');
                     return redirect()->to('/Login');
                 }
             } else {
@@ -109,7 +109,7 @@ class Login extends BaseController
                 return redirect()->to('/Login');
             }
         } else {
-            $session->setFlashdata('msg', 'Email Tidak di Temukan');
+            $session->setFlashdata('msg', 'Username Tidak di Temukan');
             return redirect()->to('/Login');
         }
     }

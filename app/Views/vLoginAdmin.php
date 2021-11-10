@@ -64,7 +64,11 @@
             <!-- begin login-content -->
             <div class="login-content" style="background-color: #190a01">
                 <?php if (session()->getFlashdata('msg')) : ?>
-                    <div class="alert alert-danger"><?= session()->getFlashdata('msg') ?></div>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert"><?= session()->getFlashdata('msg') ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 <?php endif; ?>
                 <form action="<?php echo base_url('Login/login'); ?>" method="POST" class="margin-bottom-0" style="padding-bottom: 10px;">
                     <div class="form-group m-b-20">

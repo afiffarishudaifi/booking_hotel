@@ -20,17 +20,15 @@ class Pencarian extends BaseController
     {
         $session = session();
         $model = new Model_pencarian();
-        $param['input_masuk'] = $this->request->getPost('input_masuk');
-        $param['input_keluar'] = $this->request->getPost('input_keluar');
+        $param['input_masuk'] = substr($this->request->getPost('input_masuk'),0,10) . ' ' . substr($this->request->getPost('input_masuk'),11,15);
+        $param['input_keluar'] =substr($this->request->getPost('input_keluar'),0,10) . ' ' . substr($this->request->getPost('input_keluar'),11,15);
         $param['input_kategori'] = $this->request->getPost('input_kategori');
         $kamar_kosong = $model->view_data($param)->getResultArray();
 
         $data = [
             'judul' => 'Hasil Pencarian',
-            'tanggal_masuk' => $param['input_masuk']
+            'kamar' => $kamar_kosong
         ];
-
-        // dd($kamar_kosong);
 
         return view('frontend/vPencarian', $data);
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2021 at 01:54 PM
+-- Generation Time: Nov 10, 2021 at 02:24 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -38,7 +38,9 @@ CREATE TABLE `detail_kamar` (
 --
 
 INSERT INTO `detail_kamar` (`id`, `id_kamar`, `id_fasilitas`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -77,7 +79,10 @@ CREATE TABLE `foto` (
 --
 
 INSERT INTO `foto` (`id`, `id_kamar`, `nama_foto`) VALUES
-(11, 1, 'docs/img/img_kamar/1634952756_6c406c4d30cc1e3b0396.png');
+(11, 1, 'docs/img/img_kamar/1636549681_8448b307f87fa41b316c.jpg'),
+(12, 1, 'docs/img/img_kamar/1636549734_85d705fed4c056a07025.jpg'),
+(13, 1, 'docs/img/img_kamar/1636549752_f6f5f5280bb9297b3925.jpg'),
+(14, 1, 'docs/img/img_kamar/1636549764_019d2c6a2ebe5536051e.jpg');
 
 -- --------------------------------------------------------
 
@@ -99,7 +104,7 @@ CREATE TABLE `kamar` (
 
 INSERT INTO `kamar` (`id`, `id_kategori`, `nama_kamar`, `status_kamar`, `biaya`) VALUES
 (1, 1, 'Melati 1', 'kosong', 50000),
-(2, 2, 'mawar 2', 'kosong', 130000);
+(2, 2, 'mawar 2', 'terisi', 130000);
 
 -- --------------------------------------------------------
 
@@ -126,20 +131,6 @@ INSERT INTO `kategori_kamar` (`id`, `nama_kategori`, `deskripsi`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nilai_latihan`
---
-
-CREATE TABLE `nilai_latihan` (
-  `id` int(11) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `nilai` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `pemesanan`
 --
 
@@ -150,9 +141,18 @@ CREATE TABLE `pemesanan` (
   `tanggal_pesan` datetime NOT NULL DEFAULT current_timestamp(),
   `tanggal_masuk` datetime NOT NULL,
   `tanggal_keluar` datetime NOT NULL,
-  `status_pemesanan` enum('pengajuan','terkonfirmasi') NOT NULL,
+  `status_pemesanan` enum('pengajuan','terkonfirmasi','selesai') NOT NULL,
   `total_biaya` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pemesanan`
+--
+
+INSERT INTO `pemesanan` (`id`, `id_pengguna`, `id_kamar`, `tanggal_pesan`, `tanggal_masuk`, `tanggal_keluar`, `status_pemesanan`, `total_biaya`) VALUES
+(8, 11, 1, '2021-11-03 19:38:37', '2021-11-02 19:38:00', '2021-11-04 20:18:00', 'selesai', 50000),
+(9, 11, 2, '2021-11-04 17:14:52', '2021-11-02 17:14:00', '2021-11-13 17:14:00', 'terkonfirmasi', 1430000),
+(10, 12, 1, '2021-11-09 20:55:20', '2021-11-09 20:55:00', '2021-11-11 20:55:00', 'pengajuan', 100000);
 
 -- --------------------------------------------------------
 
@@ -177,7 +177,9 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id`, `username`, `password`, `nama_lengkap`, `email`, `no_hp`, `alamat`, `status`, `file`) VALUES
-(11, 'barulagi@gmail.com', 'M/6HrRF7W47QJS9Y0oEDdMKIp/9DZGmIaOrjYwPenWFPB2NjJp458JNN5aFruMv70ul3jccpGuyu+HEWhzWX2WiI6+BTm+fXMgdP8o3sd0nHjmLH9b4=', 'afif', 'afif@gmail.com', '089657489651', 'Kota Kediri', 'admin', 'docs/img/img_pengguna/1635172491_f4c522f0fb1448beab9e.jpg');
+(11, 'barulagi@gmail.com', 'hXGw2f3fVao11clVTZ+VFWYbNrjX+pRh1tALZX/gCH1jj6yzveurJ9RZd2ufd4j0ygz49Bq7nUqCiaDmVO7T3BQAlCt5PfyjBre7OL7AYzSdw+lrGtQ=', 'afif', 'afif@gmail.com', '089657489651', 'Jl Jamsaren 2, Kota Kediri, Jawa Timur', 'admin', 'docs/img/img_pengguna/1635172491_f4c522f0fb1448beab9e.jpg'),
+(12, 'silla', 'hXGw2f3fVao11clVTZ+VFWYbNrjX+pRh1tALZX/gCH1jj6yzveurJ9RZd2ufd4j0ygz49Bq7nUqCiaDmVO7T3BQAlCt5PfyjBre7OL7AYzSdw+lrGtQ=', 'Silla', 'silla@gmail.com', '089342743823', 'Kota Madiun', 'customer', 'docs/img/img_pengguna/1636185463_90f2756c906d3769b9db.png'),
+(13, 'angga', 'rOQSQJ3Z+IWPgRLsUdu5VsrdgRIXabrJwSNczS/E19/s+gPA6bhMTn4lYQUQ5Gg6aFRiZu8P//XThzTes9PFuEUNVxLMvd7pqLsRu5+wnhl3i2/dO3I=', 'angga jaya syaputra', 'angga@gmail.com', '123456789123', 'Kota Kediri', 'customer', 'docs/img/img_pengguna/1636188189_240700350bc099b73617.png');
 
 --
 -- Indexes for dumped tables
@@ -217,12 +219,6 @@ ALTER TABLE `kategori_kamar`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `nilai_latihan`
---
-ALTER TABLE `nilai_latihan`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
@@ -244,7 +240,7 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `detail_kamar`
 --
 ALTER TABLE `detail_kamar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fasilitas`
@@ -256,7 +252,7 @@ ALTER TABLE `fasilitas`
 -- AUTO_INCREMENT for table `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `kamar`
@@ -271,22 +267,16 @@ ALTER TABLE `kategori_kamar`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `nilai_latihan`
---
-ALTER TABLE `nilai_latihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
