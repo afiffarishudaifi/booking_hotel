@@ -46,6 +46,7 @@ $session = session();
                                     echo "active";
                                 } ?>">
                 <a href="javascript:;">
+                    <b class="caret"></b>
                     <i class="material-icons">article</i>
                     <span>Laporan</span>
                 </a>
@@ -53,7 +54,8 @@ $session = session();
                     <li class="<?php
                                 if ($uri->getSegment(2) == 'Laporan') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Customer/Laporan'); ?>">Laporan Pemesanan</a></li>
+                                } ?>"><a href="<?= base_url('Customer/Laporan'); ?>">
+                                    <i class="fa fa-book"></i> &nbsp;Laporan Pemesanan</a></li>
                 </ul>
             </li>
         </ul>

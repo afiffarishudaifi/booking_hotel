@@ -170,6 +170,7 @@
                                 <select name="input_status" class="form-control" id="input_status">
                                     <option value="pengajuan" selected="">Pengajuan</option>
                                     <option value="terkonfirmasi">Terkonfirmasi</option>
+                                    <option value="selesai">Selesai</option>
                                 </select>
                             </div>
 
@@ -237,6 +238,7 @@
                                 <select name="edit_status" class="form-control" id="edit_status">
                                     <option value="pengajuan" selected="">Pengajuan</option>
                                     <option value="terkonfirmasi">Terkonfirmasi</option>
+                                    <option value="selesai">Selesai</option>
                                 </select>
                             </div>
 
@@ -457,8 +459,10 @@
 
                     if (json.status_pemesanan == 'pengajuan') {
                         document.getElementById("edit_status").selectedIndex = 0;
-                    } else {
+                    } else if (json.status_pemesanan == 'terkonfirmasi') {
                         document.getElementById("edit_status").selectedIndex = 1;
+                    } else {
+                        document.getElementById("edit_status").selectedIndex = 2;
                     }
                 });
         }

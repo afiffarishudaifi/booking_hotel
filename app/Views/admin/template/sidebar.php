@@ -39,26 +39,31 @@ $session = session();
                                     echo "active";
                                 } ?>">
                 <a href="javascript:;">
-                    <i class="material-icons">inbox</i>
-                    <span>Master Data</span>
-                </a>
+                        <b class="caret"></b>
+                        <i class="material-icons">inbox</i>
+                        <span>Data Master</span>
+                    </a>
                 <ul class="sub-menu">
                     <li class="<?php
                                 if ($uri->getSegment(2) == 'Kategori') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/Kategori'); ?>">Kategori Kamar</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Kategori'); ?>">
+                                <i class="fa fa-server"></i> &nbsp;Kategori Kamar</a></li>
                     <li class="<?php
                                 if ($uri->getSegment(2) == 'Fasilitas') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/Fasilitas'); ?>">Fasilitas</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Fasilitas'); ?>">
+                                <i class="fa fa-plus"></i> &nbsp;Fasilitas</a></li>
                     <li class="<?php
                                 if ($uri->getSegment(2) == 'Kamar') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/Kamar'); ?>">Kamar</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Kamar'); ?>">
+                                <i class="fa fa-bed"></i> &nbsp;Kamar</a></li>
                     <li class="<?php
                                 if ($uri->getSegment(2) == 'Pengguna') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/Pengguna'); ?>">Pengguna</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Pengguna'); ?>">
+                                <i class="fa fa-user"></i> &nbsp;Pengguna</a></li>
                 </ul>
             </li>
             <li class="has-sub <?php
@@ -68,6 +73,7 @@ $session = session();
                                     echo "active";
                                 } ?>">
                 <a href="javascript:;">
+                    <b class="caret"></b>
                     <i class="material-icons">assignment</i>
                     <span>Pemesanan</span>
                 </a>
@@ -75,11 +81,13 @@ $session = session();
                     <li class="<?php
                                 if ($uri->getSegment(2) == 'Pemesanan') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/Pemesanan'); ?>">Pemesanan</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Pemesanan'); ?>">
+                                <i class="fa fa-file"></i> &nbsp;Pemesanan</a></li>
                     <li class="<?php
                                 if ($uri->getSegment(2) == 'KonfirmasiPemesanan') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/KonfirmasiPemesanan'); ?>">Konfirmasi Pemesanan</a></li>
+                                } ?>"><a href="<?= base_url('Admin/KonfirmasiPemesanan'); ?>">
+                                <i class="fa fa-envelope-open"></i> &nbsp;Konfirmasi Pesan</a></li>
                 </ul>
             </li>
             <li class="has-sub <?php
@@ -89,6 +97,7 @@ $session = session();
                                     echo "active";
                                 } ?>">
                 <a href="javascript:;">
+                    <b class="caret"></b>
                     <i class="material-icons">article</i>
                     <span>Laporan</span>
                 </a>
@@ -96,11 +105,13 @@ $session = session();
                     <li class="<?php
                                 if ($uri->getSegment(2) == 'Laporan') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/Laporan'); ?>">Laporan Pemesanan</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Laporan'); ?>">
+                                <i class="fa fa-book"></i> &nbsp;Laporan Pemesanan</a></li>
                     <li class="<?php
                                 if ($uri->getSegment(2) == 'LaporanPendapatan') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/LaporanPendapatan'); ?>">Laporan Pendapatan</a></li>
+                                } ?>"><a href="<?= base_url('Admin/LaporanPendapatan'); ?>">
+                                <i class="fa fa-archive"></i> &nbsp;Laporan Pendapatan</a></li>
                 </ul>
             </li>
         </ul>

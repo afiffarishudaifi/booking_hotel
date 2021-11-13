@@ -175,20 +175,6 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            setInterval(function(){
-                $.ajax({
-                    url:"<?= base_url()?>/customer/Dashboard/jumlah_pemesanan",
-                    type:"POST",
-                    dataType:"json",
-                    data:{},
-                    success:function(data){
-                        $('#total_pemesanan').html(data.total_pemesanan);
-                    }
-                })
-            }, 5000)
-        })
-
         function get_result(masuk, akhir) {
             var tanggal_masuk = new Date(masuk);
             var tanggal_akhir = new Date(akhir);

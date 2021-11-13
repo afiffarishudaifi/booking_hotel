@@ -22,9 +22,8 @@ class Pencarian extends BaseController
         $model = new Model_pencarian();
         $param['input_masuk'] = substr($this->request->getPost('input_masuk'),0,10) . ' ' . substr($this->request->getPost('input_masuk'),11,15);
         $param['input_keluar'] =substr($this->request->getPost('input_keluar'),0,10) . ' ' . substr($this->request->getPost('input_keluar'),11,15);
-        $param['input_kategori'] = $this->request->getPost('input_kategori');
+        // $param['input_kategori'] = $this->request->getPost('input_kategori');
         $kamar_kosong = $model->view_data($param)->getResultArray();
-
         $data = [
             'judul' => 'Hasil Pencarian',
             'kamar' => $kamar_kosong
@@ -97,7 +96,7 @@ class Pencarian extends BaseController
     {
         $session = session();
         $model = new Model_pencarian();
-        $kamar = $model->detail_kamar(1)->getRowArray();
+        $kamar = $model->detail_kamar($id)->getRowArray();
         $fasilitas = $model->detail_fasilitas($kamar['id_kamar'])->getResultArray();
         $foto = $model->detail_foto($kamar['id_kamar'])->getResultArray();
         $foto_limit = $model->detail_foto_limit($kamar['id_kamar'])->getRowArray();

@@ -244,7 +244,7 @@
         src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js">
     </script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
-    <script src="<?php echo base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
+    <script src="<?= base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
 

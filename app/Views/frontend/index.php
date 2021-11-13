@@ -58,6 +58,9 @@
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
                               <li class="nav-item">
+                                 <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>">Dashboard</a>
+                              </li>
+                              <li class="nav-item">
                                  <a class="nav-link" href="#about">Tentang</a>
                               </li>
                               <li class="nav-item">
@@ -98,26 +101,28 @@
          <div class="container">
             <div class="row">
                <div class="col-md-12">
-                  <form class="form_book" method="post" action="<?php echo base_url('Frontend/Pencarian/pencarian'); ?>">
-                     <div class="row">
-                        <div class="col-md-4">
-                           <label class="date">Tanggal Masuk</label>
-                           <input class="book_n"  type="datetime-local" name="input_masuk" data-date-format="DD MMMM YYYY">
+                  <center>
+                     <form class="form_book" method="get" action="<?php echo base_url('Frontend/Pencarian/pencarian'); ?>">
+                        <div class="row">
+                           <div class="col-md-4">
+                              <label class="date">Tanggal Masuk</label>
+                              <input class="book_n"  type="datetime-local" name="input_masuk" data-date-format="DD MMMM YYYY">
+                           </div>
+                           <div class="col-md-4">
+                              <label class="date">Tanggal Keluar</label>
+                              <input class="book_n"  type="datetime-local" name="input_keluar" data-date-format="DD MMMM YYYY">
+                           </div>
+                           <!-- <div class="col-md-3">
+                              <label class="date">Tipe Kamar</label>
+                              <select id="select_kategori" name="input_kategori" class="book_n">
+                              </select>
+                           </div> -->
+                           <div class="col-md-3">
+                              <button type="submit" class="book_btn">Pencarian</button>
+                           </div>
                         </div>
-                        <div class="col-md-4">
-                           <label class="date">Tanggal Keluar</label>
-                           <input class="book_n"  type="datetime-local" name="input_keluar" data-date-format="DD MMMM YYYY">
-                        </div>
-                        <div class="col-md-3">
-                           <label class="date">Tipe Kamar</label>
-                           <select id="select_kategori" name="input_kategori" class="book_n">
-                           </select>
-                        </div>
-                        <div class="col-md-1">
-                           <button type="submit" class="book_btn">Cari</button>
-                        </div>
-                     </div>
-                  </form>
+                     </form>
+                  </center>
                </div>
             </div>
          </div>

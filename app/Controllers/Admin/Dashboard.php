@@ -52,11 +52,11 @@ class Dashboard extends BaseController
         if ($hasil == 0) {
             $data_pemesanan = array(
                 "0" => array(
-                    "date(tanggal_pesan)" => $awal,
+                    "tanggal_pesan" => $awal,
                     "id" => "0"
                 ),
                 "1" => array(
-                    "date(tanggal_pesan)" => $akhir,
+                    "tanggal_pesan" => $akhir,
                     "id" => "0"
                 )
             );
@@ -85,6 +85,7 @@ class Dashboard extends BaseController
             'total_pemesanan_bulan_ini' => $total_pemesanan_bulan_ini,
             'jumlah_pemesanan' => $jumlah_pemesanan
         ];
+        // dd($data);
         helper(['form']);
 
         return view('admin/index', $data);
@@ -95,8 +96,10 @@ class Dashboard extends BaseController
         $model = new Model_dashboard();
         $jumlah_pemesanan = $model->jumlah_pemesanan()->getRowArray();
         $cek_status = $model->cek_status_kamar(date("Y-m-d H:i:s"))->getRowArray();
-        $ubah_pemesanan = $model->update_status_pemesanan($cek_status['id']);
-        $ubah_kamar = $model->update_status_kamar($cek_status['id_kamar']);
+        if ($cek_status != null) {
+            $ubah_pemesanan = $model->update_status_pemesanan($cek_status['id']);
+            $ubah_kamar = $model->update_status_kamar($cek_status['id_kamar']);
+        }
         $result['total_pemesanan'] = $jumlah_pemesanan['id'];
         echo json_encode($result);
     }

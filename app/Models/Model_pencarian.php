@@ -24,9 +24,9 @@ class Model_pencarian extends Model
             $builder->where('pemesanan.tanggal_masuk < ', $params['input_masuk']);
         }
 
-        if ($params['input_kategori'] != null ) {
-            $builder->where('kategori_kamar.id', $params['input_kategori']);
-        }
+        // if ($params['input_kategori'] != null ) {
+        //     $builder->where('kategori_kamar.id', $params['input_kategori']);
+        // }
 
         $builder->where('kamar.status_kamar', 'kosong');
         $builder->groupBy('kamar.id');
@@ -62,7 +62,7 @@ class Model_pencarian extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->select('kamar.id as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id as id_kategori');
+        $builder->select('kamar.id as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id as id_kategori, kategori_kamar.deskripsi as deskripsi');
         $builder->join('kategori_kamar', 'kategori_kamar.id=kamar.id_kategori');
         $builder->join('pemesanan','kamar.id = pemesanan.id_kamar');
         $builder->where('kamar.id', $id);

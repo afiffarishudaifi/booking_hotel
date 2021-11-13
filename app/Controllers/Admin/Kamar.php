@@ -138,7 +138,7 @@ class Kamar extends BaseController
         $nama_kamar = $model->view_data($id)->getRowArray();
         $data = [
             'judul' => 'Foto Kamar',
-            'page_header' => 'Foto Kamar ' . $nama_kamar['nama_kamar'],
+            'page_header' => 'Foto Kamar',
             'panel_title' => 'Tabel Foto Kamar',
             'foto_kamar' => $foto_kamar,
             'jumlah_pemesanan' => $jumlah_pemesanan['id'],

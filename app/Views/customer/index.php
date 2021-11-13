@@ -17,7 +17,6 @@
 	<!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 	<link href="<?= base_url() ?>/docs/dashboard/assets/plugins/jvectormap-next/jquery-jvectormap.css" rel="stylesheet" />
 	<link href="<?= base_url() ?>/docs/dashboard/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
-	<link href="<?= base_url() ?>/docs/dashboard/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
 	<!-- ================== END PAGE LEVEL STYLE ================== -->
 </head>
 <body>
@@ -80,30 +79,6 @@
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/gritter/js/jquery.gritter.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.canvaswrapper.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.colorhelpers.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.saturated.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.browser.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.drawSeries.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.uiConstants.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.time.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.resize.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.pie.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.crosshair.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.categories.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.navigate.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.touchNavigate.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.hover.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.touch.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.selection.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.symbol.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/flot/source/jquery.flot.legend.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/jvectormap-next/jquery-jvectormap.min.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/jvectormap-next/jquery-jvectormap-world-mill.js"></script>
-	<script src="<?= base_url() ?>/docs/dashboard/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 	<script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/dashboard.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
 </body>

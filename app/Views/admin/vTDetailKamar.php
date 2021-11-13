@@ -119,7 +119,7 @@
                     </div>
                     <div class="modal-body">
 
-                        <input type="text" name="id_kamar" value="<?= $id_kamar; ?>">
+                        <input type="hidden" name="id_kamar" value="<?= $id_kamar; ?>">
 
                         <div class="form-group">
                             <label>Nama Fasilitas</label>

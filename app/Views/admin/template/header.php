@@ -28,7 +28,7 @@
             </a>
         </li>
         <li class="total_pemesanan">
-            <a href="" data-toggle="tooltip" data-placement="top" title="Pemesanan Baru">
+            <a href="<?= base_url('Admin/KonfirmasiPemesanan'); ?>" data-toggle="tooltip" data-placement="top" title="Pemesanan Baru">
                 <i class="fa fa-bell"></i>
                 <span class="label label-primary" id="total_pemesanan"><?= $jumlah_pemesanan; ?></span>
             </a>

@@ -16,7 +16,7 @@ class Model_dashboard extends Model
         $builder->where('date(tanggal_pesan) >=', $params['awal']);
         $builder->where('date(tanggal_pesan) <=', $params['akhir']);
         $builder->groupBy('date(tanggal_pesan)');
-        $builder->select('date(tanggal_pesan)');
+        $builder->select('date(tanggal_pesan) as tanggal_pesan');
         $builder->selectCount('id');
         $builder->where('status_pemesanan', 'selesai');
         return $builder->get();
@@ -65,7 +65,7 @@ class Model_dashboard extends Model
         $db = \Config\Database::connect();
         $builder = $db->table('pemesanan');
         $builder->selectCount('id');
-        $builder->where('status_pemesanan', 'Pengajuan');
+        $builder->where('status_pemesanan', 'pengajuan');
         return $builder->get();
     }
 
@@ -73,10 +73,10 @@ class Model_dashboard extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->select('pemesanan.id, kamar.id as id_kamar');
+        $builder->select('pemesanan.id, kamar.id as id_kamar, kamar.nama_kamar, pemesanan.tanggal_keluar, pemesanan.status_pemesanan');
         $builder->join('pemesanan','pemesanan.id_kamar = kamar.id');
-        $builder->where('pemesanan.tanggal_keluar <=', $tanggal);
-        // $builder->set('status_pemesanan','selesai');
+        $builder->where('pemesanan.tanggal_keluar <', $tanggal);
+        $builder->where('pemesanan.status_pemesanan','terkonfirmasi');
         return $builder->get();
     }
 

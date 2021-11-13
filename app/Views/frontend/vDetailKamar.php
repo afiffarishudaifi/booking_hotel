@@ -193,10 +193,13 @@
                   <div class="collapse navbar-collapse" id="navbarsExample04">
                      <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                           <a class="nav-link" href="#about">Tentang</a>
+                           <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#contact">Hubungi Kami</a>
+                           <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#about">Tentang</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#contact">Hubungi Kami</a>
                         </li>
                      </ul>
                      <?php if ($session->get('status_login') == 'customer') { ?>
@@ -220,7 +223,7 @@
                         <div class="col-md-12">
                         <center>
                             <ul class="share-buttons">
-                              <li><span><a onclick="window.open('https://www.google.co.id/maps/place/Hotel+Purbaya+Madiun/@-7.6320324,111.5258888,786m/data=!3m2!1e3!4b1!4m8!3m7!1s0x2e79be5f3c2118d1:0x5348fe4e5bbebf54!5m2!4m1!1i2!8m2!3d-7.6320377!4d111.5280775?hl=id'); return false;" class="btn_1 outline">Rute ke Lokasi</a></span></li>
+                              <li><span><a onclick="window.open('https://www.google.com/maps/place/Purbaya+Hotel/@-7.6795402,111.2326438,17z/data=!3m1!4b1!4m5!3m4!1s0x2e798e87ce2f819f:0x4bfb15fbb38e05a9!8m2!3d-7.6795402!4d111.2348325'); return false;" class="btn_1 outline">Rute ke Lokasi</a></span></li>
                               <li><span><a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModalCenter" class="btn_1 outline">Biaya Menginap</a></span></li>
                             </ul>
                         </center>
@@ -269,10 +272,13 @@
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
                               <li class="nav-item">
-                                 <a class="nav-link" href="#about">Tentang</a>
+                                 <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>">Dashboard</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="#contact">Hubungi Kami</a>
+                                 <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#about">Tentang</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#contact">Hubungi Kami</a>
                               </li>
                            </ul>
                            <?php if ($session->get('status_login') == 'customer') { ?>
@@ -296,8 +302,7 @@
                           <div class="col-md-12" style="padding-top: 10px;">
                             	<h2>Deskirpsi : </h2>
                               <p style="text-align: justify;">  
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua.  </p>
+                                <?= $kamar['deskripsi'] ?>  </p>
                           </div>
                       </div>
                       <div class="row">
@@ -306,26 +311,28 @@
                           	<div class="">
               								<ul style='word-break: break-word;'>
               									 
-              									<li>Alamat : Jl. Pamenang No.27, Katang, Sukorejo, Kec. Ngasem, Kediri, Jawa Timur 64182</li>
+              									<li><p >Alamat : Jalan Raya Magetan Sarangan No. 8, Ngerong, Dadi, Kec. Plaosan, Kabupaten Magetan, Jawa Timur 63361</p></li>
               																	 
-              									<li>Nomor Telepon : (0354) 7416310</li>
+              									<li><p >Nomor Telepon : (0351) 888097</p></li>
 
                               </ul>
               							</div>
                           </div>
                       </div>
+                      <?php if (count($fasilitas) != null) { ?>
                       <div class="row">
                           <div class="col-md-12">
-                          	<h2><i class='fa fa-hotel'></i> Fasilitas</h2>
-                          	<div class="">
-              								<ul style='word-break: break-word;'>
-              									<?php foreach ($fasilitas as $item) { ?>
-              										<li> - <?= $item['nama_fasilitas']; ?></li>
-              									<?php } ?>
-              								</ul>
-              							</div>
+                            <h2><i class='fa fa-hotel'></i> Fasilitas</h2>
+                            <div class="">
+                              <ul style='word-break: break-word;'>
+                                <?php foreach ($fasilitas as $item) { ?>
+                                  <li> - <?= $item['nama_fasilitas']; ?></li>
+                                <?php } ?>
+                              </ul>
+                            </div>
                           </div>
                       </div>
+                      <?php } ?>
                       <div class="row">
                           <div class="col-md-12">
                           	<h2><i class="fa fa-image"></i> Galeri</h2>
@@ -339,7 +346,7 @@
                           <div class="col-md-12">
                             <h2><i class="fa fa-map-marker"></i> Lokasi</h2>
                             <div class="pictures_grid magnific-gallery clearfix">
-                              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3424.1216218850714!2d111.52588881436495!3d-7.632032377592681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e79be5f3c2118d1%3A0x5348fe4e5bbebf54!2sHotel%20Purbaya%20Madiun!5e1!3m2!1sid!2sid!4v1636462947712!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d988.5079705292742!2d111.2349343149276!3d-7.679721272638151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e798e87ce2f819f%3A0x4bfb15fbb38e05a9!2sPurbaya%20Hotel!5e0!3m2!1sid!2sid!4v1636704228775!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                             </div>
                       </div>
                   </div>
