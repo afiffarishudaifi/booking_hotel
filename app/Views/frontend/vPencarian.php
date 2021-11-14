@@ -61,7 +61,7 @@
                                  <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>">Dashboard</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#about">Tentang</a>
+                                 <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#kamar">Kamar</a>
                               </li>
                               <li class="nav-item">
                                  <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#contact">Hubungi Kami</a>
@@ -102,7 +102,7 @@
               </div>
               <div class="row" style="padding-top: 20px; height: 330px;">
                   <?php foreach ($kamar as $item) { ?>
-                  <div class="col-md-3" style="height: 500px; background-color: ">
+                  <div class="col-md-3" style="height: 500px;">
                       <div class="row" style="height: 150px;">
                           <div class="col-md-12">
                               <img src="<?= base_url() . '/' . $item['nama_foto'] ?>" style="height: 150px;">

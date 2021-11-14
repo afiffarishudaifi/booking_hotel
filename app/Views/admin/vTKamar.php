@@ -106,7 +106,6 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
-                            <input type="hidden" name="id_kamar" class="id_kamar">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -222,9 +221,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
-        function Hapus(id, id_kamar){
+        function Hapus(id){
             $('.id').val(id);
-            $('.id_kamar').val(id_kamar);
             $('#deleteModal').modal('show');
         };
     </script>

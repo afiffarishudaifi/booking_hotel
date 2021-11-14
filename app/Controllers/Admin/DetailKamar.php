@@ -31,7 +31,7 @@ class DetailKamar extends BaseController
         $nama_kamar = $model->view_data($id)->getRowArray();
         $data = [
             'judul' => 'Detail Kamar',
-            'page_header' => 'Detail Kamar ' . $nama_kamar['nama_kamar'],
+            'page_header' => 'Detail Kamar',
             'panel_title' => 'Tabel Detail Kamar',
             'detail_kamar' => $detail_kamar,
             'id_kamar' => $id,
@@ -53,7 +53,7 @@ class DetailKamar extends BaseController
         $model = new Model_detail_Kamar();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/DetailKamar/view/'));
+        return redirect()->to(base_url('Admin/DetailKamar/view/' . $id_kamar));
     }
 
     public function update_detail_kamar()
@@ -81,7 +81,7 @@ class DetailKamar extends BaseController
         $session = session();
         $model->delete_data($id);
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
-        return redirect()->to('/Admin/DetailKamar/view/' . $id_kamar);
+        return redirect()->to(base_url('Admin/DetailKamar/view/' . $id_kamar));
     }
 
     public function data_edit($id_detail)

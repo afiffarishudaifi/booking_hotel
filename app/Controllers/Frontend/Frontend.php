@@ -5,6 +5,7 @@ namespace App\Controllers\Frontend;
 use App\Controllers\BaseController;
 use App\Models\Model_dashboard;
 use App\Models\Model_laporan;
+use App\Models\model_frontend;
 
 class Frontend extends BaseController
 {
@@ -15,8 +16,12 @@ class Frontend extends BaseController
 
         $model = new Model_dashboard();
         $id = $session->get('user_id');
+
+        $model_frontend = new model_frontend();
+        $kamar = $model_frontend->view_data()->getResultArray();
         $data = [
-            'judul' => 'Katalog Hotel'
+            'judul' => 'Katalog Hotel',
+            'kamar' => $kamar
         ];
         helper(['form']);
 

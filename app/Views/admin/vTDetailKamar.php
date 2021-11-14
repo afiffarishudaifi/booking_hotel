@@ -18,7 +18,7 @@
             <?php $session = session();
             if ($session->getFlashdata('sukses')) { ?>
             <input type="hidden" name="pemberitahuan" id="pemberitahuan"
-                value="<?php echo $session->getFlashdata('sukses'); ?>">
+                value="<?= $session->getFlashdata('sukses'); ?>">
             <?php } ?>
             <ol class="breadcrumb float-xl-right">
                     <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/DetailKamar/delete_detail_kamar'); ?>" method="post">
+        <form action="<?= base_url('Admin/DetailKamar/delete_detail_kamar'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -93,6 +93,7 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
+                            <input type="hidden" name="id_kamar" class="id_kamar">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -106,7 +107,7 @@
     </div>
 
     <!-- Modal Add Class-->
-    <form action="<?php echo base_url('Admin/DetailKamar/add_detail_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
+    <form action="<?= base_url('Admin/DetailKamar/add_detail_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -139,7 +140,7 @@
     <!-- End Modal Add Class-->
 
     <!-- Modal Edit Class-->
-    <form action="<?php echo base_url('Admin/DetailKamar/update_detail_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+    <form action="<?= base_url('Admin/DetailKamar/update_detail_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -173,15 +174,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
         function Hapus(id, id_kamar){
             $('.id').val(id);
             $('.id_kamar').val(id_kamar);
             $('#deleteModal').modal('show');
         };
-    });
     </script>
-
     <!-- ================== BEGIN BASE JS ================== -->
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/app.min.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/theme/google.min.js"></script>
@@ -197,7 +195,7 @@
         src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js">
     </script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
-    <script src="<?php echo base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
+    <script src="<?= base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
     <script type="text/javascript">
@@ -212,7 +210,7 @@
                         $('#total_pemesanan').html(data.total_pemesanan);
                     }
                 })
-            }, 5000)
+            }, 5000);
         })
     </script>
 
@@ -223,7 +221,7 @@
                 placeholder: "Pilih Fasilitas",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/DetailKamar/data_fasilitas'); ?>',
+                    url: '<?= base_url('Admin/DetailKamar/data_fasilitas'); ?>',
                     dataType: 'json'
                 }
             });
@@ -232,7 +230,7 @@
                 placeholder: "Pilih Fasilitas",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/DetailKamar/data_fasilitas'); ?>',
+                    url: '<?= base_url('Admin/DetailKamar/data_fasilitas'); ?>',
                     dataType: 'json'
                 }
             });
@@ -255,7 +253,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/DetailKamar/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?= base_url('Admin/DetailKamar/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_detail').val(json.id);
                     $('#id_kamar').val(json.id_kamar);

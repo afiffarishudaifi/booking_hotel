@@ -196,7 +196,7 @@
                            <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#about">Tentang</a>
+                           <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#kamar">Kamar</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#contact">Hubungi Kami</a>

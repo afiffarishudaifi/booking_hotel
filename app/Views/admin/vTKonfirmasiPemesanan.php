@@ -113,10 +113,10 @@
                                 <input type="text" name="edit_kamar" class="form-control" id="edit_kamar" readonly="">
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Biaya Kamar/malam</label>
                                 <input type="text" name="edit_biaya" id="edit_biaya" class="form-control" value="0" readonly="">
-                            </div>
+                            </div> -->
 
                             <div class="form-group">
                                 <label>Nama Pengguna</label>

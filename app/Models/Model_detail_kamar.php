@@ -30,7 +30,8 @@ class Model_detail_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_kamar');
-        $builder->select('detail_kamar.id as id, fasilitas.id as id_fasilitas, fasilitas.nama_fasilitas as nama_fasilitas');
+        $builder->select('detail_kamar.id as id, fasilitas.id as id_fasilitas, fasilitas.nama_fasilitas as nama_fasilitas, kamar.id as id_kamar');
+        $builder->join('kamar','detail_kamar.id_kamar = kamar.id');
         $builder->join('fasilitas', 'detail_kamar.id_fasilitas = fasilitas.id');
         $builder->where('detail_kamar.id', $id);
         return $builder->get();
