@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2021 at 02:24 PM
+-- Generation Time: Nov 14, 2021 at 09:38 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -40,7 +40,14 @@ CREATE TABLE `detail_kamar` (
 INSERT INTO `detail_kamar` (`id`, `id_kamar`, `id_fasilitas`) VALUES
 (1, 1, 1),
 (2, 1, 2),
-(3, 1, 3);
+(3, 1, 3),
+(7, 3, 2),
+(5, 4, 1),
+(4, 4, 2),
+(9, 6, 5),
+(8, 6, 6),
+(11, 7, 5),
+(10, 7, 6);
 
 -- --------------------------------------------------------
 
@@ -60,7 +67,10 @@ CREATE TABLE `fasilitas` (
 INSERT INTO `fasilitas` (`id`, `nama_fasilitas`) VALUES
 (1, 'Meeting Room'),
 (2, 'Kolam Renang Umum'),
-(3, 'Masjid');
+(3, 'Masjid'),
+(5, 'Kamar Mandi Dalam'),
+(6, 'AC'),
+(7, 'Kipas Angin');
 
 -- --------------------------------------------------------
 
@@ -82,7 +92,18 @@ INSERT INTO `foto` (`id`, `id_kamar`, `nama_foto`) VALUES
 (11, 1, 'docs/img/img_kamar/1636549681_8448b307f87fa41b316c.jpg'),
 (12, 1, 'docs/img/img_kamar/1636549734_85d705fed4c056a07025.jpg'),
 (13, 1, 'docs/img/img_kamar/1636549752_f6f5f5280bb9297b3925.jpg'),
-(14, 1, 'docs/img/img_kamar/1636549764_019d2c6a2ebe5536051e.jpg');
+(14, 1, 'docs/img/img_kamar/1636549764_019d2c6a2ebe5536051e.jpg'),
+(15, 2, 'docs/img/img_kamar/1636634002_182db8383c5ff36b2c63.jpg'),
+(16, 2, 'docs/img/img_kamar/1636634013_82ed93684bbc9062ac6a.jpg'),
+(17, 2, 'docs/img/img_kamar/1636634025_306d4d4ed10a8ea4cbd0.jpg'),
+(18, 4, 'docs/img/img_kamar/1636863268_bebf8bc5dfc98079d4c5.jpg'),
+(19, 4, 'docs/img/img_kamar/1636863277_693355c2206fa3b0fdca.jpg'),
+(20, 3, 'docs/img/img_kamar/1636863315_a89ba7731e6c4d217af6.jpg'),
+(21, 3, 'docs/img/img_kamar/1636863304_a47275af96e85548adf0.jpg'),
+(22, 6, 'docs/img/img_kamar/1636863828_37b03bd08e5f38a6ee08.jpg'),
+(23, 6, 'docs/img/img_kamar/1636863874_b95993fcee45bc526e61.jpg'),
+(24, 7, 'docs/img/img_kamar/1636863888_a7692f1241a76d8b8b6e.jpg'),
+(25, 7, 'docs/img/img_kamar/1636863896_45c51ec15d3ae96f56b2.jpg');
 
 -- --------------------------------------------------------
 
@@ -104,7 +125,11 @@ CREATE TABLE `kamar` (
 
 INSERT INTO `kamar` (`id`, `id_kategori`, `nama_kamar`, `status_kamar`, `biaya`) VALUES
 (1, 1, 'Melati 1', 'kosong', 50000),
-(2, 2, 'mawar 2', 'terisi', 130000);
+(2, 2, 'mawar 2', 'terisi', 130000),
+(3, 1, 'Melati 2', 'kosong', 50000),
+(4, 2, 'Mawar 1', 'kosong', 130000),
+(6, 2, 'Mawar 3', 'kosong', 50000),
+(7, 1, 'Melati 3', 'kosong', 130000);
 
 -- --------------------------------------------------------
 
@@ -151,8 +176,14 @@ CREATE TABLE `pemesanan` (
 
 INSERT INTO `pemesanan` (`id`, `id_pengguna`, `id_kamar`, `tanggal_pesan`, `tanggal_masuk`, `tanggal_keluar`, `status_pemesanan`, `total_biaya`) VALUES
 (8, 11, 1, '2021-11-03 19:38:37', '2021-11-02 19:38:00', '2021-11-04 20:18:00', 'selesai', 50000),
-(9, 11, 2, '2021-11-04 17:14:52', '2021-11-02 17:14:00', '2021-11-13 17:14:00', 'terkonfirmasi', 1430000),
-(10, 12, 1, '2021-11-09 20:55:20', '2021-11-09 20:55:00', '2021-11-11 20:55:00', 'pengajuan', 100000);
+(9, 11, 2, '2021-11-04 17:14:52', '2021-11-02 17:14:00', '2021-11-11 17:14:00', 'selesai', 1430000),
+(10, 12, 1, '2021-11-09 20:55:20', '2021-11-09 20:55:00', '2021-11-11 19:26:00', 'selesai', 100000),
+(11, 12, 1, '2021-11-11 19:34:42', '2021-11-11 19:34:00', '2021-11-11 19:36:00', 'selesai', 0),
+(12, 12, 1, '2021-11-11 19:37:34', '2021-11-10 19:37:00', '2021-11-11 19:39:00', 'selesai', 50000),
+(21, 12, 2, '2021-11-11 20:33:36', '2021-11-10 20:33:00', '2021-11-11 20:36:00', 'selesai', 130000),
+(22, 12, 2, '2021-11-11 20:36:08', '2021-11-10 20:35:00', '2021-11-12 20:36:00', 'selesai', 260000),
+(23, 12, 1, '2021-11-11 20:37:01', '2021-11-10 20:36:00', '2021-11-11 20:50:00', 'selesai', 100000),
+(24, 12, 2, '2021-11-13 12:51:23', '2021-11-12 12:51:00', '2021-11-15 12:51:00', 'terkonfirmasi', 390000);
 
 -- --------------------------------------------------------
 
@@ -240,25 +271,25 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `detail_kamar`
 --
 ALTER TABLE `detail_kamar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `fasilitas`
 --
 ALTER TABLE `fasilitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `kamar`
 --
 ALTER TABLE `kamar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `kategori_kamar`
@@ -270,7 +301,7 @@ ALTER TABLE `kategori_kamar`
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
