@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
         </button>
         <a href="" class="navbar-brand">
-            <b class="mr-1">Sistem Booking Hotel</b>
+            <b class="mr-1">Sistem Booking Hotel Purbaya</b>
         </a>
         <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
             <span class="icon-bar"></span>
