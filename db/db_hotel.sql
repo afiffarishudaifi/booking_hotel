@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2021 at 09:38 AM
+-- Generation Time: Nov 20, 2021 at 05:05 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -125,7 +125,7 @@ CREATE TABLE `kamar` (
 
 INSERT INTO `kamar` (`id`, `id_kategori`, `nama_kamar`, `status_kamar`, `biaya`) VALUES
 (1, 1, 'Melati 1', 'kosong', 50000),
-(2, 2, 'mawar 2', 'terisi', 130000),
+(2, 2, 'mawar 2', 'kosong', 130000),
 (3, 1, 'Melati 2', 'kosong', 50000),
 (4, 2, 'Mawar 1', 'kosong', 130000),
 (6, 2, 'Mawar 3', 'kosong', 50000),
@@ -183,7 +183,7 @@ INSERT INTO `pemesanan` (`id`, `id_pengguna`, `id_kamar`, `tanggal_pesan`, `tang
 (21, 12, 2, '2021-11-11 20:33:36', '2021-11-10 20:33:00', '2021-11-11 20:36:00', 'selesai', 130000),
 (22, 12, 2, '2021-11-11 20:36:08', '2021-11-10 20:35:00', '2021-11-12 20:36:00', 'selesai', 260000),
 (23, 12, 1, '2021-11-11 20:37:01', '2021-11-10 20:36:00', '2021-11-11 20:50:00', 'selesai', 100000),
-(24, 12, 2, '2021-11-13 12:51:23', '2021-11-12 12:51:00', '2021-11-15 12:51:00', 'terkonfirmasi', 390000);
+(24, 12, 2, '2021-11-13 12:51:23', '2021-11-12 12:51:00', '2021-11-15 12:51:00', 'selesai', 390000);
 
 -- --------------------------------------------------------
 
@@ -208,8 +208,8 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id`, `username`, `password`, `nama_lengkap`, `email`, `no_hp`, `alamat`, `status`, `file`) VALUES
-(11, 'barulagi@gmail.com', 'hXGw2f3fVao11clVTZ+VFWYbNrjX+pRh1tALZX/gCH1jj6yzveurJ9RZd2ufd4j0ygz49Bq7nUqCiaDmVO7T3BQAlCt5PfyjBre7OL7AYzSdw+lrGtQ=', 'afif', 'afif@gmail.com', '089657489651', 'Jl Jamsaren 2, Kota Kediri, Jawa Timur', 'admin', 'docs/img/img_pengguna/1635172491_f4c522f0fb1448beab9e.jpg'),
-(12, 'silla', 'hXGw2f3fVao11clVTZ+VFWYbNrjX+pRh1tALZX/gCH1jj6yzveurJ9RZd2ufd4j0ygz49Bq7nUqCiaDmVO7T3BQAlCt5PfyjBre7OL7AYzSdw+lrGtQ=', 'Silla', 'silla@gmail.com', '089342743823', 'Kota Madiun', 'customer', 'docs/img/img_pengguna/1636185463_90f2756c906d3769b9db.png'),
+(11, 'admin', 'hXGw2f3fVao11clVTZ+VFWYbNrjX+pRh1tALZX/gCH1jj6yzveurJ9RZd2ufd4j0ygz49Bq7nUqCiaDmVO7T3BQAlCt5PfyjBre7OL7AYzSdw+lrGtQ=', 'Hotel Purbaya', 'hotelpurbaya@gmail.com', '(0351) 888097', 'Jalan Raya Magetan Sarangan No. 8, Ngerong', 'admin', 'docs/img/img_pengguna/1635172491_f4c522f0fb1448beab9e.jpg'),
+(12, 'silla', 'hXGw2f3fVao11clVTZ+VFWYbNrjX+pRh1tALZX/gCH1jj6yzveurJ9RZd2ufd4j0ygz49Bq7nUqCiaDmVO7T3BQAlCt5PfyjBre7OL7AYzSdw+lrGtQ=', 'Silla', 'silla@gmail.com', '+62 857-0438-8646', 'Kota Madiun', 'customer', 'docs/img/img_pengguna/1636185463_90f2756c906d3769b9db.png'),
 (13, 'angga', 'rOQSQJ3Z+IWPgRLsUdu5VsrdgRIXabrJwSNczS/E19/s+gPA6bhMTn4lYQUQ5Gg6aFRiZu8P//XThzTes9PFuEUNVxLMvd7pqLsRu5+wnhl3i2/dO3I=', 'angga jaya syaputra', 'angga@gmail.com', '123456789123', 'Kota Kediri', 'customer', 'docs/img/img_pengguna/1636188189_240700350bc099b73617.png');
 
 --
