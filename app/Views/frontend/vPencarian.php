@@ -102,7 +102,7 @@
               </div>
               <div class="row" style="padding-top: 20px; height: 330px;">
                   <?php foreach ($kamar as $item) { ?>
-                  <div class="col-md-3" style="height: 500px;">
+                  <div class="col-md-3" style="height: 400px;">
                       <div class="row" style="height: 150px;">
                           <div class="col-md-12">
                               <img src="<?= base_url() . '/' . $item['nama_foto'] ?>" style="height: 150px;">
@@ -113,7 +113,7 @@
                               <h4><b><?= $item['nama_kamar'] ?></b></h4>
                               <p style="text-align: justify;"> Harga : <?= $item['biaya'] ?>/Malam<br>
                               Kategori Kamar : <?= $item['nama_kategori'] ?><br>
-                              Status Kamar : <?= $item['status_kamar'] ?></p><br>
+                              Status Kamar : Kosong</p><br>
                               <a href="<?= base_url('Frontend/Pencarian/detail/' . $item['id_kamar']); ?>" class="btn btn-sm btn-primary">Detail</a>
                           </div>
                       </div>
@@ -122,24 +122,6 @@
               </div>
           </div>
       </section>
-
-      <footer id="contact">
-            <div class="container">
-               <div class="row">
-                  <div class="col-md-6">
-                  </div>
-               </div>
-            </div>
-            <div class="copyright">
-               <div class="container">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <p>Copyright 2021 All Right Reserved By <a href="https://html.design/"> Hotel Purbaya</a></p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-      </footer>
 
       <script src="<?= base_url() ?>/docs/frontend/js/jquery.min.js"></script>
       <script src="<?= base_url() ?>/docs/frontend/js/popper.min.js"></script>

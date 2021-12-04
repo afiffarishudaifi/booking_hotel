@@ -18,12 +18,16 @@ class Pencarian extends BaseController
 
     public function pencarian()
     {
+        $kosong = array();
         $session = session();
         $model = new Model_pencarian();
-        $param['input_masuk'] = substr($this->request->getPost('input_masuk'),0,10) . ' ' . substr($this->request->getPost('input_masuk'),11,15);
-        $param['input_keluar'] =substr($this->request->getPost('input_keluar'),0,10) . ' ' . substr($this->request->getPost('input_keluar'),11,15);
-        // $param['input_kategori'] = $this->request->getPost('input_kategori');
-        $kamar_kosong = $model->view_data($param)->getResultArray();
+        $param['input_masuk'] = substr($this->request->getGet('input_masuk'),0,10) . ' ' . substr($this->request->getGet('input_masuk'),11,15);
+        $param['input_keluar'] =substr($this->request->getGet('input_keluar'),0,10) . ' ' . substr($this->request->getGet('input_keluar'),11,15);
+        $data = $model->cek_kamar($param)->getResultArray();
+        foreach ($data as $value) {
+            $kosong[] = $value['id_kamar'];
+        }
+        $kamar_kosong = $model->view_data($kosong)->getResultArray();
         $data = [
             'judul' => 'Hasil Pencarian',
             'kamar' => $kamar_kosong

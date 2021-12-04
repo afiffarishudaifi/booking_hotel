@@ -11,24 +11,28 @@ class Model_pencarian extends Model
     protected $primaryKey = 'id';
     // ======= PENGADUAN ======= //
 
-    public function view_data($params)
+    public function cek_kamar($params)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->select('id_kamar');
+
+        if ($params['input_masuk'] != '') {
+            $builder->where('pemesanan.tanggal_keluar >', $params['input_masuk']);
+        }
+        return $builder->get();
+    }
+
+    public function view_data($id)
     {
         $db = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->select('kamar.id as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id as id_kategori, kamar.status_kamar, pemesanan.tanggal_keluar, foto.nama_foto');
-        $builder->join('kategori_kamar', 'kategori_kamar.id=kamar.id_kategori');
-        $builder->join('pemesanan','kamar.id = pemesanan.id_kamar');
+        $builder->select('kamar.id as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id as id_kategori, kamar.status_kamar, foto.nama_foto');
+        $builder->join('kategori_kamar', 'kategori_kamar.id = kamar.id_kategori');
         $builder->join('foto','kamar.id = foto.id_kamar');
-
-        if ($params['input_masuk'] != ' ') {
-            $builder->where('pemesanan.tanggal_masuk < ', $params['input_masuk']);
+        if (count($id) != 0) {
+            $builder->whereNotIn('kamar.id',$id);
         }
-
-        // if ($params['input_kategori'] != null ) {
-        //     $builder->where('kategori_kamar.id', $params['input_kategori']);
-        // }
-
-        $builder->where('kamar.status_kamar', 'kosong');
         $builder->groupBy('kamar.id');
         return $builder->get();
     }

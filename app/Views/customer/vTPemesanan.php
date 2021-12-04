@@ -107,7 +107,7 @@
                             <input type="hidden" name="id_pemesanan" id="id_pemesanan">
                             <input type="hidden" name="edit_kamar_lama" id="edit_kamar_lama">
 
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label>Nama Kamar</label>
                                 <select name="edit_kamar" id="edit_kamar" class="form-control" onchange="get_biaya_edit(this.value)">
                                 </select>
@@ -120,12 +120,12 @@
 
                             <div class="form-group">
                                 <label>Tanggal Masuk</label>
-                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit(this.value, $('#edit_keluar').val())">
+                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk"  data-parsley-required="true" readonly="" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit(this.value, $('#edit_keluar').val())">
                             </div>
 
                             <div class="form-group">
                                 <label>Tanggal Keluar</label>
-                                <input type="datetime-local" class="form-control" id="edit_keluar" name="edit_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit($('#edit_masuk').val(),this.value)">
+                                <input type="datetime-local" class="form-control" id="edit_keluar" name="edit_keluar"  data-parsley-required="true" readonly="" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit($('#edit_masuk').val(),this.value)">
                             </div>
 
                             <div class="form-group">
@@ -136,7 +136,6 @@
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_up" data-dismiss="modal">Batal</button>
-                            <button type="submit" name="update" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
                 </div>
