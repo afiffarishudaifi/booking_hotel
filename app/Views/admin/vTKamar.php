@@ -243,6 +243,7 @@
     </script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
     <script src="<?= base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
+    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
 
