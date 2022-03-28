@@ -17,7 +17,7 @@ class Model_dashboard extends Model
         $builder->where('date(tanggal_pesan) <=', $params['akhir']);
         $builder->groupBy('date(tanggal_pesan)');
         $builder->select('date(tanggal_pesan) as tanggal_pesan');
-        $builder->selectCount('id');
+        $builder->selectCount('id_pemesanan');
         $builder->where('status_pemesanan', 'selesai');
         return $builder->get();
     }
@@ -25,9 +25,8 @@ class Model_dashboard extends Model
     public function total_pengguna()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('pengguna');
-        $builder->selectCount('id');
-        $builder->where('status','customer');
+        $builder = $db->table('pengunjung');
+        $builder->selectCount('id_pengguna');
         return $builder->get();
     }
 
@@ -35,7 +34,7 @@ class Model_dashboard extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->selectCount('id');
+        $builder->selectCount('id_kamar');
         $builder->where('status_kamar', 'kosong');
         return $builder->get();
     }
@@ -44,7 +43,7 @@ class Model_dashboard extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->selectCount('id');
+        $builder->selectCount('id_kamar');
         $builder->where('status_kamar', 'terisi');
         return $builder->get();
     }
@@ -54,7 +53,7 @@ class Model_dashboard extends Model
         date_default_timezone_set('Asia/Jakarta');
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->selectCount('id');
+        $builder->selectCount('id_pemesanan');
         $builder->where('status_pemesanan', 'selesai');
         $builder->where('month(tanggal_pesan)', date('m'));
         return $builder->get();
@@ -64,7 +63,7 @@ class Model_dashboard extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->selectCount('id');
+        $builder->selectCount('id_pemesanan');
         $builder->where('status_pemesanan', 'pengajuan');
         return $builder->get();
     }
@@ -73,8 +72,8 @@ class Model_dashboard extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->select('pemesanan.id, kamar.id as id_kamar, kamar.nama_kamar, pemesanan.tanggal_keluar, pemesanan.status_pemesanan');
-        $builder->join('pemesanan','pemesanan.id_kamar = kamar.id');
+        $builder->select('pemesanan.id_pemesanan as id, kamar.id_kamar as id_kamar, kamar.nama_kamar, pemesanan.tanggal_keluar, pemesanan.status_pemesanan');
+        $builder->join('pemesanan','pemesanan.id_kamar = kamar.id_kamar');
         $builder->where('pemesanan.tanggal_keluar <', $tanggal);
         $builder->where('pemesanan.status_pemesanan','terkonfirmasi');
         return $builder->get();
@@ -84,7 +83,7 @@ class Model_dashboard extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->where('id', $id);
+        $builder->where('id_pemesanan', $id);
         $builder->set('status_pemesanan','selesai');
         return $builder->update();
     }
@@ -93,7 +92,7 @@ class Model_dashboard extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->where('id', $id);
+        $builder->where('id_kamar', $id);
         $builder->set('status_kamar','kosong');
         return $builder->update();
     }

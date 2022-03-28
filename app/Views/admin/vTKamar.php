@@ -69,13 +69,13 @@
                                         <td><?= $item['biaya']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="<?php base_url() ?>DetailKamar/view/<?php echo $item['id']; ?>" class="btn btn-sm btn-edit btn-aqua"><i
+                                                <a href="<?php base_url() ?>DetailKamar/view/<?php echo $item['id_kamar']; ?>" class="btn btn-sm btn-edit btn-aqua"><i
                                                 class="fas fa-eye"></i></a>
-                                                <a href="<?php base_url() ?>Kamar/view_foto/<?php echo $item['id']; ?>" class="btn btn-sm btn-edit btn-secondary"><i
+                                                <a href="<?php base_url() ?>Kamar/view_foto/<?php echo $item['id_kamar']; ?>" class="btn btn-sm btn-edit btn-secondary"><i
                                                 class="fas fa-file-image"></i></a>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_kamar']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
                                                         class="fa fa-pen"></i></a>
-                                                <a href="" type="button" onclick="Hapus(<?= $item['id']; ?>)" class="btn btn-sm btn-danger" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
+                                                <a href="" type="button" onclick="Hapus(<?= $item['id_kamar']; ?>)" class="btn btn-sm btn-danger" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
                                     </tr>
@@ -364,7 +364,7 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/Kamar/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_kamar').val(json.id);
+                    $('#id_kamar').val(json.id_kamar);
                     $('#edit_nama').val(json.nama_kamar);
                     $('#edit_biaya').val(json.biaya);
 

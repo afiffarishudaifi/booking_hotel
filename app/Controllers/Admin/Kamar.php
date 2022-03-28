@@ -34,7 +34,7 @@ class Kamar extends BaseController
             'page_header' => 'Kamar',
             'panel_title' => 'Tabel Kamar',
             'kamar' => $kamar,
-            'jumlah_pemesanan' => $jumlah_pemesanan['id']
+            'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
         return view('admin/vTKamar', $data);
     }
@@ -64,8 +64,7 @@ class Kamar extends BaseController
             'nama_kamar'     => $this->request->getPost('edit_nama'),
             'id_kategori'     => $this->request->getPost('edit_kategori'),
             'biaya'     => $this->request->getPost('edit_biaya'),
-            'status_kamar'     => $this->request->getPost('edit_status'),
-            'id'     => $this->request->getPost('id_kamar')
+            'status_kamar'     => $this->request->getPost('edit_status')
         );
 
         $model->update_data($data, $id);
@@ -96,7 +95,7 @@ class Kamar extends BaseController
         $data['results'] = array();
 
         foreach ($respon as $value) {
-            $isi['id'] = $value['id'];
+            $isi['id'] = $value['id_kategori'];
             $isi['text'] = $value['nama_kategori'];
             array_push($data['results'], $isi);
         }
@@ -119,11 +118,12 @@ class Kamar extends BaseController
         $respon = json_decode(json_encode($datakamar), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id'];
+            $isi['id_kamar'] = $value['id_kamar'];
             $isi['nama_kamar'] = $value['nama_kamar'];
             $isi['status_kamar'] = $value['status_kamar'];
             $isi['id_kategori'] = $value['id_kategori'];
             $isi['nama_kategori'] = $value['nama_kategori'];
+            $isi['biaya'] = $value['biaya'];
         endforeach;
         echo json_encode($isi);
     }
@@ -141,8 +141,8 @@ class Kamar extends BaseController
             'page_header' => 'Foto Kamar',
             'panel_title' => 'Tabel Foto Kamar',
             'foto_kamar' => $foto_kamar,
-            'jumlah_pemesanan' => $jumlah_pemesanan['id'],
-            'id' => $id
+            'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan'],
+            'id_foto' => $id
         ];
         return view('admin/vTFotoKamar', $data);
     }
@@ -186,7 +186,7 @@ class Kamar extends BaseController
         $respon = json_decode(json_encode($data_foto), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id'];
+            $isi['id_foto'] = $value['id_foto'];
             $isi['nama_foto'] = $value['nama_foto'];
             $isi['id_kamar'] = $value['id_kamar'];
         endforeach;

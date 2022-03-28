@@ -33,7 +33,7 @@ class Kategori extends BaseController
             'page_header' => 'Kategori Kamar',
             'panel_title' => 'Tabel Kategori Kamar',
             'kategori' => $kategori,
-            'jumlah_pemesanan' => $jumlah_pemesanan['id']
+            'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
         return view('admin/vTKategori', $data);
     }
@@ -63,8 +63,7 @@ class Kategori extends BaseController
 
         $data = array(
             'nama_kategori'     => $this->request->getPost('edit_nama'),
-            'deskripsi'     => $this->request->getPost('edit_deskripsi'),
-            'id'     => $this->request->getPost('id_kategori')
+            'deskripsi'     => $this->request->getPost('edit_deskripsi')
         );
 
         $model->update_data($data, $id);
@@ -94,7 +93,7 @@ class Kategori extends BaseController
         $respon = json_decode(json_encode($datapengguna), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id'];
+            $isi['id_kategori'] = $value['id_kategori'];
             $isi['nama_kategori'] = $value['nama_kategori'];
             $isi['deskripsi'] = $value['deskripsi'];
         endforeach;

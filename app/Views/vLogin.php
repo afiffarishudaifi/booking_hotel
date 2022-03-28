@@ -81,7 +81,14 @@
                     </div>
 
                     <div class="login-buttons">
-                        <button type="submit" class="btn btn-primary btn-block btn-lg">Masuk</button>
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> Masuk</button>
+                    </div>
+                    <div class="login-buttons" style="padding-top: 20px;">
+                        <a href="<?php 
+                          echo $googleButton;
+                        ?>" class="btn btn-block btn-danger">
+                          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                        </a>
                     </div>
                 </form>
                 Apakah anda belum memiliki akun ? klik <a href="<?php echo base_url('Register'); ?>">Daftar</a>

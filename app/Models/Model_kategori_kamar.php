@@ -7,9 +7,9 @@ use CodeIgniter\Model;
 class Model_kategori_kamar extends Model
 {
     protected $table = 'kategori_kamar';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_kategori';
     protected $allowedFields = [
-        'id', 'nama_kategori'
+        'id_kategori', 'nama_kategori'
     ];
 
     public function view_data()
@@ -29,7 +29,7 @@ class Model_kategori_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kategori_kamar');
-        $builder->where('id', $id);
+        $builder->where('id_kategori', $id);
         return $builder->get();
     }
 
@@ -37,7 +37,7 @@ class Model_kategori_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kategori_kamar');
-        $builder->where('id', $id);
+        $builder->where('id_kategori', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -46,7 +46,7 @@ class Model_kategori_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kategori_kamar');
-        $builder->where('id', $id);
+        $builder->where('id_kategori', $id);
         return $builder->delete();
     }
 
@@ -54,8 +54,8 @@ class Model_kategori_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kategori_kamar');
-        $builder->join('kamar', 'kamar.id_kategori = kategori_kamar.id');
-        $builder->where('kategori_kamar.id', $id);
+        $builder->join('kamar', 'kamar.id_kategori = kategori_kamar.id_kategori');
+        $builder->where('kategori_kamar.id_kategori', $id);
         return $builder->countAllResults();
     }
 
@@ -63,7 +63,7 @@ class Model_kategori_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kategori_kamar');
-        $builder->select('id');
+        $builder->select('id_kategori');
         $builder->where('nama_kategori', $nama);
         return $builder->get();
     }

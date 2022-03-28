@@ -7,18 +7,18 @@ use CodeIgniter\Model;
 class Model_frontend extends Model
 {
     protected $table = 'kamar';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_kamar';
 
     public function view_data()
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('foto');
-        $builder->select('kamar.id as id, kamar.nama_kamar, kamar.status_kamar, kategori_kamar.nama_kategori, kamar.biaya, foto.nama_foto');
-        $builder->join('kamar','foto.id_kamar = kamar.id');
-        $builder->join('kategori_kamar', 'kamar.id_kategori = kategori_kamar.id');
+        $builder->select('kamar.id_kamar as id, kamar.nama_kamar, kamar.status_kamar, kategori_kamar.nama_kategori, kamar.biaya, foto.nama_foto');
+        $builder->join('kamar','foto.id_kamar = kamar.id_kamar');
+        $builder->join('kategori_kamar', 'kamar.id_kategori = kategori_kamar.id_kategori');
         $builder->limit(4);
-        $builder->groupBy('kamar.id');
-        $builder->orderBy('kamar.id', 'RANDOM');
+        $builder->groupBy('kamar.id_kamar');
+        $builder->orderBy('kamar.id_kamar', 'RANDOM');
         $builder->where('kamar.status_kamar','kosong');
         return $builder->get();
     }
@@ -33,9 +33,9 @@ class Model_frontend extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->select('kamar.id as id, kamar.nama_kamar, kamar.status_kamar, kategori_kamar.id as id_kategori, kategori_kamar.nama_kategori, biaya');
+        $builder->select('kamar.id_kamar as id, kamar.nama_kamar, kamar.status_kamar, kategori_kamar.id as id_kategori, kategori_kamar.nama_kategori, biaya');
         $builder->join('kategori_kamar', 'kamar.id_kategori = kategori_kamar.id');
-        $builder->where('kamar.id', $id);
+        $builder->where('kamar.id_kamar', $id);
         return $builder->get();
     }
 
@@ -60,8 +60,8 @@ class Model_frontend extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->join('pemesanan', 'pemesanan.id_kamar = kamar.id');
-        $builder->where('kamar.id', $id);
+        $builder->join('pemesanan', 'pemesanan.id_kamar = kamar.id_kamar');
+        $builder->where('kamar.id_kamar', $id);
         return $builder->countAllResults();
     }
 
@@ -86,8 +86,8 @@ class Model_frontend extends Model
         $db = \Config\Database::connect();
         $builder = $db->table('kamar');
         $builder->select('kategori_kamar.nama_kategori, kategori_kamar.id as id_kategori, kamar.id, kamar.nama_kamar');
-        $builder->join('kategori_kamar', 'kategori_kamar.id = kamar.id');
-        $builder->where('kamar.id', $id);
+        $builder->join('kategori_kamar', 'kategori_kamar.id_kamar = kamar.id_kamar');
+        $builder->where('kamar.id_kamar', $id);
         return $builder->get();
     }
 }

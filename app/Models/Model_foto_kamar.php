@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class Model_foto_kamar extends Model
 {
     protected $table = 'foto';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_foto';
 
     public function view_data($id)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('foto');
-        $builder->select('foto.id, foto.id_kamar, foto.nama_foto, kamar.nama_kamar');
-        $builder->join('kamar', 'foto.id_kamar = kamar.id');
+        $builder->select('foto.id_foto as id, foto.id_kamar, foto.nama_foto, kamar.nama_kamar');
+        $builder->join('kamar', 'foto.id_kamar = kamar.id_kamar');
         $builder->where('foto.id_kamar', $id);
         return $builder->get();
     }
@@ -29,7 +29,7 @@ class Model_foto_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('foto');
-        $builder->where('id', $id);
+        $builder->where('id_foto', $id);
         return $builder->get();
     }
 
@@ -37,7 +37,7 @@ class Model_foto_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('foto');
-        $builder->where('id', $id);
+        $builder->where('id_foto', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -46,7 +46,7 @@ class Model_foto_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('foto');
-        $builder->where('id', $id);
+        $builder->where('id_foto', $id);
         return $builder->delete();
     }
 

@@ -69,11 +69,11 @@ class Dashboard extends BaseController
         $total_pemesanan_bulan_ini = $model->total_pemesanan_bulan_ini()->getRowArray();
         $jumlah_pemesanan = $model->jumlah_pemesanan()->getRowArray();
 
-        $total_pengguna = $total_pengguna['id'] == 0 ? 0 : $total_pengguna['id'];
-        $total_kamar_kosong = $total_kamar_kosong['id'] == 0 ? 0 : $total_kamar_kosong['id'];
-        $total_kamar_terisi = $total_kamar_terisi['id'] == 0 ? 0 : $total_kamar_terisi['id'];
-        $total_pemesanan_bulan_ini = $total_pemesanan_bulan_ini['id'] == 0 ? 0 : $total_pemesanan_bulan_ini['id'];
-        $jumlah_pemesanan = $jumlah_pemesanan['id'] == 0 ? 0 : $jumlah_pemesanan['id'];
+        $total_pengguna = $total_pengguna['id_pengguna'] == 0 ? 0 : $total_pengguna['id_pengguna'];
+        $total_kamar_kosong = $total_kamar_kosong['id_kamar'] == 0 ? 0 : $total_kamar_kosong['id_kamar'];
+        $total_kamar_terisi = $total_kamar_terisi['id_kamar'] == 0 ? 0 : $total_kamar_terisi['id_kamar'];
+        $total_pemesanan_bulan_ini = $total_pemesanan_bulan_ini['id_pemesanan'] == 0 ? 0 : $total_pemesanan_bulan_ini['id_pemesanan'];
+        $jumlah_pemesanan = $jumlah_pemesanan['id_pemesanan'] == 0 ? 0 : $jumlah_pemesanan['id_pemesanan'];
 
         $data = [
             'judul' => 'Dashboard',
@@ -100,7 +100,7 @@ class Dashboard extends BaseController
             $ubah_pemesanan = $model->update_status_pemesanan($cek_status['id']);
             $ubah_kamar = $model->update_status_kamar($cek_status['id_kamar']);
         }
-        $result['total_pemesanan'] = $jumlah_pemesanan['id'];
+        $result['total_pemesanan'] = $jumlah_pemesanan['id_pemesanan'];
         echo json_encode($result);
     }
 

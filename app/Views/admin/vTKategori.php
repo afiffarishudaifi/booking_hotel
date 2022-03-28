@@ -61,10 +61,10 @@
                                         <td><?= (substr($item['deskripsi'], 0, 200). '...'); ?></td>
                                         <td>
                                             <center>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_kategori']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
                                                         class="fa fa-pen"></i></a>
                                                 <a href="" class="btn btn-sm btn-delete btn-danger" data-toggle="modal"
-                                                    data-target="#deleteModal" data-id="<?= $item['id']; ?>"><i
+                                                    data-target="#deleteModal" data-id="<?= $item['id_kategori']; ?>"><i
                                                         class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/Kategori/delete_kategori_kamar'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Kategori/delete_kategori_kamar'); ?>" method="post" autocomplete="off">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -109,7 +109,7 @@
     </div>
 
     <!-- Modal Add Class-->
-    <form action="<?php echo base_url('Admin/Kategori/add_kategori_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true">
+    <form action="<?php echo base_url('Admin/Kategori/add_kategori_kamar'); ?>" method="post" id="form_add" data-parsley-validate="true"  autocomplete="off">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -145,7 +145,7 @@
     <!-- End Modal Add Class-->
 
     <!-- Modal Edit Class-->
-    <form action="<?php echo base_url('Admin/Kategori/update_kategori_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+    <form action="<?php echo base_url('Admin/Kategori/update_kategori_kamar'); ?>" method="post" id="form_edit" data-parsley-validate="true"  autocomplete="off">
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -301,7 +301,7 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/Kategori/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_kategori').val(json.id);
+                    $('#id_kategori').val(json.id_kategori);
                     $('#edit_nama').val(json.nama_kategori);
                     $('#edit_deskripsi').val(json.deskripsi);
                 });

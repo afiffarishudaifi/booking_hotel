@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Model_detail_kamar extends Model
 {
     protected $table = 'detail_kamar';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_detail';
 
     public function view_data($id)
     {
@@ -30,10 +30,10 @@ class Model_detail_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_kamar');
-        $builder->select('detail_kamar.id as id, fasilitas.id as id_fasilitas, fasilitas.nama_fasilitas as nama_fasilitas, kamar.id as id_kamar');
-        $builder->join('kamar','detail_kamar.id_kamar = kamar.id');
-        $builder->join('fasilitas', 'detail_kamar.id_fasilitas = fasilitas.id');
-        $builder->where('detail_kamar.id', $id);
+        $builder->select('detail_kamar.id_detail as id, fasilitas.id_fasilitas as id_fasilitas, fasilitas.nama_fasilitas as nama_fasilitas, kamar.id_kamar as id_kamar');
+        $builder->join('kamar','detail_kamar.id_kamar = kamar.id_kamar');
+        $builder->join('fasilitas', 'detail_kamar.id_fasilitas = fasilitas.id_fasilitas');
+        $builder->where('detail_kamar.id_detail', $id);
         return $builder->get();
     }
 
@@ -41,7 +41,7 @@ class Model_detail_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_kamar');
-        $builder->where('id', $id);
+        $builder->where('id_detail', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -50,7 +50,7 @@ class Model_detail_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_kamar');
-        $builder->where('id', $id);
+        $builder->where('id_detail', $id);
         return $builder->delete();
     }
 

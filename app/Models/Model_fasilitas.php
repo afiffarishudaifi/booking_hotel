@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class Model_fasilitas extends Model
 {
     protected $table = 'fasilitas';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_fasilitas';
 
     public function view_data()
     {
@@ -26,7 +26,7 @@ class Model_fasilitas extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('fasilitas');
-        $builder->where('id', $id);
+        $builder->where('id_fasilitas', $id);
         return $builder->get();
     }
 
@@ -34,7 +34,7 @@ class Model_fasilitas extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('fasilitas');
-        $builder->where('id', $id);
+        $builder->where('id_fasilitas', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -43,7 +43,7 @@ class Model_fasilitas extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('fasilitas');
-        $builder->where('id', $id);
+        $builder->where('id_fasilitas', $id);
         return $builder->delete();
     }
 
@@ -51,7 +51,7 @@ class Model_fasilitas extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('fasilitas');
-        $builder->select('id');
+        $builder->select('id_fasilitas');
         $builder->where('nama_fasilitas', $nama);
         return $builder->get();
     }

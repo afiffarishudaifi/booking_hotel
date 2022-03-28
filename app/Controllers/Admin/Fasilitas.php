@@ -33,7 +33,7 @@ class Fasilitas extends BaseController
             'page_header' => 'Fasilitas',
             'panel_title' => 'Tabel Fasilitas',
             'fasilitas' => $fasilitas,
-            'jumlah_pemesanan' => $jumlah_pemesanan['id']
+            'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
         return view('admin/vTFasilitas', $data);
     }
@@ -60,8 +60,7 @@ class Fasilitas extends BaseController
         
         $id = $this->request->getPost('id_fasilitas');
         $data = array(
-            'nama_fasilitas'     => $this->request->getPost('edit_fasilitas'),
-            'id'     => $this->request->getPost('id_fasilitas')
+            'nama_fasilitas'     => $this->request->getPost('edit_fasilitas')
         );
 
         $model->update_data($data, $id);
@@ -86,7 +85,7 @@ class Fasilitas extends BaseController
         $respon = json_decode(json_encode($datafasilitas), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id'];
+            $isi['id_fasilitas'] = $value['id_fasilitas'];
             $isi['nama_fasilitas'] = $value['nama_fasilitas'];
         endforeach;
         echo json_encode($isi);

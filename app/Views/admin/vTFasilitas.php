@@ -60,10 +60,10 @@
                                         <td><?= $item['nama_fasilitas']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_fasilitas']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
                                                         class="fa fa-pen"></i></a>
                                                 <a href="" class="btn btn-sm btn-delete btn-danger" data-toggle="modal"
-                                                    data-target="#deleteModal" data-id="<?= $item['id']; ?>"><i
+                                                    data-target="#deleteModal" data-id="<?= $item['id_fasilitas']; ?>"><i
                                                         class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
@@ -286,7 +286,7 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/Fasilitas/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_fasilitas').val(json.id);
+                    $('#id_fasilitas').val(json.id_fasilitas);
                     $('#edit_fasilitas').val(json.nama_fasilitas);
                 });
         }
