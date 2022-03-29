@@ -34,7 +34,7 @@ $session = session();
                                 if (
                                     $uri->getSegment(2) == 'Detail' || $uri->getSegment(2) == 'Kamar' ||
                                     $uri->getSegment(2) == 'Kategori' || $uri->getSegment(2) == 'Fasilitas' ||
-                                    $uri->getSegment(2) == 'Foto' || $uri->getSegment(2) == 'DetailKamar' || $uri->getSegment(2) == 'Pengguna'
+                                    $uri->getSegment(2) == 'Foto' || $uri->getSegment(2) == 'DetailKamar' || $uri->getSegment(2) == 'Pengunjung'
                                 ) {
                                     echo "active";
                                 } ?>">
@@ -60,10 +60,10 @@ $session = session();
                                 } ?>"><a href="<?= base_url('Admin/Kamar'); ?>">
                                 <i class="fa fa-bed"></i> &nbsp;Kamar</a></li>
                     <li class="<?php
-                                if ($uri->getSegment(2) == 'Pengguna') {
+                                if ($uri->getSegment(2) == 'Pengunjung') {
                                     echo "active";
-                                } ?>"><a href="<?= base_url('Admin/Pengguna'); ?>">
-                                <i class="fa fa-user"></i> &nbsp;Pengguna</a></li>
+                                } ?>"><a href="<?= base_url('Admin/Pengunjung'); ?>">
+                                <i class="fa fa-user"></i> &nbsp;Pengunjung</a></li>
                 </ul>
             </li>
             <li class="has-sub <?php
