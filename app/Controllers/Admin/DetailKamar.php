@@ -35,7 +35,7 @@ class DetailKamar extends BaseController
             'panel_title' => 'Tabel Detail Kamar',
             'detail_kamar' => $detail_kamar,
             'id_kamar' => $id,
-            'jumlah_pemesanan' => $jumlah_pemesanan['id']
+            'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
         return view('admin/vTDetailKamar', $data);
     }
@@ -91,7 +91,8 @@ class DetailKamar extends BaseController
         $respon = json_decode(json_encode($data_detail), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id'];
+            $isi['id_detail'] = $value['id_detail'];
+            $isi['id_fasilitas'] = $value['id_fasilitas'];
             $isi['id_kamar'] = $value['id_kamar'];
             $isi['id_fasilitas'] = $value['id_fasilitas'];
             $isi['nama_fasilitas'] = $value['nama_fasilitas'];
@@ -107,7 +108,7 @@ class DetailKamar extends BaseController
         $data['results'] = array();
 
         foreach ($respon as $value) {
-            $isi['id'] = $value['id'];
+            $isi['id'] = $value['id_fasilitas'];
             $isi['text'] = $value['nama_fasilitas'];
             array_push($data['results'], $isi);
         }

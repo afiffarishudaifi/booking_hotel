@@ -260,7 +260,7 @@
             $.getJSON('<?php echo base_url('Admin/Kamar/data_edit_foto'); ?>' + '/' + isi, {},
                 function(json) {
                     // console.log(json);
-                    $('#id_foto').val(json.id);
+                    $('#id_foto').val(json.id_foto);
                     $('#id_kamar').val(json.id_kamar);
                     // $('#foto_lama').val(json.nama_foto);
                     if (json.nama_foto != '' || json.nama_foto != null) {

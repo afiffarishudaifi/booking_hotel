@@ -13,7 +13,7 @@ class Model_foto_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('foto');
-        $builder->select('foto.id_foto as id, foto.id_kamar, foto.nama_foto, kamar.nama_kamar');
+        $builder->select('foto.id_foto as id_foto, foto.id_kamar, foto.nama_foto, kamar.nama_kamar');
         $builder->join('kamar', 'foto.id_kamar = kamar.id_kamar');
         $builder->where('foto.id_kamar', $id);
         return $builder->get();

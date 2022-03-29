@@ -142,7 +142,8 @@ class Kamar extends BaseController
             'panel_title' => 'Tabel Foto Kamar',
             'foto_kamar' => $foto_kamar,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan'],
-            'id_foto' => $id
+            'id_foto' => $id,
+            'id' => $id
         ];
         return view('admin/vTFotoKamar', $data);
     }

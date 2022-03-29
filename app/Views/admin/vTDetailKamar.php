@@ -60,9 +60,9 @@
                                         <td><?= $item['nama_fasilitas']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_detail']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
                                                         class="fa fa-pen"></i></a>
-                                                <a href="" type="button" onclick="Hapus(<?= $item['id']; ?>,<?= $item['id_kamar']; ?>)" class="btn btn-sm btn-danger" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
+                                                <a href="" type="button" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_kamar']; ?>)" class="btn btn-sm btn-danger" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
                                     </tr>
@@ -256,7 +256,7 @@
         function detail_edit(isi) {
             $.getJSON('<?= base_url('Admin/DetailKamar/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_detail').val(json.id);
+                    $('#id_detail').val(json.id_detail);
                     $('#id_kamar').val(json.id_kamar);
 
                     $('#edit_fasilitas').append('<option selected value="' + json.id_fasilitas + '">' + json.nama_fasilitas +

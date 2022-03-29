@@ -46,7 +46,7 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No </th>
-                                        <th class="text-nowrap" style="text-align: center;">Username</th>
+                                        <th class="text-nowrap" style="text-align: center;">NIK</th>
                                         <th class="text-nowrap" style="text-align: center;">Nama Lengkap</th>
                                         <th class="text-nowrap" style="text-align: center;">Alamat</th>
                                         <th class="text-nowrap" style="text-align: center;">Email</th>
@@ -56,20 +56,20 @@
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($pengguna as $item) {
+                                    foreach ($pengunjung as $item) {
                                     ?>
                                     <tr>
                                         <td width="1%"><?= $no++; ?></td>
-                                        <td><?= $item['username']; ?></td>
+                                        <td><?= $item['nik']; ?></td>
                                         <td><?= $item['nama_lengkap']; ?></td>
                                         <td><?= $item['alamat']; ?></td>
                                         <td><?= $item['email']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-circle btn-edit btn-warning"><i
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pengguna']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
                                                         class="fa fa-pen"></i></a>
-                                                <a href="" class="btn btn-circle btn-delete btn-danger" data-toggle="modal"
-                                                    data-target="#deleteModal" data-id="<?= $item['id']; ?>"><i
+                                                <a href="" class="btn btn-sm btn-delete btn-danger" data-toggle="modal"
+                                                    data-target="#deleteModal" data-id="<?= $item['id_pengguna']; ?>"><i
                                                         class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/Pengguna/delete_pengguna'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Pengunjung/delete_pengguna'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -114,7 +114,7 @@
     </div>
 
     <!-- Modal Add Class-->
-    <form action="<?php echo base_url('Admin/Pengguna/add_pengguna'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
+    <form action="<?php echo base_url('Admin/Pengunjung/add_pengguna'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -128,9 +128,8 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" class="form-control" id="input_username" name="input_username"  data-parsley-required="true" placeholder="Masukkan Username">
-                                <span class="text-danger" id="error_username"></span>
+                            <label>NIK</label>
+                            <input type="text" class="form-control" id="input_nik" name="input_nik"  data-parsley-required="true" placeholder="Masukkan NIK" minlength="16" maxlength="16">
                         </div> 
 
                         <div class="form-group">
@@ -146,6 +145,7 @@
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" class="form-control" id="input_email" name="input_email"  data-parsley-required="true" placeholder="Masukkan Email">
+                            <span class="text-danger" id="error_email"></span>
                         </div>
 
                          <div class="form-group">
@@ -156,14 +156,6 @@
                          <div class="form-group">
                             <label>Alamat</label>
                             <textarea id="input_alamat" class="form-control" name="input_alamat"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Status Pengguna</label>
-                            <select name="input_status" class="form-control" id="input_status">
-                                <option value="admin" selected="">Admin</option>
-                                <option value="customer">Customer</option>
-                            </select>
                         </div>
 
                         <div class="form-group">
@@ -185,7 +177,7 @@
     <!-- End Modal Add Class-->
 
     <!-- Modal Edit Class-->
-    <form action="<?php echo base_url('Admin/Pengguna/update_pengguna'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
+    <form action="<?php echo base_url('Admin/Pengunjung/update_pengguna'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -200,9 +192,8 @@
                         <input type="hidden" class="id_pengguna" name="id_pengguna" id="id_pengguna">
 
                         <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" class="form-control" id="edit_username" name="edit_username"  data-parsley-required="true" placeholder="Masukkan Username">
-                                <span class="text-danger" id="error_edit_username"></span>
+                            <label>NIK</label>
+                            <input type="text" class="form-control" id="edit_nik" name="edit_nik"  data-parsley-required="true" placeholder="Masukkan NIK" minlength="16" maxlength="16">
                         </div> 
 
                         <div class="form-group">
@@ -228,14 +219,6 @@
                          <div class="form-group">
                             <label>Alamat</label>
                             <textarea id="edit_alamat" class="form-control" name="edit_alamat"></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Status Pengguna</label>
-                            <select name="edit_status" class="form-control" id="edit_status">
-                                <option value="admin" selected="">Admin</option>
-                                <option value="customer">Customer</option>
-                            </select>
                         </div>
 
                         <div class="form-group">
@@ -312,21 +295,21 @@
     <script type="text/javascript">
         $(function() {
 
-            $("#input_username").keyup(function(){
+            $("#input_email").keyup(function(){
 
-                var input_username = $(this).val().trim();
+                var input_email = $(this).val().trim();
           
-                if(input_username != ''){
+                if(input_email != ''){
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Admin/Pengguna/cek_username'); ?>' + '/' + input_username,
+                        url: '<?php echo base_url('Admin/Pengunjung/cek_email'); ?>' + '/' + input_email,
                         success: function (data) {
                             if(data['results']>0){
-                                $("#error_username").html('Username telah dipakai,coba yang lain');
-                                $("#input_username").val(input_username);
+                                $("#error_email").html('Email telah dipakai,coba yang lain');
+                                $("#input_email").val(input_email);
                             }else{
-                                $("#error_username").html('');
+                                $("#error_email").html('');
                             }
                         }, error: function () {
             
@@ -340,7 +323,7 @@
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_username").val('');
+                $("#input_nik").val('');
                 $("#input_password").val('');
                 $("#input_email").val('');
                 $("#input_no_hp").val('');
@@ -350,7 +333,7 @@
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_username").val('');
+                $("#input_nik").val('');
                 $("#input_password").val('');
                 $("#input_email").val('');
                 $("#input_no_hp").val('');
@@ -360,7 +343,7 @@
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_username").val('');
+                $("#edit_nik").val('');
                 $("#edit_password").val('');
                 $("#edit_email").val('');
                 $("#edit_no_hp").val('');
@@ -370,21 +353,15 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/Pengguna/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Pengunjung/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pengguna').val(json.id);
-                    $('#edit_username').val(json.username);
+                    $('#id_pengguna').val(json.id_pengguna);
+                    $('#edit_nik').val(json.nik);
                     $('#edit_password').val(json.password);
                     $('#edit_nama').val(json.nama_lengkap);
                     $('#edit_email').val(json.email);
                     $('#edit_no_hp').val(json.no_hp);
                     $('#edit_alamat').val(json.alamat);
-
-                    if (json.status == 'customer') {
-                        document.getElementById("edit_status").selectedIndex = 1;
-                    } else {
-                        document.getElementById("edit_status").selectedIndex = 0;
-                    }
 
                     if (json.file != '' || json.file != null) {
                         $("#foto_lama").attr("src", "http://localhost:8080/booking_hotel/" + json.file) ;

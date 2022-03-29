@@ -13,10 +13,10 @@ class Model_detail_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_kamar');
-        $builder->select('detail_kamar.id, fasilitas.nama_fasilitas as nama_fasilitas, kamar.nama_kamar, detail_kamar.id_kamar');
-        $builder->join('kamar', 'kamar.id = detail_kamar.id_kamar');
-        $builder->join('fasilitas', 'fasilitas.id = detail_kamar.id_fasilitas');
-        $builder->where('id_kamar', $id);
+        $builder->select('detail_kamar.id_detail, fasilitas.nama_fasilitas as nama_fasilitas, kamar.nama_kamar, detail_kamar.id_kamar');
+        $builder->join('kamar', 'kamar.id_kamar = detail_kamar.id_kamar');
+        $builder->join('fasilitas', 'fasilitas.id_fasilitas = detail_kamar.id_fasilitas');
+        $builder->where('detail_kamar.id_kamar', $id);
         return $builder->get();
     }
 
@@ -30,7 +30,7 @@ class Model_detail_kamar extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('detail_kamar');
-        $builder->select('detail_kamar.id_detail as id, fasilitas.id_fasilitas as id_fasilitas, fasilitas.nama_fasilitas as nama_fasilitas, kamar.id_kamar as id_kamar');
+        $builder->select('detail_kamar.id_detail as id_detail, fasilitas.id_fasilitas as id_fasilitas, fasilitas.nama_fasilitas as nama_fasilitas, kamar.id_kamar as id_kamar');
         $builder->join('kamar','detail_kamar.id_kamar = kamar.id_kamar');
         $builder->join('fasilitas', 'detail_kamar.id_fasilitas = fasilitas.id_fasilitas');
         $builder->where('detail_kamar.id_detail', $id);

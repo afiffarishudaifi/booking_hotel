@@ -3,16 +3,16 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
-use App\Models\Model_pengguna;
+use App\Models\Model_pengunjung;
 use App\Models\Model_dashboard;
 
-class Pengguna extends BaseController
+class Pengunjung extends BaseController
 {
 
-    protected $Model_pengguna;
+    protected $Model_pengunjung;
     public function __construct()
     {
-        $this->Model_pengguna = new Model_pengguna();
+        $this->Model_pengunjung = new Model_pengunjung();
         helper(['form', 'url']);
     }
 
@@ -26,16 +26,16 @@ class Pengguna extends BaseController
         $model_dash = new Model_dashboard();
         $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
 
-        $model = new Model_pengguna();
-        $pengguna = $model->view_data()->getResultArray();
+        $model = new Model_pengunjung();
+        $pengunjung = $model->view_data()->getResultArray();
         $data = [
-            'judul' => 'Pengguna',
-            'page_header' => 'Pengguna',
-            'panel_title' => 'Tabel Pengguna',
-            'pengguna' => $pengguna,
-            'jumlah_pemesanan' => $jumlah_pemesanan['id']
+            'judul' => 'Pengunjung',
+            'page_header' => 'Pengunjung',
+            'panel_title' => 'Tabel Pengunjung',
+            'pengunjung' => $pengunjung,
+            'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
-        return view('admin/vTPengguna', $data);
+        return view('admin/vTPengunjung', $data);
     }
 
     public function add_pengguna()
@@ -52,20 +52,19 @@ class Pengguna extends BaseController
         }
 
         $data = array(
-            'username' => $this->request->getPost('input_username'),
+            'nik' => $this->request->getPost('input_nik'),
             'password' => base64_encode($encrypter->encrypt($this->request->getPost('input_password'))),
             'email' => $this->request->getPost('input_email'),
             'nama_lengkap' => $this->request->getPost('input_nama'),
             'no_hp' => $this->request->getPost('input_no_hp'),
             'alamat' => $this->request->getPost('input_alamat'),
-            'status' => $this->request->getPost('input_status'),
             'file' => "docs/img/img_pengguna/" . $namabaru
         );
 
-        $model = new Model_pengguna();
+        $model = new Model_pengunjung();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/Pengguna'));
+        return redirect()->to(base_url('Admin/Pengunjung'));
     }
 
     public function update_pengguna()
@@ -73,7 +72,7 @@ class Pengguna extends BaseController
         $session = session();
         $encrypter = \Config\Services::encrypter();
 
-        $model = new Model_pengguna();
+        $model = new Model_pengunjung();
         $avatar      = $this->request->getFile('edit_file');
         if ($avatar != '') {
             $namabaru     = $avatar->getRandomName();
@@ -81,15 +80,13 @@ class Pengguna extends BaseController
 
             $id = $this->request->getPost('id_pengguna');
             $data = array(
-                'username' => $this->request->getPost('edit_username'),
+                'nik' => $this->request->getPost('edit_nik'),
                 'password' => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
                 'email' => $this->request->getPost('edit_email'),
                 'nama_lengkap' => $this->request->getPost('edit_nama'),
                 'no_hp' => $this->request->getPost('edit_no_hp'),
                 'alamat' => $this->request->getPost('edit_alamat'),
-                'status' => $this->request->getPost('edit_status'),
-                'file' => "docs/img/img_pengguna/" . $namabaru,
-                'id' => $this->request->getPost('id_pengguna')
+                'file' => "docs/img/img_pengguna/" . $namabaru
             );
 
             $data_foto = $model->detail_data($id)->getRowArray();
@@ -104,25 +101,23 @@ class Pengguna extends BaseController
         } else {
             $id = $this->request->getPost('id_pengguna');
             $data = array(
-                'username' => $this->request->getPost('edit_username'),
+                'nik' => $this->request->getPost('edit_nik'),
                 'password' => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
                 'email' => $this->request->getPost('edit_email'),
                 'nama_lengkap' => $this->request->getPost('edit_nama'),
                 'no_hp' => $this->request->getPost('edit_no_hp'),
-                'alamat' => $this->request->getPost('edit_alamat'),
-                'status' => $this->request->getPost('edit_status'),
-                'id' => $this->request->getPost('id_pengguna')
+                'alamat' => $this->request->getPost('edit_alamat')
             );
         }
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/Pengguna'));
+        return redirect()->to(base_url('Admin/Pengunjung'));
     }
 
     public function delete_pengguna()
     {
-        $model = new Model_pengguna();
+        $model = new Model_pengunjung();
         $id = $this->request->getPost('id');
         $session = session();
         $foreign = $model->cek_foreign($id);
@@ -140,38 +135,41 @@ class Pengguna extends BaseController
         } else {
             session()->setFlashdata('sukses', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         }
-        return redirect()->to('/Admin/Pengguna');
+        return redirect()->to('/Admin/Pengunjung');
     }
 
-    public function cek_username($username)
+    public function cek_email($email)
     {
-        $model = new Model_pengguna();
-        $cek_username = $model->cek_username($username)->getResultArray();
-        $respon = json_decode(json_encode($cek_username), true);
+        $model = new Model_pengunjung();
+        $cek_email = $model->cek_email($email)->getResultArray();
+        $respon = json_decode(json_encode($cek_email), true);
         $data['results'] = count($respon);
         echo json_encode($data);
     }
 
     public function data_edit($id_pengguna)
     {
-        $model = new Model_pengguna();
+        $model = new Model_pengunjung();
         $encrypter = \Config\Services::encrypter();
 
         $data_pengguna = $model->detail_data($id_pengguna)->getResultArray();
         $data_password = $model->detail_data($id_pengguna)->getRowArray();
-        $password = $encrypter->decrypt(base64_decode($data_password['password']));
+        if($data_password['password'] != null) {
+            $password = $encrypter->decrypt(base64_decode($data_password['password']));
+        } else {
+            $password = '';
+        }
 
         $respon = json_decode(json_encode($data_pengguna), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id'];
-            $isi['username'] = $value['username'];
+            $isi['id_pengguna'] = $value['id_pengguna'];
             $isi['password'] = $password;
             $isi['nama_lengkap'] = $value['nama_lengkap'];
             $isi['email'] = $value['email'];
             $isi['no_hp'] = $value['no_hp'];
             $isi['alamat'] = $value['alamat'];
-            $isi['status'] = $value['status'];
+            $isi['nik'] = $value['nik'];
             $isi['file'] = $value['file'];
         endforeach;
         echo json_encode($isi);
