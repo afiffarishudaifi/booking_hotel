@@ -15,6 +15,7 @@ class Kamar extends BaseController
     {
         $this->Model_kamar = new Model_kamar();
         helper(['form', 'url']);
+        $this->db = db_connect();
     }
 
     public function index()
@@ -89,17 +90,45 @@ class Kamar extends BaseController
 
     public function data_kategori()
     {
-        $model = new Model_kamar();
-        $data_kategori = $model->data_kategori()->getResultArray();
-        $respon = json_decode(json_encode($data_kategori), true);
-        $data['results'] = array();
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
 
-        foreach ($respon as $value) {
-            $isi['id'] = $value['id_kategori'];
-            $isi['text'] = $value['nama_kategori'];
-            array_push($data['results'], $isi);
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("kategori_kamar");
+
+        $poli = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('id_kategori, nama_kategori');
+            $builder->like('nama_kategori', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            // Fetch record
+            $builder->select('id_kategori, nama_kategori');
+            $query = $builder->get();
+            $data = $query->getResult();
         }
-        echo json_encode($data);
+
+        foreach ($data as $pengguna) {
+            $poli[] = array(
+                "id" => $pengguna->id_kategori,
+                "text" => $pengguna->nama_kategori,
+            );
+        }
+
+        $response['data'] = $poli;
+
+        return $this->response->setJSON($response);
     }
 
     public function cek_nama($nama)

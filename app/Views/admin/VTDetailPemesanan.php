@@ -128,14 +128,35 @@
                         <div class="modal-body">
 
                             <div class="form-group">
+                                <label>Nama Kamar</label>
+                                <select name="input_kamar" id="input_kamar" class="form-control" onchange="get_biaya(this.value)">
+                                </select>
+                            </div> 
+
+                            <div class="form-group">
+                                <label>Biaya Kamar/malam</label>
+                                <input type="text" name="input_biaya" id="input_biaya" class="form-control" value="0" readonly="">
+                            </div>
+
+                            <div class="form-group">
                                 <label>Nama Pengguna</label>
-                                <select name="input_pengguna" id="input_pengguna" class="form-control select2">
+                                <select name="input_pengguna" id="input_pengguna" class="form-control">
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Tanggal Pesan</label>
-                                <input type="datetime-local" class="form-control" id="input_tanggal" name="input_tanggal"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>">
+                                <label>Tanggal Masuk</label>
+                                <input type="datetime-local" class="form-control" id="input_masuk" name="input_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result(this.value, $('#input_keluar').val())">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Keluar</label>
+                                <input type="datetime-local" class="form-control" id="input_keluar" name="input_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result($('#input_masuk').val(),this.value)">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tagihan Biaya</label>
+                                <input type="text" name="input_hasil_total" value="0" id="input_hasil_total" class="form-control"  readonly="">
                             </div>
 
                             <div class="form-group">
@@ -145,11 +166,6 @@
                                     <option value="terkonfirmasi">Terkonfirmasi</option>
                                     <option value="selesai">Selesai</option>
                                 </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Bukti Pembayaran</label>
-                                <input type="file" class="form-control" name="input_bukti" id="input_bukti">
                             </div>
 
                         </div>
@@ -177,15 +193,38 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_pemesanan" id="id_pemesanan">
+                            <input type="hidden" name="edit_kamar_lama" id="edit_kamar_lama">
+
                             <div class="form-group">
-                                <label>Nama Pengguna</label>
-                                <select name="edit_pengguna" id="edit_pengguna" class="form-control select2">
+                                <label>Nama Kamar</label>
+                                <select name="edit_kamar" id="edit_kamar" class="form-control" onchange="get_biaya_edit(this.value)">
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Tanggal Pesan</label>
-                                <input type="datetime-local" class="form-control" id="edit_tanggal" name="edit_tanggal"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>">
+                                <label>Biaya Kamar/malam</label>
+                                <input type="text" name="edit_biaya" id="edit_biaya" class="form-control" value="0" readonly="">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nama Pengguna</label>
+                                <select name="edit_pengguna" id="edit_pengguna" class="form-control">
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Masuk</label>
+                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit(this.value, $('#edit_keluar').val())">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tanggal Keluar</label>
+                                <input type="datetime-local" class="form-control" id="edit_keluar" name="edit_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit($('#edit_masuk').val(),this.value)">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tagihan Biaya</label>
+                                <input type="text" name="edit_hasil_total" value="0" id="edit_hasil_total" class="form-control"  readonly="">
                             </div>
 
                             <div class="form-group">
@@ -195,11 +234,6 @@
                                     <option value="terkonfirmasi">Terkonfirmasi</option>
                                     <option value="selesai">Selesai</option>
                                 </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Bukti Pembayaran</label>
-                                <input type="file" class="form-control" name="edit_bukti" id="edit_bukti">
                             </div>
 
                         </div>
@@ -258,87 +292,153 @@
                 })
             }, 5000)
         })
+
+        function get_result(masuk, akhir) {
+            var tanggal_masuk = new Date(masuk);
+            var tanggal_akhir = new Date(akhir);
+            var timeDiff=0
+            if (tanggal_akhir) {
+                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
+            }
+
+            var selisih = Math.floor(timeDiff/(86400))
+            var biaya = $('#input_biaya').val()
+
+            var total_biaya = parseInt(selisih) * parseInt(biaya);
+
+            if (isNaN(total_biaya)) {
+                $('#input_hasil_total').val('0')
+            } else {
+                $('#input_hasil_total').val(total_biaya)
+            }
+		}
+
+        function get_result_edit(masuk, akhir) {
+            var tanggal_masuk = new Date(masuk);
+            var tanggal_akhir = new Date(akhir);
+            var timeDiff=0
+            if (tanggal_akhir) {
+                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
+            }
+
+            var selisih = Math.floor(timeDiff/(86400))
+            var biaya = $('#edit_biaya').val()
+
+            var total_biaya = parseInt(selisih) * parseInt(biaya);
+
+            if (isNaN(total_biaya)) {
+                $('#edit_hasil_total').val('0')
+            } else {
+                $('#edit_hasil_total').val(total_biaya)
+            }
+        }
+
+		function get_biaya(id_kamar) {
+			$.ajax({
+                url:"<?= base_url()?>/Admin/Pemesanan/biaya_kamar" + "/" + id_kamar,
+                type:"GET",
+                dataType:"json",
+                data:{},
+                success:function(data){
+                    $('#input_biaya').val(data.biaya);
+                }
+            });
+		}
+
+		function get_biaya_edit(id_kamar) {
+			$.ajax({
+                url:"<?= base_url()?>/Admin/Pemesanan/biaya_kamar" + "/" + id_kamar,
+                type:"GET",
+                dataType:"json",
+                data:{},
+                success:function(data){
+                    $('#edit_biaya').val(data.biaya);
+                }
+            });
+		}
     </script>
 
     <script type="text/javascript">
         $(function() {
 
-            $('.select2').select2()
-
-            $("#input_pengguna").select2({
-                placeholder: "Pilih Pengguna",
+            $('#input_kamar').select2({
+                placeholder: "Pilih Kamar",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/Pemesanan/data_pengguna'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
+                    url: '<?php echo base_url('Admin/Pemesanan/data_kamar'); ?>',
+                    dataType: 'json'
                 }
             });
 
-            $("#edit_pengguna").select2({
+            $('#edit_kamar').select2({
+                placeholder: "Pilih Kamar",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Pemesanan/data_kamar'); ?>',
+                    dataType: 'json'
+                }
+            });
+
+            $('#input_pengguna').select2({
                 placeholder: "Pilih Pengguna",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Admin/Pemesanan/data_pengguna'); ?>',
-                    type: "post",
-                    delay: 250,
-                    dataType: 'json',
-                    data: function(params) {
-                        return {
-                            query: params.term, // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response.data
-                        };
-                    },
-                    cache: true
+                    dataType: 'json'
+                }
+            });
+
+            $('#edit_pengguna').select2({
+                placeholder: "Pilih Pengguna",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/Pemesanan/data_pengguna'); ?>',
+                    dataType: 'json'
                 }
             });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
+                $("#input_kamar").val();
                 $("#input_pengguna").val('');
-                $("#input_tanggal").val('');
+                $("#input_masuk").val('');
+                $("#input_keluar").val('');
                 $("#input_status").val('');
-                $("#input_bukti").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
+                $("#input_kamar").val('');
                 $("#input_pengguna").val('');
-                $("#input_tanggal").val('');
+                $("#input_masuk").val('');
+                $("#input_keluar").val('');
                 $("#input_status").val('');
-                $("#input_bukti").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
+                $("#edit_kamar").val('');
                 $("#edit_pengguna").val('');
-                $("#edit_tanggal").val('');
+                $("#edit_masuk").val('');
+                $("#edit_keluar").val('');
                 $("#edit_status").val('');
-                $("#edit_bukti").val('');
             });
         })
 
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('Admin/Pemesanan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pemesanan').val(json.id_pemesanan);
+                    $('#id_pemesanan').val(json.id);
+                    $('#edit_kamar_lama').val(json.id_kamar);
+
+                    $('#edit_kamar').append('<option selected value="' + json.id_kamar + '">' + json.nama_kamar +
+                        '</option>');
+                    $('#edit_kamar').select2('data', {
+                        id: json.id_kamar,
+                        text: json.nama_kamar
+                    });
+                    $('#edit_kamar').trigger('change');
 
                     $('#edit_pengguna').append('<option selected value="' + json.id_pengguna + '">' + json.nama_lengkap +
                         '</option>');
@@ -348,8 +448,9 @@
                     });
                     $('#edit_pengguna').trigger('change');
 
-                    $('#edit_tanggal').val(json.tanggal_pesan);
-                    $('#edit_bukti').val(json.bukti_transaksi);
+                    $('#edit_masuk').val(json.tanggal_masuk);
+                    $('#edit_keluar').val(json.tanggal_keluar);
+                    $('#edit_hasil_total').val(json.total_biaya);
 
                     if (json.status_pemesanan == 'pengajuan') {
                         document.getElementById("edit_status").selectedIndex = 0;

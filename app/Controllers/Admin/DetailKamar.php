@@ -14,6 +14,7 @@ class DetailKamar extends BaseController
     {
         $this->Model_detail_Kamar = new Model_detail_Kamar();
         helper(['form', 'url']);
+        $this->db = db_connect();
     }
 
     public function view($id)
@@ -102,16 +103,44 @@ class DetailKamar extends BaseController
 
     public function data_fasilitas()
     {
-        $model = new Model_detail_Kamar();
-        $data_fasilitas = $model->data_fasilitas()->getResultArray();
-        $respon = json_decode(json_encode($data_fasilitas), true);
-        $data['results'] = array();
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
 
-        foreach ($respon as $value) {
-            $isi['id'] = $value['id_fasilitas'];
-            $isi['text'] = $value['nama_fasilitas'];
-            array_push($data['results'], $isi);
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("fasilitas");
+
+        $fasilitas = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('id_fasilitas, nama_fasilitas');
+            $builder->like('nama_fasilitas', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            // Fetch record
+            $builder->select('id_fasilitas, nama_fasilitas');
+            $query = $builder->get();
+            $data = $query->getResult();
         }
-        echo json_encode($data);
+
+        foreach ($data as $pengguna) {
+            $fasilitas[] = array(
+                "id" => $pengguna->id_fasilitas,
+                "text" => $pengguna->nama_fasilitas,
+            );
+        }
+
+        $response['data'] = $fasilitas;
+
+        return $this->response->setJSON($response);
     }
 }

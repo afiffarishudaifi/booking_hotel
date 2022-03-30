@@ -33,7 +33,7 @@ class Laporan extends BaseController
             'page_header' => 'Laporan Pemesanan',
             'panel_title' => 'Laporan Pemesanan',
             'pemesanan' => $pemesanan,
-            'jumlah_pemesanan' => $jumlah_pemesanan['id']
+            'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
         return view('admin/vLaporanPemesanan', $data);
     }

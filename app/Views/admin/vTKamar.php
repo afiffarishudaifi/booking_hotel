@@ -132,7 +132,7 @@
 
                             <div class="form-group">
                                 <label>Kategori Kamar</label>
-                                <select name="input_kategori" id="input_kategori" class="form-control">
+                                <select name="input_kategori" id="input_kategori" class="form-control select2">
                                 </select>
                             </div>
 
@@ -183,7 +183,7 @@
 
                             <div class="form-group">
                                 <label>Kategori Kamar</label>
-                                <select name="edit_kategori" id="edit_kategori" class="form-control">
+                                <select name="edit_kategori" id="edit_kategori" class="form-control select2">
                                 </select>
                             </div>
 
@@ -317,21 +317,49 @@
           
             });
 
-            $('#input_kategori').select2({
+            $('.select2').select2()
+
+            $("#input_kategori").select2({
                 placeholder: "Pilih Kategori",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Admin/Kamar/data_kategori'); ?>',
-                    dataType: 'json'
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
                 }
             });
 
-            $('#edit_kategori').select2({
+            $("#edit_kategori").select2({
                 placeholder: "Pilih Kategori",
                 theme: 'bootstrap4',
                 ajax: {
                     url: '<?php echo base_url('Admin/Kamar/data_kategori'); ?>',
-                    dataType: 'json'
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
                 }
             });
 

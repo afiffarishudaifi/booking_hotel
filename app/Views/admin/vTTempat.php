@@ -46,24 +46,28 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No </th>
-                                        <th class="text-nowrap" style="text-align: center;">Nama Fasilitas</th>
+                                        <th class="text-nowrap" style="text-align: center;">Nama Tempat</th>
+                                        <th class="text-nowrap" style="text-align: center;">Alamat Tempat</th>
+                                        <th class="text-nowrap" style="text-align: center;">Jarak Tempat</th>
                                         <th class="text-nowrap" style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($fasilitas as $item) {
+                                    foreach ($tempat as $item) {
                                     ?>
                                     <tr>
                                         <td width="1%"><?= $no++; ?></td>
-                                        <td><?= $item['nama_fasilitas']; ?></td>
+                                        <td><?= $item['nama_tempat']; ?></td>
+                                        <td><?= $item['alamat_tempat']; ?></td>
+                                        <td><?= $item['jarak_tempat']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_fasilitas']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_tempat']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
                                                         class="fa fa-pen"></i></a>
                                                 <a href="" class="btn btn-sm btn-delete btn-danger" data-toggle="modal"
-                                                    data-target="#deleteModal" data-id="<?= $item['id_fasilitas']; ?>"><i
+                                                    data-target="#deleteModal" data-id="<?= $item['id_tempat']; ?>"><i
                                                         class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
@@ -77,7 +81,7 @@
             </div>
         </div>
 
-        <form action="<?php echo base_url('Admin/Fasilitas/delete_fasilitas'); ?>" method="post">
+        <form action="<?php echo base_url('Admin/Tempat/delete_tempat'); ?>" method="post">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -90,7 +94,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <h4>Apakah Ingin menghapus Fasilitas ini?</h4>
+                            <h4>Apakah Ingin menghapus tempat ini?</h4>
 
                         </div>
                         <div class="modal-footer">
@@ -108,7 +112,8 @@
     </div>
 
     <!-- Modal Add Class-->
-    <form action="<?php echo base_url('Admin/Fasilitas/add_fasilitas'); ?>" method="post" id="form_add" data-parsley-validate="true">
+    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/add_tempat'); ?>" method="post" id="form_add" data-parsley-validate="true">
+    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/add_tempat'); ?>" method="post" id="form_add" data-parsley-validate="true">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -122,9 +127,38 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label>Nama Fasilitas</label>
-                            <input type="text" class="form-control" id="input_fasilitas" name="input_fasilitas"  data-parsley-required="true" placeholder="Masukkan Fasilitas">
-                            <span class="text-danger" id="error_fasilitas"></span>
+                            <label>Nama Tempat</label>
+                            <input type="text" class="form-control" id="input_nama" name="input_nama"  data-parsley-required="true" placeholder="Masukkan Tempat">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Url Tempat</label>
+                            <input type="text" class="form-control" id="input_url" name="input_url"  data-parsley-required="true" placeholder="Masukkan Url">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Alamat Tempat</label>
+                            <textarea class="form-control" name="input_alamat" id="input_alamat" placeholder="Masukkan Alamat"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Deskripsi Tempat</label>
+                            <textarea class="form-control" name="input_deskripsi" id="input_deskripsi" placeholder="Masukkan Deskripsi"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jarak Tempat</label>
+                            <input type="number" class="form-control" id="input_jarak" name="input_jarak"  data-parsley-required="true" placeholder="Masukkan Jarak">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Latitude Tempat</label>
+                            <input type="text" class="form-control" id="input_lat" name="input_lat"  data-parsley-required="true" placeholder="Masukkan Latitude">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Longitude Tempat</label>
+                            <input type="text" class="form-control" id="input_long" name="input_long"  data-parsley-required="true" placeholder="Masukkan Longitude">
                         </div>
 
                     </div>
@@ -139,24 +173,54 @@
     <!-- End Modal Add Class-->
 
     <!-- Modal Edit Class-->
-    <form action="<?php echo base_url('Admin/Fasilitas/update_fasilitas'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/update_tempat'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/update_tempat'); ?>" method="post" id="form_edit" data-parsley-validate="true">
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ubah Data Fasilitas </h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Ubah Data Tempat </h5>
                         <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" class="id_fasilitas" name="id_fasilitas" id="id_fasilitas">
+                        <input type="hidden" class="id_tempat" name="id_tempat" id="id_tempat">
 
                         <div class="form-group">
-                            <label>Fasilitas</label>
-                            <input type="text" class="form-control" id="edit_fasilitas" name="edit_fasilitas" data-parsley-required="true" placeholder="Fasilitas">
-                            <span class="text-danger" id="error_edit_fasilitas"></span>
+                            <label>Nama Tempat</label>
+                            <input type="text" class="form-control" id="edit_nama" name="edit_nama"  data-parsley-required="true" placeholder="Masukkan Tempat">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Url Tempat</label>
+                            <input type="text" class="form-control" id="edit_url" name="edit_url"  data-parsley-required="true" placeholder="Masukkan Url">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Alamat Tempat</label>
+                            <textarea class="form-control" name="edit_alamat" id="edit_alamat" placeholder="Masukkan Alamat"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Deskripsi Tempat</label>
+                            <textarea class="form-control" name="edit_deskripsi" id="edit_deskripsi" placeholder="Masukkan Deskripsi"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Jarak Tempat</label>
+                            <input type="number" class="form-control" id="edit_jarak" name="edit_jarak"  data-parsley-required="true" placeholder="Masukkan Jarak">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Latitude Tempat</label>
+                            <input type="text" class="form-control" id="edit_lat" name="edit_lat"  data-parsley-required="true" placeholder="Masukkan Latitude">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Longitude Tempat</label>
+                            <input type="text" class="form-control" id="edit_long" name="edit_long"  data-parsley-required="true" placeholder="Masukkan Longitude">
                         </div>
 
                     </div>
@@ -217,77 +281,52 @@
 
     <script type="text/javascript">
         $(function() {
-            
-            $("#input_fasilitas").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != ''){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Fasilitas/cek_nama'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_fasilitas").html('Fasilitas telah dipakai,coba yang lain');
-                                $("#input_fasilitas").val(nama);
-                            }else{
-                                $("#error_fasilitas").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-              });
-            $("#edit_fasilitas").keyup(function(){
-
-                var nama = $(this).val().trim();
-          
-                if(nama != ''){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Fasilitas/cek_nama'); ?>' + '/' + nama,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_edit_fasilitas").html('Fasilitas telah dipakai,coba yang lain');
-                                $("#edit_fasilitas").val(nama);
-                            }else{
-                                $("#error_edit_fasilitas").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-            });
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_fasilitas").val('');
+                $("#input_nama").val('');
+                $("#input_url").val('');
+                $("#input_alamat").val('');
+                $("#input_deskripsi").val('');
+                $("#input_lat").val('');
+                $("#input_long").val('');
+                $("#input_jarak").val('');
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_fasilitas").val('');
+                $("#input_nama").val('');
+                $("#input_url").val('');
+                $("#input_alamat").val('');
+                $("#input_deskripsi").val('');
+                $("#input_lat").val('');
+                $("#input_long").val('');
+                $("#input_jarak").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_fasilitas").val('');
+                $("#edit_nama").val('');
+                $("#edit_url").val('');
+                $("#edit_alamat").val('');
+                $("#edit_deskripsi").val('');
+                $("#edit_lat").val('');
+                $("#edit_long").val('');
+                $("#edit_jarak").val('');
             });
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/Fasilitas/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Tempat/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_fasilitas').val(json.id_fasilitas);
-                    $('#edit_fasilitas').val(json.nama_fasilitas);
+                    $('#id_tempat').val(json.id_tempat);
+                    $('#edit_nama').val(json.nama_tempat);
+                    $('#edit_url').val(json.url_tempat);
+                    $('#edit_alamat').val(json.alamat_tempat);
+                    $('#edit_deskripsi').val(json.deskripsi);
+                    $('#edit_lat').val(json.latitude);
+                    $('#edit_long').val(json.longitude);
+                    $('#edit_jarak').val(json.jarak_tempat);
                 });
         }
     </script>

@@ -7,15 +7,14 @@ use CodeIgniter\Model;
 class Model_pemesanan extends Model
 {
     protected $table = 'pemesanan';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_pemesanan';
 
     public function view_data()
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->select('pemesanan.id, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengguna.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, pemesanan.tanggal_masuk, pemesanan.tanggal_keluar, pemesanan.status_pemesanan, total_biaya');
-        $builder->join('pengguna', 'pengguna.id = pemesanan.id_pengguna');
-        $builder->join('kamar', 'kamar.id = pemesanan.id_kamar');
+        $builder->select('pemesanan.id_pemesanan, pengunjung.nama_lengkap, tanggal_pesan, status_pemesanan, bukti_transaksi');
+        $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
         $builder->where('pemesanan.status_pemesanan !=','selesai');
         return $builder->get();
     }
@@ -24,9 +23,8 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->select('pemesanan.id, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengguna.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, pemesanan.tanggal_masuk, pemesanan.tanggal_keluar, pemesanan.status_pemesanan, total_biaya');
-        $builder->join('pengguna', 'pengguna.id = pemesanan.id_pengguna');
-        $builder->join('kamar', 'kamar.id = pemesanan.id_kamar');
+        $builder->select('pemesanan.id_pemesanan, pengunjung.nama_lengkap, tanggal_pesan, status_pemesanan, bukti_transaksi');
+        $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
         $builder->where('status_pemesanan','pengajuan');
         return $builder->get();
     }
@@ -41,10 +39,10 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->select("pemesanan.id, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengguna.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, DATE_FORMAT(pemesanan.tanggal_masuk, '%Y-%m-%dT%H:%i') as tanggal_masuk, DATE_FORMAT(pemesanan.tanggal_keluar, '%Y-%m-%dT%H:%i') as tanggal_keluar, pemesanan.status_pemesanan, total_biaya");
-        $builder->join('pengguna', 'pengguna.id = pemesanan.id_pengguna');
-        $builder->join('kamar', 'kamar.id = pemesanan.id_kamar');
-        $builder->where('pemesanan.id', $id);
+        $builder->select("pemesanan.id_pemesanan, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengunjung.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, DATE_FORMAT(pemesanan.tanggal_masuk, '%Y-%m-%dT%H:%i') as tanggal_masuk, DATE_FORMAT(pemesanan.tanggal_keluar, '%Y-%m-%dT%H:%i') as tanggal_keluar, pemesanan.status_pemesanan, total_biaya");
+        $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
+        $builder->join('kamar', 'kamar.id_kamar = pemesanan.id_kamar');
+        $builder->where('pemesanan.id_pemesanan', $id);
         return $builder->get();
     }
 
@@ -52,7 +50,7 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->where('id', $id);
+        $builder->where('id_pemesanan', $id);
         $builder->set($data);
         return $builder->update();
     }
@@ -61,14 +59,14 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->where('id', $id);
+        $builder->where('id_pemesanan', $id);
         return $builder->delete();
     }
 
     public function data_pengguna()
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('pengguna');
+        $builder = $db->table('pengunjung');
         return $builder->get();
     }
 
@@ -94,9 +92,9 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->select('pemesanan.id, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengguna.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, pemesanan.tanggal_masuk, pemesanan.tanggal_keluar, pemesanan.status_pemesanan, total_biaya');
-        $builder->join('pengguna', 'pengguna.id = pemesanan.id_pengguna');
-        $builder->join('kamar', 'kamar.id = pemesanan.id_kamar');
+        $builder->select('pemesanan.id_pemesanan, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengunjung.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, pemesanan.tanggal_masuk, pemesanan.tanggal_keluar, pemesanan.status_pemesanan, total_biaya');
+        $builder->join('pengunjung', 'pengguna.id_pengguna = pemesanan.id_pengguna');
+        $builder->join('kamar', 'kamar.id_kamar = pemesanan.id_kamar');
         $builder->where('pemesanan.status_pemesanan !=','selesai');
         $builder->where('pemesanan.id_pengguna', $id);
         return $builder->get();

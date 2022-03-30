@@ -124,7 +124,7 @@
 
                         <div class="form-group">
                             <label>Nama Fasilitas</label>
-                            <select name="input_fasilitas" id="input_fasilitas" class="form-control">
+                            <select name="input_fasilitas" id="input_fasilitas" class="form-control select2">
                             </select>
                         </div>
 
@@ -157,7 +157,7 @@
 
                         <div class="form-group">
                             <label>Fasilitas</label>
-                            <select name="edit_fasilitas" id="edit_fasilitas" class="form-control">
+                            <select name="edit_fasilitas" id="edit_fasilitas" class="form-control select2">
                             </select>
                         </div>
 
@@ -218,21 +218,49 @@
     <script type="text/javascript">
         $(function() {
             
-            $('#input_fasilitas').select2({
+            $('.select2').select2()
+
+            $("#input_fasilitas").select2({
                 placeholder: "Pilih Fasilitas",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?= base_url('Admin/DetailKamar/data_fasilitas'); ?>',
-                    dataType: 'json'
+                    url: '<?php echo base_url('Admin/Detailkamar/data_fasilitas'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
                 }
             });
 
-            $('#edit_fasilitas').select2({
+            $("#edit_fasilitas").select2({
                 placeholder: "Pilih Fasilitas",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?= base_url('Admin/DetailKamar/data_fasilitas'); ?>',
-                    dataType: 'json'
+                    url: '<?php echo base_url('Admin/Detailkamar/data_fasilitas'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
                 }
             });
 
