@@ -62,15 +62,12 @@ class KonfirmasiPemesanan extends BaseController
         $respon = json_decode(json_encode($datapemesanan), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id'];
-            $isi['id_kamar'] = $value['id_kamar'];
-            $isi['nama_kamar'] = $value['nama_kamar'];
-            $isi['id_pengguna'] = $value['id_pengguna'];
+            $isi['id_pemesanan'] = $value['id_pemesanan'];
             $isi['nama_lengkap'] = $value['nama_lengkap'];
-            $isi['tanggal_masuk'] = $value['tanggal_masuk'];
-            $isi['tanggal_keluar'] = $value['tanggal_keluar'];
+            $isi['tanggal_pesan'] = $value['tanggal_pesan'];
             $isi['status_pemesanan'] = $value['status_pemesanan'];
-            $isi['total_biaya'] = $value['total_biaya'];
+            $isi['bukti_transaksi'] = $value['bukti_transaksi'];
+            $isi['total_tagihan'] = $value['total_tagihan'];
         endforeach;
         echo json_encode($isi);
     }

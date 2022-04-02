@@ -14,6 +14,7 @@ class Laporan extends BaseController
     {
         $this->Model_laporan_admin = new Model_laporan_admin();
         helper('form');
+        $this->db = db_connect();
     }
 
     public function index()
@@ -40,18 +41,45 @@ class Laporan extends BaseController
 
     public function data_kategori()
     {
-        $session = session();
-        $model = new Model_laporan_admin();
-        $data_kategori = $model->data_kategori()->getResultArray();
-        $respon = json_decode(json_encode($data_kategori), true);
-        $data['results'] = array();
+        $request = service('request');
+        $postData = $request->getPost(); // OR $this->request->getPost();
 
-        foreach ($respon as $value) {
-            $isi['id'] = $value['id'];
-            $isi['text'] = $value['nama_kategori'];
-            array_push($data['results'], $isi);
+        $response = array();
+
+        $data = array();
+
+        $db      = \Config\Database::connect();
+        $builder = $this->db->table("kategori_kamar");
+
+        $poli = [];
+
+        if (isset($postData['query'])) {
+
+            $query = $postData['query'];
+
+            // Fetch record
+            $builder->select('id_kategori, nama_kategori');
+            $builder->like('nama_kategori', $query, 'both');
+            $query = $builder->get();
+            $data = $query->getResult();
+        } else {
+
+            // Fetch record
+            $builder->select('id_kategori, nama_kategori');
+            $query = $builder->get();
+            $data = $query->getResult();
         }
-        echo json_encode($data);
+
+        foreach ($data as $pengguna) {
+            $poli[] = array(
+                "id" => $pengguna->id_kategori,
+                "text" => $pengguna->nama_kategori,
+            );
+        }
+
+        $response['data'] = $poli;
+
+        return $this->response->setJSON($response);
     }
 
     public function data($tanggal = null, $kategori = null, $status = null)
@@ -83,7 +111,7 @@ class Laporan extends BaseController
 
         if ($respon) {
             foreach ($respon as $value) {
-                $isi['id'] = $value['id'];
+                $isi['id_pemesanan'] = $value['id_pemesanan'];
                 $isi['nama_kategori'] = $value['nama_kategori'];
                 $isi['tanggal_pesan'] = date("d-m-Y h:i:s", strtotime($value['tanggal_pesan']));
                 $isi['nama_lengkap'] = $value['nama_lengkap'];

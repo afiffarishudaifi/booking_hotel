@@ -51,12 +51,11 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Nama Customer</th>
-                                        <th class="text-nowrap">Nama Kamar</th>
-                                        <th class="text-nowrap">Tanggal Masuk</th>
-                                        <th class="text-nowrap">Tanggal Keluar</th>
+                                        <th class="text-nowrap">Nama Pengunjung</th>
+                                        <th class="text-nowrap">Tanggal Pemesanan</th>
                                         <th class="text-nowrap">Status Pemesanan</th>
-                                        <th class="text-nowrap">Total Biaya</th>
+                                        <th class="text-nowrap">Tagihan</th>
+                                        <th class="text-nowrap">Bukti Pembayaran</th>
                                         <th class="text-nowrap">Aksi</th>
                                     </tr>
                                 </thead>
@@ -68,14 +67,19 @@
                                     <tr>
                                         <td width="1%"><?= $no++; ?></td>
                                         <td><?= $item['nama_lengkap']; ?></td>
-                                        <td><?= $item['nama_kamar']; ?></td>
-                                        <td><?= $item['tanggal_masuk']; ?></td>
-                                        <td><?= $item['tanggal_keluar']; ?></td>
+                                        <td><?= $item['tanggal_pesan']; ?></td>
                                         <td><?= $item['status_pemesanan']; ?></td>
-                                        <td><?= $item['total_biaya']; ?></td>
+                                        <td><?= $item['total_tagihan']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-edit btn-aqua btn-sm"><i
+                                            <a href="" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#pembayaranModal" data-whatever="<?= $item['bukti_transaksi']; ?>" name="btn-detail">
+                                                Lihat
+                                            </a>
+                                            </center>
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)" class="btn btn-edit btn-aqua btn-sm"><i
                                                         class="fa fa-check"></i></a>
                                             </center>
                                         </td>
@@ -109,16 +113,6 @@
                             <input type="hidden" name="edit_kamar_lama" id="edit_kamar_lama">
 
                             <div class="form-group">
-                                <label>Nama Kamar</label>
-                                <input type="text" name="edit_kamar" class="form-control" id="edit_kamar" readonly="">
-                            </div>
-
-                            <!-- <div class="form-group">
-                                <label>Biaya Kamar/malam</label>
-                                <input type="text" name="edit_biaya" id="edit_biaya" class="form-control" value="0" readonly="">
-                            </div> -->
-
-                            <div class="form-group">
                                 <label>Nama Pengguna</label>
                                 <input type="text" name="edit_pengguna" id="edit_pengguna" class="form-control" readonly="">
                             </div>
@@ -140,7 +134,7 @@
 
                             <div class="form-group">
                                 <label>Status Pemesanan</label>
-                                <input type="text" name="edit_status" value="0" id="edit_status" class="form-control"  readonly="">
+                                <input type="text" name="edit_status" value="Pengajuan" id="edit_status" class="form-control"  readonly="">
                             </div>
 
                         </div>
@@ -153,6 +147,24 @@
             </div>
         </form>
         <!-- End Modal Edit Class-->
+
+        <!-- Modal Pengantar-->
+        <div class="modal fade example-modal-lg" aria-hidden="true" id="pembayaranModal" aria-labelledby="exampleOptionalLarge" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-simple modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h4 class="modal-title" id="exampleOptionalLarge"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <img id="bukti_show" src="" width="100%" height="100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
     </div>
     <!-- end page container -->
 
@@ -182,11 +194,23 @@
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
     <script src="<?php echo base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+    <?= $this->include("Admin/template/js") ?>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
 
     <script type="text/javascript">
         $(document).ready(function(){
+            var link_bukti = "<?= base_url('docs/img/img_transaksi') . '/' ?>";
+            $('#pembayaranModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var recipient = button.data('whatever') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                modal.find('.modal-body input').val(recipient)
+                modal.find('#bukti_show').attr('src', link_bukti + recipient)
+            })
+
             setInterval(function(){
                 $.ajax({
                     url:"<?= base_url()?>/Admin/Dashboard/jumlah_pemesanan",
@@ -203,16 +227,15 @@
 
     <script type="text/javascript">
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/Pemesanan/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/KonfirmasiPemesanan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pemesanan').val(json.id);
-                    $('#edit_kamar_lama').val(json.id_kamar);
-                    $('#edit_kamar').val(json.nama_kamar);
+                    $('#id_pemesanan').val(json.id_pemesanan);
+                    
                     $('#edit_pengguna').val(json.nama_lengkap);
-                    $('#edit_masuk').val(json.tanggal_masuk);
-                    $('#edit_keluar').val(json.tanggal_keluar);
-                    $('#edit_hasil_total').val(json.total_biaya);
-                    $('#edit_status').val(json.status_pemesanan);
+                    $('#edit_hasil_total').val(json.total_tagihan);
+
+                    $('#edit_tanggal').val(json.tanggal_pesan);
+                    $('#edit_bukti').val(json.bukti_transaksi);
                 });
         }
     </script>

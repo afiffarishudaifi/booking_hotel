@@ -19,14 +19,9 @@
         <!-- end #sidebar -->
 
         <div id="content" class="content">
-            <?php $session = session();
-            if ($session->getFlashdata('sukses')) { ?>
-            <input type="hidden" name="pemberitahuan" id="pemberitahuan"
-                value="<?php echo $session->getFlashdata('sukses'); ?>">
-            <?php } ?>
 
             <ol class="breadcrumb float-xl-right">
-                <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
+                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
             </ol>
 
             <h1 class="page-header"><?= $page_header; ?>
@@ -51,7 +46,7 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Nama Customer</th>
+                                        <th class="text-nowrap">Nama Pengunjung</th>
                                         <th class="text-nowrap">Tanggal Pemesanan</th>
                                         <th class="text-nowrap">Status Pemesanan</th>
                                         <th class="text-nowrap">Aksi</th>
@@ -65,13 +60,15 @@
                                     <tr>
                                         <td width="1%"><?= $no++; ?></td>
                                         <td><?= $item['nama_lengkap']; ?></td>
-                                        <td><?= $item['tanggal_pemesanan']; ?></td>
+                                        <td><?= $item['tanggal_pesan']; ?></td>
                                         <td><?= $item['status_pemesanan']; ?></td>
                                         <td>
                                             <center>
+                                            <a href="<?= base_url('/Admin/DetailPemesanan/viewData/' . $item['id_pemesanan']) ?>" class="btn btn-edit btn-info btn-sm"><i
+                                                        class="fa fa-eye"></i></a>
                                                 <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)" class="btn btn-edit btn-warning btn-sm"><i
                                                         class="fa fa-pen"></i></a>
-                                                <a href="" type="button" onclick="Hapus(<?= $item['id_pemesanan']; ?>,<?= $item['id_kamar']; ?>)" class="btn btn-danger btn-sm" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
+                                                <a href="" type="button" onclick="Hapus(<?= $item['id_pemesanan']; ?>)" class="btn btn-danger btn-sm" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
                                             </center>
                                         </td>
                                     </tr>
@@ -102,7 +99,6 @@
                         </div>
                         <div class="modal-footer">
                             <input type="hidden" name="id" class="id">
-                            <input type="hidden" name="id_kamar" class="id_kamar">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             <button type="submit" class="btn btn-primary">Hapus</button>
                         </div>
@@ -217,9 +213,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
-        function Hapus(id, id_kamar){
+        function Hapus(id){
             $('.id').val(id);
-            $('.id_kamar').val(id_kamar);
             $('#deleteModal').modal('show');
         };
     </script>
@@ -241,6 +236,7 @@
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
     <script src="<?php echo base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+    <?= $this->include("Admin/template/js") ?>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
 

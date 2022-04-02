@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>Kategori</label>
-                                    <select id="select_kategori" name="kategori" class="form-control" style="width: 100%;" onchange="ganti(this.value,$('#select_status').val())">
+                                    <select id="select_kategori" name="kategori" class="form-control select2" style="width: 100%;" onchange="ganti(this.value,$('#select_status').val())">
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
@@ -168,16 +168,31 @@
                 format: 'DD-MM-YYYY'
             }
         });
+        $(function() {         
+            $('.select2').select2()
 
-        $('#select_kategori').select2({
-            placeholder: "Pilih Kategori",
-            theme: 'bootstrap4',
-            ajax: {
-                url: '<?php echo base_url('Admin/LaporanPendapatan/data_kategori'); ?>',
-                dataType: 'json'
-            }
-        });
-        $(function() {            
+            $("#select_kategori").select2({
+                placeholder: "Pilih Kategori",
+                theme: 'bootstrap4',
+                ajax: {
+                    url: '<?php echo base_url('Admin/LaporanPendapatan/data_kategori'); ?>',
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            query: params.term, // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response.data
+                        };
+                    },
+                    cache: true
+                }
+            });
+
             /* Isi Table */
             $('.table').DataTable({
                 "lengthMenu": [
@@ -189,7 +204,7 @@
                     "dataSrc": ""
                 },
                 "columns": [{
-                        "data": "id"
+                        "data": "id_pemesanan"
                     },
                     {
                         "data": "tanggal"

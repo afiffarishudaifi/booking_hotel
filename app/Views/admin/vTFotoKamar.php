@@ -19,14 +19,8 @@
         <!-- end #sidebar -->
 
         <div id="content" class="content">
-            <?php $session = session();
-            if ($session->getFlashdata('sukses')) { ?>
-            <input type="hidden" name="pemberitahuan" id="pemberitahuan"
-                value="<?php echo $session->getFlashdata('sukses'); ?>">
-            <?php } ?>
-
             <ol class="breadcrumb float-xl-right">
-                <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
+                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
             </ol>
 
             <h1 class="page-header"><?= $page_header; ?>
@@ -217,6 +211,7 @@
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
     <script src="<?php echo base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+    <?= $this->include("Admin/template/js") ?>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
 

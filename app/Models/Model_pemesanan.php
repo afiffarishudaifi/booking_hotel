@@ -23,8 +23,10 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->select('pemesanan.id_pemesanan, pengunjung.nama_lengkap, tanggal_pesan, status_pemesanan, bukti_transaksi');
+        $builder->select('pemesanan.id_pemesanan, pengunjung.nama_lengkap, tanggal_pesan, status_pemesanan, bukti_transaksi, SUM(detail_pemesanan.total_biaya) as total_tagihan');
         $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
+        $builder->join('detail_pemesanan', 'detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan');
+        $builder->groupBy('detail_pemesanan.id_pemesanan');
         $builder->where('status_pemesanan','pengajuan');
         return $builder->get();
     }
@@ -39,9 +41,10 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->select("pemesanan.id_pemesanan, pemesanan.tanggal_pesan, pemesanan.id_pengguna, pengunjung.nama_lengkap, pemesanan.id_kamar, kamar.nama_kamar, DATE_FORMAT(pemesanan.tanggal_masuk, '%Y-%m-%dT%H:%i') as tanggal_masuk, DATE_FORMAT(pemesanan.tanggal_keluar, '%Y-%m-%dT%H:%i') as tanggal_keluar, pemesanan.status_pemesanan, total_biaya");
+        $builder->select("pemesanan.id_pemesanan, pemesanan.id_pengguna, pengunjung.nama_lengkap, DATE_FORMAT(pemesanan.tanggal_pesan, '%Y-%m-%dT%H:%i') as tanggal_pesan, pemesanan.status_pemesanan, bukti_transaksi, SUM(detail_pemesanan.total_biaya) as total_tagihan");
         $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
-        $builder->join('kamar', 'kamar.id_kamar = pemesanan.id_kamar');
+        $builder->join('detail_pemesanan', 'detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan');
+        $builder->groupBy('detail_pemesanan.id_pemesanan');
         $builder->where('pemesanan.id_pemesanan', $id);
         return $builder->get();
     }

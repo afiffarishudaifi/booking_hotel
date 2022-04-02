@@ -49,16 +49,11 @@ class Pemesanan extends BaseController
         $data = array(
             'id_pengguna'     => $this->request->getPost('input_pengguna'),
             'bukti_transaksi'     => $this->request->getPost('input_pengguna'),
-            'tanggal_pesan'     => date('Y-m-d G:i:s'),
+            'tanggal_pesan'     => $this->request->getPost('input_tanggal'),
             'status_pemesanan'     => $this->request->getPost('input_status')
         );
         $model = new Model_pemesanan();
         $model->add_data($data);
-
-        $model_kamar = new model_kamar();
-        $data_kamar = array('status_kamar' => 'terisi');
-        $id_kamar = $this->request->getPost('input_kamar');
-        $model_kamar->update_data($data_kamar, $id_kamar);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
         return redirect()->to(base_url('Admin/Pemesanan'));
     }
@@ -68,28 +63,14 @@ class Pemesanan extends BaseController
         $session = session();
         helper(['form', 'url']);
         $model = new Model_pemesanan();
-
-        $kamar_baru = $this->request->getPost('edit_kamar');
-        $kamar_lama = $this->request->getPost('edit_kamar_lama');
         
         $id = $this->request->getPost('id_pemesanan');
         $data = array(
             'id_pengguna'     => $this->request->getPost('edit_pengguna'),
-            'id_kamar'     => $this->request->getPost('edit_kamar'),
-            'tanggal_masuk'     => $this->request->getPost('edit_masuk'),
-            'tanggal_keluar'     => $this->request->getPost('edit_keluar'),
-            'total_biaya'     => $this->request->getPost('edit_hasil_total'),
+            'bukti_transaksi'     => $this->request->getPost('edit_pengguna'),
+            'tanggal_pesan'     => $this->request->getPost('edit_tanggal'),
             'status_pemesanan'     => $this->request->getPost('edit_status')
         );
-
-        if ($kamar_lama != $kamar_baru) {
-            $model_kamar = new model_kamar();
-            $data_kamar_lama = array('status_kamar' => 'kosong');
-            $model_kamar->update_data($data_kamar_lama, $kamar_lama);
-
-            $data_kamar_baru = array('status_kamar' => 'terisi');
-            $model_kamar->update_data($data_kamar_baru, $kamar_baru);
-        }
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
@@ -102,11 +83,6 @@ class Pemesanan extends BaseController
         $id = $this->request->getPost('id');
         $session = session();
         $model->delete_data($id);
-
-        $model_kamar = new model_kamar();
-        $data_kamar = array('status_kamar' => 'kosong');
-        $id_kamar = $this->request->getPost('id_kamar');
-        $model_kamar->update_data($data_kamar, $id_kamar);
 
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
         return redirect()->to('/Admin/Pemesanan');
@@ -162,24 +138,13 @@ class Pemesanan extends BaseController
         $respon = json_decode(json_encode($datapemesanan), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id_pemesanan'];
-            $isi['id_kamar'] = $value['id_kamar'];
-            $isi['nama_kamar'] = $value['nama_kamar'];
+            $isi['id_pemesanan'] = $value['id_pemesanan'];
             $isi['id_pengguna'] = $value['id_pengguna'];
             $isi['nama_lengkap'] = $value['nama_lengkap'];
-            $isi['tanggal_masuk'] = $value['tanggal_masuk'];
-            $isi['tanggal_keluar'] = $value['tanggal_keluar'];
+            $isi['tanggal_pesan'] = $value['tanggal_pesan'];
             $isi['status_pemesanan'] = $value['status_pemesanan'];
-            $isi['total_biaya'] = $value['total_biaya'];
+            $isi['bukti_transaksi'] = $value['bukti_transaksi'];
         endforeach;
         echo json_encode($isi);
-    }
-
-    public function biaya_kamar($id)
-    {
-        $model = new Model_pemesanan();
-        $biaya_kamar = $model->biaya_kamar($id)->getRowArray();
-        $result['biaya'] = $biaya_kamar['biaya'];
-        echo json_encode($result);
     }
 }

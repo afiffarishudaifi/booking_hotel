@@ -18,6 +18,10 @@
     <link href="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 
+    
+    <!-- Toastr -->
+    <link rel="stylesheet" href="<?= base_url() ?>/docs/tambahan/toastr/toastr.min.css">
+
     <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2/css/select2.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
 </head>
