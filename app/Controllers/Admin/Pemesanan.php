@@ -46,9 +46,17 @@ class Pemesanan extends BaseController
         $session = session();
         helper(['form', 'url']);
 
+        $avatar      = $this->request->getFile('input_foto');
+        if ($avatar != '') {
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_transaksi/', $namabaru);
+        } else {
+            $namabaru = 'noimage.jpg';
+        }
+
         $data = array(
             'id_pengguna'     => $this->request->getPost('input_pengguna'),
-            'bukti_transaksi'     => $this->request->getPost('input_pengguna'),
+            'bukti_transaksi'     => $namabaru,
             'tanggal_pesan'     => $this->request->getPost('input_tanggal'),
             'status_pemesanan'     => $this->request->getPost('input_status')
         );
@@ -65,12 +73,30 @@ class Pemesanan extends BaseController
         $model = new Model_pemesanan();
         
         $id = $this->request->getPost('id_pemesanan');
+        $avatar      = $this->request->getFile('edit_foto');
+        if ($avatar != '') {
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_transaksi/', $namabaru);
+        } else {
+            $namabaru = 'noimage.jpg';
+        }
+
         $data = array(
             'id_pengguna'     => $this->request->getPost('edit_pengguna'),
-            'bukti_transaksi'     => $this->request->getPost('edit_pengguna'),
+            'bukti_transaksi'     => $namabaru,
             'tanggal_pesan'     => $this->request->getPost('edit_tanggal'),
             'status_pemesanan'     => $this->request->getPost('edit_status')
         );
+
+        $data_foto = $model->detail_data($id)->getRowArray();
+
+        if ($data_foto != null) {
+            if ($data_foto['bukti_transaksi'] != 'docs/img/img_transaksi/noimage.jpg') {
+                if (file_exists('docs/img/img_transaksi/' . $data_foto['bukti_transaksi'])) {
+                    unlink('docs/img/img_transaksi/' . $data_foto['bukti_transaksi']);
+                }
+            }
+        }
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
@@ -82,6 +108,15 @@ class Pemesanan extends BaseController
         $model = new Model_pemesanan();
         $id = $this->request->getPost('id');
         $session = session();
+        $data_foto = $model->detail_data($id)->getRowArray();
+
+        if ($data_foto != null) {
+            if ($data_foto['bukti_transaksi'] != 'docs/img/img_siswa/noimage.jpg') {
+                if (file_exists('docs/img/img_transaksi/' . $data_foto['bukti_transaksi'])) {
+                    unlink('docs/img/img_transaksi/' . $data_foto['bukti_transaksi']);
+                }
+            }
+        }
         $model->delete_data($id);
 
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');

@@ -71,10 +71,11 @@ class Model_dashboard extends Model
     public function cek_status_kamar($tanggal)
     {
         $db      = \Config\Database::connect();
-        $builder = $db->table('kamar');
-        $builder->select('pemesanan.id_pemesanan as id, kamar.id_kamar as id_kamar, kamar.nama_kamar, pemesanan.tanggal_keluar, pemesanan.status_pemesanan');
-        $builder->join('pemesanan','pemesanan.id_kamar = kamar.id_kamar');
-        $builder->where('pemesanan.tanggal_keluar <', $tanggal);
+        $builder = $db->table('pemesanan');
+        $builder->select('pemesanan.id_pemesanan as id, kamar.id_kamar as id_kamar, kamar.nama_kamar, detail_pemesanan.tanggal_keluar, pemesanan.status_pemesanan');
+        $builder->join('detail_pemesanan','detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan');
+        $builder->join('kamar','kamar.id_kamar = detail_pemesanan.id_kamar');
+        $builder->where('detail_pemesanan.tanggal_keluar <', $tanggal);
         $builder->where('pemesanan.status_pemesanan','terkonfirmasi');
         return $builder->get();
     }

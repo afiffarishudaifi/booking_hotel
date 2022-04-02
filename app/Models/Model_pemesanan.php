@@ -25,7 +25,7 @@ class Model_pemesanan extends Model
         $builder = $db->table('pemesanan');
         $builder->select('pemesanan.id_pemesanan, pengunjung.nama_lengkap, tanggal_pesan, status_pemesanan, bukti_transaksi, SUM(detail_pemesanan.total_biaya) as total_tagihan');
         $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
-        $builder->join('detail_pemesanan', 'detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan');
+        $builder->join('detail_pemesanan', 'detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan', 'left');
         $builder->groupBy('detail_pemesanan.id_pemesanan');
         $builder->where('status_pemesanan','pengajuan');
         return $builder->get();
@@ -43,7 +43,7 @@ class Model_pemesanan extends Model
         $builder = $db->table('pemesanan');
         $builder->select("pemesanan.id_pemesanan, pemesanan.id_pengguna, pengunjung.nama_lengkap, DATE_FORMAT(pemesanan.tanggal_pesan, '%Y-%m-%dT%H:%i') as tanggal_pesan, pemesanan.status_pemesanan, bukti_transaksi, SUM(detail_pemesanan.total_biaya) as total_tagihan");
         $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
-        $builder->join('detail_pemesanan', 'detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan');
+        $builder->join('detail_pemesanan', 'detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan', 'left');
         $builder->groupBy('detail_pemesanan.id_pemesanan');
         $builder->where('pemesanan.id_pemesanan', $id);
         return $builder->get();

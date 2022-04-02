@@ -47,8 +47,10 @@ class KonfirmasiPemesanan extends BaseController
         $model = new Model_pemesanan();
 
         $id = $this->request->getPost('id_pemesanan');
+        $id_user = $session->get('user_id');
         $data = array(
-            'status_pemesanan'     => 'terkonfirmasi'
+            'status_pemesanan'     => 'terkonfirmasi',
+            'id_admin' => $id_user
         );
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');

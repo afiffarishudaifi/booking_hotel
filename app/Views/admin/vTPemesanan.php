@@ -110,7 +110,7 @@
         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
-        <form action="<?php echo base_url('Admin/Pemesanan/add_pemesanan'); ?>" method="post" id="form_add" data-parsley-validate="true">
+        <form action="<?php echo base_url('Admin/Pemesanan/add_pemesanan'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -145,7 +145,7 @@
 
                             <div class="form-group">
                                 <label>Bukti Pembayaran</label>
-                                <input type="file" class="form-control" name="input_bukti" id="input_bukti">
+                                <input type="file" name="input_foto" id="input_foto">
                             </div>
 
                         </div>
@@ -160,7 +160,7 @@
         <!-- End Modal Add Class-->
 
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Admin/Pemesanan/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+        <form action="<?php echo base_url('Admin/Pemesanan/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -193,9 +193,18 @@
                                 </select>
                             </div>
 
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <center>
+                                        <img id="foto_lama" style="width: 300px; height: 160px;" src="">
+                                    </center>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label>Bukti Pembayaran</label>
-                                <input type="file" class="form-control" name="edit_bukti" id="edit_bukti">
+                                <input type="file" name="edit_foto" id="edit_foto">
                             </div>
 
                         </div>
@@ -311,7 +320,7 @@
                 $("#input_pengguna").val('');
                 $("#input_tanggal").val('');
                 $("#input_status").val('');
-                $("#input_bukti").val('');
+                $("#input_foto").val('');
             });
 
             $('#batal_add').on('click', function() {
@@ -319,7 +328,7 @@
                 $("#input_pengguna").val('');
                 $("#input_tanggal").val('');
                 $("#input_status").val('');
-                $("#input_bukti").val('');
+                $("#input_foto").val('');
             });
 
             $('#batal_up').on('click', function() {
@@ -327,7 +336,7 @@
                 $("#edit_pengguna").val('');
                 $("#edit_tanggal").val('');
                 $("#edit_status").val('');
-                $("#edit_bukti").val('');
+                $("#edit_foto").val('');
             });
         })
 
@@ -345,7 +354,6 @@
                     $('#edit_pengguna').trigger('change');
 
                     $('#edit_tanggal').val(json.tanggal_pesan);
-                    $('#edit_bukti').val(json.bukti_transaksi);
 
                     if (json.status_pemesanan == 'pengajuan') {
                         document.getElementById("edit_status").selectedIndex = 0;
@@ -353,6 +361,13 @@
                         document.getElementById("edit_status").selectedIndex = 1;
                     } else {
                         document.getElementById("edit_status").selectedIndex = 2;
+                    }
+                    // console.log(json.bukti_transaksi);
+
+                    if (json.bukti_transaksi != '' || json.bukti_transaksi != null) {
+                        $("#foto_lama").attr("src", "<?= base_url() . '/docs/img/img_transaksi/' ?>" + json.bukti_transaksi) ;
+                    } else {
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + "docs/img/img_kamar/noimage.jpg");
                     }
                 });
         }
