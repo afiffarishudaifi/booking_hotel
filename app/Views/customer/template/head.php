@@ -17,6 +17,9 @@
     <link href="<?= base_url() ?>/docs/dashboard/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css"
         rel="stylesheet" />
     <!-- ================== END PAGE LEVEL STYLE ================== -->
+    
+    <!-- Toastr -->
+    <link rel="stylesheet" href="<?= base_url() ?>/docs/tambahan/toastr/toastr.min.css">
 
     <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
     <link href="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css"

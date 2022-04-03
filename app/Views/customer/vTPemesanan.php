@@ -50,12 +50,10 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Nama Customer</th>
-                                        <th class="text-nowrap">Nama Kamar</th>
-                                        <th class="text-nowrap">Tanggal Masuk</th>
-                                        <th class="text-nowrap">Tanggal Keluar</th>
+                                        <th class="text-nowrap">Nama Pengunjung</th>
+                                        <th class="text-nowrap">Tanggal Pemesanan</th>
                                         <th class="text-nowrap">Status Pemesanan</th>
-                                        <th class="text-nowrap">Total Biaya</th>
+                                        <th class="text-nowrap">Tagihan</th>
                                         <th class="text-nowrap">Aksi</th>
                                     </tr>
                                 </thead>
@@ -67,14 +65,14 @@
                                     <tr>
                                         <td width="1%"><?= $no++; ?></td>
                                         <td><?= $item['nama_lengkap']; ?></td>
-                                        <td><?= $item['nama_kamar']; ?></td>
-                                        <td><?= $item['tanggal_masuk']; ?></td>
-                                        <td><?= $item['tanggal_keluar']; ?></td>
+                                        <td><?= $item['tanggal_pesan']; ?></td>
                                         <td><?= $item['status_pemesanan']; ?></td>
-                                        <td><?= $item['total_biaya']; ?></td>
+                                        <td><?= $item['total_tagihan']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id']; ?>)" class="btn btn-edit btn-warning btn-sm"><i
+                                                <a href="<?= base_url('/Customer/DetailPemesanan/viewData/' . $item['id_pemesanan']) ?>" class="btn btn-edit btn-info btn-sm"><i
+                                                        class="fa fa-eye"></i></a>
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)" class="btn btn-edit btn-warning btn-sm"><i
                                                         class="fa fa-pen"></i></a>
                                             </center>
                                         </td>

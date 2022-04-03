@@ -19,6 +19,11 @@ class Pengguna extends BaseController
     public function update_pengguna()
     {
         $session = session();
+        if (!$session->get('username_login') || $session->get('status_login') != 'customer') {
+            return redirect()->to('Login');
+        }
+
+        $session = session();
         $encrypter = \Config\Services::encrypter();
 
         $model = new Model_pengguna();
@@ -78,6 +83,11 @@ class Pengguna extends BaseController
 
     public function data_edit($id_pengguna)
     {
+        $session = session();
+        if (!$session->get('username_login') || $session->get('status_login') != 'customer') {
+            return redirect()->to('Login');
+        }
+        
         $model = new Model_pengguna();
         $encrypter = \Config\Services::encrypter();
 

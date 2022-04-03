@@ -19,8 +19,8 @@ class Pengaturan extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') == 'admin') {
-            return redirect()->to('/Login');
+        if (!$session->get('username_login') || $session->get('status_login') != 'customer') {
+            return redirect()->to('Login');
         }
 
         $id_pengguna = $session->get('user_id');
