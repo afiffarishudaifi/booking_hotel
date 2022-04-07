@@ -354,7 +354,7 @@
           </div>
           <div class="col-md-5">
              <?php if ($session->get('status_login') == 'customer') { ?>
-              <form action="<?php echo base_url('Frontend/Pemesanan/add_pemesanan'); ?>" method="post" data-parsley-validate="true">
+              <form action="<?php echo base_url('Frontend/Pemesanan/add_detail_pemesanan'); ?>" method="post" data-parsley-validate="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

@@ -30,6 +30,16 @@ $session = session();
                     <span>Dashboard</span>
                 </a>
             </li>
+            
+            <li class="has-sub <?php
+                        if ($uri->getSegment(2) == 'Customer') {
+                            echo "active";
+                        } ?>">
+                <a href="<?= base_url('Customer/Keranjang'); ?>">
+                    <i class="material-icons">assignment</i>
+                    <span>Keranjang</span>
+                </a>
+            </li>
             <li class="has-sub <?php
                         if ($uri->getSegment(2) == 'Customer') {
                             echo "active";

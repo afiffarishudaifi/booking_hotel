@@ -42,6 +42,25 @@ class Pemesanan extends BaseController
         $session = session();
         helper(['form', 'url']);
 
+        $namabaru = 'noimage.jpg';
+
+        $data = array(
+            'id_pengguna'     => $session->get('user_id'),
+            'bukti_transaksi'     => $namabaru,
+            'tanggal_pesan'     => $this->request->getPost('input_tanggal'),
+            'status_pemesanan'     => 'Pengajuan'
+        );
+        $model = new Model_pemesanan();
+        $model->add_data($data);
+        $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
+        return redirect()->to(base_url('Customer/Pemesanan'));
+    }
+
+    public function add_pemesanan_lama()
+    {
+        $session = session();
+        helper(['form', 'url']);
+
         $data = array(
             'id_pengguna'     => $this->request->getPost('input_pengguna'),
             'id_kamar'     => $this->request->getPost('input_kamar'),

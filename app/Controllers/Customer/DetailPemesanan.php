@@ -30,7 +30,7 @@ class DetailPemesanan extends BaseController
         $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
 
         $model = new Model_detail_pemesanan();
-        $pemesanan = $model->view_data()->getResultArray();
+        $pemesanan = $model->view_data_customer($id)->getResultArray();
         $data = [
             'judul' => 'Detail Pemesanan',
             'page_header' => 'Detail Pemesanan',

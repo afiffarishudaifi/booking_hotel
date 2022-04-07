@@ -27,13 +27,13 @@ class Model_pencarian extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->select('kamar.id as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id as id_kategori, kamar.status_kamar, foto.nama_foto');
-        $builder->join('kategori_kamar', 'kategori_kamar.id = kamar.id_kategori');
-        $builder->join('foto','kamar.id = foto.id_kamar');
+        $builder->select('kamar.id_kamar as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id_kategori as id_kategori, kamar.status_kamar, foto.nama_foto');
+        $builder->join('kategori_kamar', 'kategori_kamar.id_kategori = kamar.id_kategori');
+        $builder->join('foto','kamar.id_kamar = foto.id_kamar');
         if (count($id) != 0) {
             $builder->whereNotIn('kamar.id',$id);
         }
-        $builder->groupBy('kamar.id');
+        $builder->groupBy('kamar.id_kamar');
         return $builder->get();
     }
 
@@ -41,13 +41,14 @@ class Model_pencarian extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->select('pemesanan.id, pemesanan.tanggal_pesan, pengguna.nama_lengkap, kategori_kamar.nama_kategori, pemesanan.status_pemesanan');
+        $builder->select('pemesanan.id_pemesanan, pemesanan.tanggal_pesan, pengguna.nama_lengkap, kategori_kamar.nama_kategori, pemesanan.status_pemesanan');
         $builder->join('pengguna', 'pengguna.id=pemesanan.id_pengguna');
-        $builder->join('kamar', 'kamar.id = pemesanan.id_kamar');
-        $builder->join('kategori_kamar', 'kategori_kamar.id = kamar.id_kategori');
-        $builder->where('pengguna.id', $param['id_pengguna']);
+        $builder->join('detail_pemesanan', 'detail_pemesanan.id_pemesanan=pemesanan.id_pemesanan');
+        $builder->join('kamar', 'kamar.id_kamar = detail_pemesanan.id_kamar');
+        $builder->join('kategori_kamar', 'kategori_kamar.id_kategori = kamar.id_kategori');
+        $builder->where('pengguna.id_pengguna', $param['id_pengguna']);
 
-        if ($param['id_kategori']) $builder->where('kamar.id', $param['id_kategori']);
+        if ($param['id_kategori']) $builder->where('kamar.id_kategori', $param['id_kategori']);
         if ($param['cek_waktu1']) $builder->where('DATE(tanggal_pesan) >= ', $param['cek_waktu1']);
         if ($param['cek_waktu2']) $builder->where('DATE(tanggal_pesan) <= ', $param['cek_waktu2']);
         if ($param['status_pemesanan']) $builder->where('status_pemesanan', $param['status_pemesanan']);
@@ -66,10 +67,9 @@ class Model_pencarian extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->select('kamar.id as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id as id_kategori, kategori_kamar.deskripsi as deskripsi');
-        $builder->join('kategori_kamar', 'kategori_kamar.id=kamar.id_kategori');
-        // $builder->join('pemesanan','kamar.id = pemesanan.id_kamar');
-        $builder->where('kamar.id', $id);
+        $builder->select('kamar.id_kamar as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id_kategori as id_kategori, kategori_kamar.deskripsi as deskripsi');
+        $builder->join('kategori_kamar', 'kategori_kamar.id_kategori=kamar.id_kategori');
+        $builder->where('kamar.id_kamar', $id);
         return $builder->get();
     }
 
@@ -78,7 +78,7 @@ class Model_pencarian extends Model
         $db = \Config\Database::connect();
         $builder = $db->table('detail_kamar');
         $builder->select('fasilitas.nama_fasilitas');
-        $builder->join('fasilitas', 'detail_kamar.id_fasilitas = fasilitas.id');
+        $builder->join('fasilitas', 'detail_kamar.id_fasilitas = fasilitas.id_fasilitas');
         $builder->where('detail_kamar.id_kamar', $id);
         return $builder->get();
     }

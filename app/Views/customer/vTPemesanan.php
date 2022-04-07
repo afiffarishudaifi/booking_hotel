@@ -26,6 +26,7 @@
             <?php } ?>
 
             <ol class="breadcrumb float-xl-right">
+                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
             </ol>
 
             <h1 class="page-header"><?= $page_header; ?>
@@ -54,6 +55,7 @@
                                         <th class="text-nowrap">Tanggal Pemesanan</th>
                                         <th class="text-nowrap">Status Pemesanan</th>
                                         <th class="text-nowrap">Tagihan</th>
+                                        <th class="text-nowrap">Bukti Pembayaran</th>
                                         <th class="text-nowrap">Aksi</th>
                                     </tr>
                                 </thead>
@@ -68,6 +70,11 @@
                                         <td><?= $item['tanggal_pesan']; ?></td>
                                         <td><?= $item['status_pemesanan']; ?></td>
                                         <td><?= $item['total_tagihan']; ?></td>
+                                        <td>
+                                            <center>
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#uploadModal" class="btn btn-bayar btn-success btn-sm">Upload Bukti</a>
+                                            </center>
+                                        </td>
                                         <td>
                                             <center>
                                                 <a href="<?= base_url('/Customer/DetailPemesanan/viewData/' . $item['id_pemesanan']) ?>" class="btn btn-edit btn-info btn-sm"><i
@@ -89,8 +96,37 @@
         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
+        <form action="<?php echo base_url('Customer/Pemesanan/add_pemesanan'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <?= csrf_field(); ?>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pemesanan </h5>
+                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label>Tanggal Pesan</label>
+                                <input type="datetime-local" class="form-control" id="input_tanggal" name="input_tanggal"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>">
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary" id="batal_add" data-dismiss="modal">Batal</button>
+                            <button type="submit" name="tambah" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- End Modal Add Class-->
+
         <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('customer/Pemesanan/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+        <form action="<?php echo base_url('Customer/Pemesanan/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
             <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -103,43 +139,78 @@
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id_pemesanan" id="id_pemesanan">
-                            <input type="hidden" name="edit_kamar_lama" id="edit_kamar_lama">
 
-                            <div class="form-group" style="display: none;">
-                                <label>Nama Kamar</label>
-                                <select name="edit_kamar" id="edit_kamar" class="form-control" onchange="get_biaya_edit(this.value)">
+                            <div class="form-group">
+                                <label>Tanggal Pesan</label>
+                                <input type="datetime-local" class="form-control" id="edit_tanggal" name="edit_tanggal"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status Pemesanan</label>
+                                <select name="edit_status" class="form-control" id="edit_status" disabled>
+                                    <option value="pengajuan" selected="">Pengajuan</option>
+                                    <option value="terkonfirmasi">Terkonfirmasi</option>
+                                    <option value="selesai">Selesai</option>
                                 </select>
                             </div>
 
+
                             <div class="form-group">
-                                <label>Biaya Kamar/malam</label>
-                                <input type="text" name="edit_biaya" id="edit_biaya" class="form-control" value="0" readonly="">
+                                <div class="col-md-12">
+                                    <center>
+                                        <img id="foto_lama" style="width: 300px; height: 160px;" src="">
+                                    </center>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <label>Tanggal Masuk</label>
-                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk"  data-parsley-required="true" readonly="" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit(this.value, $('#edit_keluar').val())">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Tanggal Keluar</label>
-                                <input type="datetime-local" class="form-control" id="edit_keluar" name="edit_keluar"  data-parsley-required="true" readonly="" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit($('#edit_masuk').val(),this.value)">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Tagihan Biaya</label>
-                                <input type="text" name="edit_hasil_total" value="0" id="edit_hasil_total" class="form-control"  readonly="">
+                                <label>Bukti Pembayaran</label>
+                                <input type="file" name="edit_foto" id="edit_foto">
                             </div>
 
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_up" data-dismiss="modal">Batal</button>
+                            <button type="submit" name="update" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
                 </div>
             </div>
         </form>
         <!-- End Modal Edit Class-->
+
+        <!-- Modal Edit Class-->
+        <form action="<?php echo base_url('Customer/Pemesanan/upload_pemesanan'); ?>" method="post" id="form_upload" data-parsley-validate="true" enctype="multipart/form-data">
+            <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <?= csrf_field(); ?>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Upload Bukti Pembayaran </h5>
+                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="id_pemesanan" id="id_pemesanan">
+
+                            <div class="form-group">
+                                <label>Bukti Pembayaran</label>
+                                <input type="file" name="edit_foto" id="edit_foto">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary" id="batal_up" data-dismiss="modal">Batal</button>
+                            <button type="submit" name="update" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- End Modal Edit Class-->
+    </div>
+    <!-- end page container -->
     </div>
     <!-- end page container -->
 
@@ -173,118 +244,22 @@
 
 
     <script type="text/javascript">
-        function get_result(masuk, akhir) {
-            var tanggal_masuk = new Date(masuk);
-            var tanggal_akhir = new Date(akhir);
-            var timeDiff=0
-            if (tanggal_akhir) {
-                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
-            }
-
-            var selisih = Math.floor(timeDiff/(86400))
-            var biaya = $('#input_biaya').val()
-
-            var total_biaya = parseInt(selisih) * parseInt(biaya);
-
-            if (isNaN(total_biaya)) {
-                $('#input_hasil_total').val('0')
-            } else {
-                $('#input_hasil_total').val(total_biaya)
-            }
-		}
-
-        function get_result_edit(masuk, akhir) {
-            var tanggal_masuk = new Date(masuk);
-            var tanggal_akhir = new Date(akhir);
-            var timeDiff=0
-            if (tanggal_akhir) {
-                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
-            }
-
-            var selisih = Math.floor(timeDiff/(86400))
-            var biaya = $('#edit_biaya').val()
-
-            var total_biaya = parseInt(selisih) * parseInt(biaya);
-
-            if (isNaN(total_biaya)) {
-                $('#edit_hasil_total').val('0')
-            } else {
-                $('#edit_hasil_total').val(total_biaya)
-            }
-        }
-
-		function get_biaya(id_kamar) {
-			$.ajax({
-                url:"<?= base_url()?>/customer/Pemesanan/biaya_kamar" + "/" + id_kamar,
-                type:"GET",
-                dataType:"json",
-                data:{},
-                success:function(data){
-                    $('#input_biaya').val(data.biaya);
-                }
-            });
-		}
-
-		function get_biaya_edit(id_kamar) {
-			$.ajax({
-                url:"<?= base_url()?>/customer/Pemesanan/biaya_kamar" + "/" + id_kamar,
-                type:"GET",
-                dataType:"json",
-                data:{},
-                success:function(data){
-                    $('#edit_biaya').val(data.biaya);
-                }
-            });
-		}
-    </script>
-
-    <script type="text/javascript">
         $(function() {
-
-            $('#input_kamar').select2({
-                placeholder: "Pilih Kamar",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('customer/Pemesanan/data_kamar'); ?>',
-                    dataType: 'json'
-                }
-            });
-
-            $('#edit_kamar').select2({
-                placeholder: "Pilih Kamar",
-                theme: 'bootstrap4',
-                ajax: {
-                    url: '<?php echo base_url('customer/Pemesanan/data_kamar'); ?>',
-                    dataType: 'json'
-                }
-            });
 
             $('#batal').on('click', function() {
                 $('#form_add')[0].reset();
                 $('#form_edit')[0].reset();
-                $("#input_kamar").val();
-                $("#input_pengguna").val('');
-                $("#input_masuk").val('');
-                $("#input_keluar").val('');
-                $("#input_status").val('');
+                $("#input_tanggal").val();
             });
 
             $('#batal_add').on('click', function() {
                 $('#form_add')[0].reset();
-                $("#input_kamar").val('');
-                $("#input_pengguna").val('');
-                $("#input_masuk").val('');
-                $("#input_keluar").val('');
-                $("#input_status").val('');
+                $("#input_tanggal").val('');
             });
 
             $('#batal_up').on('click', function() {
                 $('#form_edit')[0].reset();
-                $("#edit_kamar").val('');
-                $("#edit_pengguna").val('');
-                $("#edit_masuk").val('');
-                $("#edit_keluar").val('');
-                $("#edit_status").val('');
+                $("#edit_tanggal").val('');
             });
         })
 
@@ -292,16 +267,6 @@
             $.getJSON('<?php echo base_url('customer/Pemesanan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_pemesanan').val(json.id);
-                    $('#edit_kamar_lama').val(json.id_kamar);
-
-                    $('#edit_kamar').append('<option selected value="' + json.id_kamar + '">' + json.nama_kamar +
-                        '</option>');
-                    $('#edit_kamar').select2('data', {
-                        id: json.id_kamar,
-                        text: json.nama_kamar
-                    });
-                    $('#edit_kamar').trigger('change');
-
                     $('#edit_masuk').val(json.tanggal_masuk);
                     $('#edit_keluar').val(json.tanggal_keluar);
                     $('#edit_hasil_total').val(json.total_biaya);
