@@ -26,7 +26,7 @@
             <?php } ?>
 
             <ol class="breadcrumb float-xl-right">
-                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
+                <!-- <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button> -->
             </ol>
 
             <h1 class="page-header"><?= $page_header; ?>
@@ -72,7 +72,12 @@
                                         <td><?= $item['total_tagihan']; ?></td>
                                         <td>
                                             <center>
+                                                <?php if($item['bukti_transaksi'] == 'n') { ?>
                                                 <a href="" data-toggle="modal" data-toggle="modal" data-target="#uploadModal" class="btn btn-bayar btn-success btn-sm">Upload Bukti</a>
+                                                <?php } else { ?>
+
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#uploadModal" class="btn btn-bayar btn-success btn-sm">Bukti Terupload</a>
+                                                <?php } ?>
                                             </center>
                                         </td>
                                         <td>
@@ -179,7 +184,7 @@
         </form>
         <!-- End Modal Edit Class-->
 
-        <!-- Modal Edit Class-->
+        <!-- Modal Upload Class-->
         <form action="<?php echo base_url('Customer/Pemesanan/upload_pemesanan'); ?>" method="post" id="form_upload" data-parsley-validate="true" enctype="multipart/form-data">
             <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
@@ -192,7 +197,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" name="id_pemesanan" id="id_pemesanan">
+                            <input type="text" name="id_pemesanan" id="id_pemesanan">
 
                             <div class="form-group">
                                 <label>Bukti Pembayaran</label>
@@ -208,7 +213,7 @@
                 </div>
             </div>
         </form>
-        <!-- End Modal Edit Class-->
+        <!-- End Modal Upload Class-->
     </div>
     <!-- end page container -->
     </div>

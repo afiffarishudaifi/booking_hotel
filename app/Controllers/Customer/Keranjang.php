@@ -6,7 +6,9 @@ use App\Controllers\BaseController;
 use App\Models\Model_keranjang;
 use App\Models\model_kamar;
 use App\Models\Model_dashboard;
+use App\Models\Model_pemesanan;
 use App\Models\model_pengunjung;
+use App\Models\Model_detail_pemesanan;
 
 class Keranjang extends BaseController
 {
@@ -44,7 +46,8 @@ class Keranjang extends BaseController
             'pemesanan' => $pemesanan,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan'],
             'id_pemesanan' => $id,
-            'pengunjung' => $pengunjung
+            'pengunjung' => $pengunjung,
+            'jumlah' => count($pemesanan)
         ];
         return view('customer/vInvoice', $data);
     }
@@ -62,6 +65,42 @@ class Keranjang extends BaseController
         $id_kamar = $this->request->getPost('id_kamar');
         $model_kamar->update_data($data_kamar, $id_kamar);
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
-        return redirect()->to('/customer/Keranjang');
+        return redirect()->to('/Customer/Keranjang');
+    }
+
+    public function simpan_pemesanan()
+    {
+        $session = session();
+        $model = new Model_keranjang();
+        $model_detail = new Model_detail_pemesanan();
+        $model_pemesanan = new Model_pemesanan();
+
+        // pemesanan
+        $data = array(
+            'id_pengguna'     => $session->get('user_id'),
+            'bukti_transaksi'     => 'n',
+            'tanggal_pesan'     => date('Y-m-d H:i:s'),
+            'status_pemesanan'     => 'Pengajuan'
+        );
+        $model_pemesanan->add_data($data);
+        $id_max = $model_pemesanan->max()->getRowArray();
+        $id_max = $id_max['id_pemesanan'];
+
+        $input = $this->request->getPost('id');
+        $jumlah = count($this->request->getPost('id'));
+        for($i = 0; $i < $jumlah; $i++){
+            $pilih = $model->detail_data($input[$i])->getRowArray();
+            $data = array(
+                'id_pemesanan'     => $id_max,
+                'id_kamar'     => $pilih['id_kamar'],
+                'tanggal_masuk'     => $pilih['tanggal_masuk'],
+                'tanggal_keluar'     => $pilih['tanggal_keluar'],
+                'total_biaya'     => $pilih['total_biaya']
+            );
+            $model_detail->add_data($data);
+            $model_detail->delete_data_from_keranjang($input[$i]);
+        }
+        session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
+        return redirect()->to('/Customer/Pemesanan');
     }
 }

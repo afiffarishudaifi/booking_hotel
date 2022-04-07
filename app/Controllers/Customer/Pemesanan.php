@@ -9,7 +9,6 @@ use App\Models\Model_dashboard;
 
 class Pemesanan extends BaseController
 {
-
     protected $Model_pemesanan;
     public function __construct()
     {
@@ -171,5 +170,23 @@ class Pemesanan extends BaseController
         $biaya_kamar = $model->biaya_kamar($id)->getRowArray();
         $result['biaya'] = $biaya_kamar['biaya'];
         echo json_encode($result);
+    }
+
+    public function simpan_pemesanan()
+    {
+        $session = session();
+        $data = array(
+            'id_pengguna'     => $session->get('user_id'),
+            'bukti_transaksi'     => 'n',
+            'tanggal_pesan'     => date('Y-m-d G:i:s'),
+            'status_pemesanan'     => 'Pengajuan'
+        );
+        $model = new Model_pemesanan();
+        $model->add_data($data);
+    }
+
+    public function upload_pemesanan()
+    {
+        dd($this->request->getPost('edit_foto'));
     }
 }

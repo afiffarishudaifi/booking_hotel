@@ -104,4 +104,12 @@ class Model_pemesanan extends Model
         return $builder->get();
     }
 
+    public function max()
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->selectMax('id_pemesanan');
+        return $builder->get();
+    }
+
 }

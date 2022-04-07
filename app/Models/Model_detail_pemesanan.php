@@ -91,4 +91,11 @@ class Model_detail_pemesanan extends Model
         return $builder->get();
     }
 
+    public function delete_data_from_keranjang($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('keranjang');
+        $builder->where('id_keranjang', $id);
+        return $builder->delete();
+    }
 }

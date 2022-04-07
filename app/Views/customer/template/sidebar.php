@@ -36,7 +36,7 @@ $session = session();
                             echo "active";
                         } ?>">
                 <a href="<?= base_url('Customer/Keranjang'); ?>">
-                    <i class="material-icons">assignment</i>
+                    <i class="material-icons">add_chart</i>
                     <span>Keranjang</span>
                 </a>
             </li>

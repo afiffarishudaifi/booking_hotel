@@ -20,7 +20,7 @@
 
         <div id="content" class="content">
             <ol class="breadcrumb float-xl-right">
-                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
+                <button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
             </ol>
 
             <h1 class="page-header"><?= $page_header; ?>
