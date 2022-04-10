@@ -45,6 +45,25 @@
       <!-- YOUR CUSTOM CSS -->
       <link href="<?= base_url() ?>/docs/panagea/css/custom.css" rel="stylesheet">
 
+      <!-- google maps -->
+      <script src="http://maps.googleapis.com/maps/api/js"></script>
+
+      <script>
+            // fungsi initialize untuk mempersiapkan peta
+            function initialize() {
+            var propertiPeta = {
+                center:new google.maps.LatLng(-8.5830695,116.3202515),
+                zoom:9,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+            
+            var peta = new google.maps.Map(document.getElementById("googleMap"), propertiPeta);
+            }
+
+            // event jendela di-load  
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+
       <style>
           .title-app {
               margin-top: 5px;
@@ -86,7 +105,7 @@
         .hero_in.hotels_detail2 {
           /*width: 1700px;*/
           height: 550px;
-          background: url('<?= base_url() . '/' . $foto_cover ?>') center center no-repeat;
+          background: url('<?= base_url('docs/img/img_tempat') . '/' . $wisata['foto'] ?>') center center no-repeat;
         }
 
         @media (max-width: 575px) {
@@ -101,7 +120,7 @@
         }
 
         .hero_in.hotels_detail2:before {
-          background: url('<?= base_url() . '/' . $foto_cover ?>') center center no-repeat;
+          background: url('<?= base_url('docs/img/img_tempat') . '/' . $wisata['foto'] ?>') center center no-repeat;
           -webkit-background-size: cover;
           -moz-background-size: cover;
           -o-background-size: cover;
@@ -199,7 +218,7 @@
                            <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#kamar">Kamar</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#contact">Hubungi Kami</a>
+                           <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#wisata">Wiata Terdekat</a>
                         </li>
                      </ul>
                      <?php if ($session->get('status_login') == 'customer') { ?>
@@ -217,15 +236,11 @@
                 <div class="wrapper">
                   <div class="container">
                       <img class="logo_objek" src="<?= base_url() ?>/docs/img/img_logo/logo.png" style="width: 5%;" alt="">
-                      <h1 class="fadeInUp"><span></span> <?= $kamar['nama_kamar'] ?></h1>
+                      <h1 class="fadeInUp"><span></span> <?= $wisata['nama_tempat'] ?></h1>
 
                       <div class="row">
                         <div class="col-md-12">
                         <center>
-                            <ul class="share-buttons">
-                              <li><span><a onclick="window.open('https://www.google.com/maps/place/Purbaya+Hotel/@-7.6795402,111.2326438,17z/data=!3m1!4b1!4m5!3m4!1s0x2e798e87ce2f819f:0x4bfb15fbb38e05a9!8m2!3d-7.6795402!4d111.2348325'); return false;" class="btn_1 outline">Rute ke Lokasi</a></span></li>
-                              <li><span><a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModalCenter" class="btn_1 outline">Biaya Menginap</a></span></li>
-                            </ul>
                         </center>
                         </div>
                       </div>
@@ -233,22 +248,6 @@
                 </div>
               </section>
             </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Biaya</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Untuk biaya permalam kamar <?= $kamar['nama_kamar'] ?> adalah <?= $kamar['biaya'] ?> / Malam 
-            </div>
-          </div>
         </div>
       </div>
 
@@ -302,7 +301,7 @@
                           <div class="col-md-12" style="padding-top: 10px;">
                             	<h2>Deskirpsi : </h2>
                               <p style="text-align: justify;">  
-                                <?= $kamar['deskripsi'] ?>  </p>
+                                <?= $wisata['deskripsi'] ?>  </p>
                           </div>
                       </div>
                       <div class="row">
@@ -319,93 +318,15 @@
               							</div>
                           </div>
                       </div>
-                      <?php if (count($fasilitas) != null) { ?>
-                      <div class="row">
-                          <div class="col-md-12">
-                            <h2><i class='fa fa-hotel'></i> Fasilitas</h2>
-                            <div class="">
-                              <ul style='word-break: break-word;'>
-                                <?php foreach ($fasilitas as $item) { ?>
-                                  <li> - <?= $item['nama_fasilitas']; ?></li>
-                                <?php } ?>
-                              </ul>
-                            </div>
-                          </div>
-                      </div>
-                      <?php } ?>
-                      <div class="row">
-                          <div class="col-md-12">
-                          	<h2><i class="fa fa-image"></i> Galeri</h2>
-                          	<div class="pictures_grid magnific-gallery clearfix">
-                          		<?php foreach ($foto as $item) { ?>
-              									<figure><a href="<?= base_url() . '/' . $item['nama_foto'] ?>" title="Foto Hotel Purbaya" data-effect="mfp-zoom-in"><img src="<?= base_url() . '/' . $item['nama_foto'] ?>" alt=""></a></figure>
-              								<?php } ?>
-              							</div>
-                      </div>
                       <div class="row">
                           <div class="col-md-12">
                             <h2><i class="fa fa-map-marker"></i> Lokasi</h2>
                             <div class="pictures_grid magnific-gallery clearfix">
-                              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d988.5079705292742!2d111.2349343149276!3d-7.679721272638151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e798e87ce2f819f%3A0x4bfb15fbb38e05a9!2sPurbaya%20Hotel!5e0!3m2!1sid!2sid!4v1636704228775!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                              <?= $wisata['url_tempat'] ?>
                             </div>
                       </div>
                   </div>
               </div>
-          </div>
-          <div class="col-md-5">
-             <?php if ($session->get('status_login') == 'customer') { ?>
-              <form action="<?php echo base_url('Frontend/Pemesanan/add_detail_pemesanan'); ?>" method="post" data-parsley-validate="true">
-                <?= csrf_field(); ?>
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pemesanan </h5>
-                        </div>
-                        <div class="modal-body">
-
-                            <input type="hidden" name="input_kamar" id="input_kamar" value="<?= $kamar['id_kamar'] ?>">
-
-                            <div class="form-group">
-                                <label>Biaya Kamar/malam</label>
-                                <input type="text" name="input_biaya" id="input_biaya" class="form-control" readonly="" value="<?= $kamar['biaya']?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Nama Pengguna</label>
-                                <input type="hidden" value="<?= $session->get('user_id'); ?>" name="input_pengguna">
-                                <input type="text" name="" id="" class="form-control" readonly="" value="<?= $session->get('username_login'); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Tanggal Masuk</label>
-                                <input type="datetime-local" class="form-control" id="input_masuk" name="input_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result(this.value, $('#input_keluar').val())">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Tanggal Keluar</label>
-                                <input type="datetime-local" class="form-control" id="input_keluar" name="input_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result($('#input_masuk').val(),this.value)">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Tagihan Biaya</label>
-                                <input type="text" name="input_hasil_total" value="0" id="input_hasil_total" class="form-control"  readonly="">
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary" id="batal_add" data-dismiss="modal">Batal</button>
-                            <button type="submit" name="tambah" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-              </form>
-
-            <?php } else { ?>
-              <center>
-                <h4>Anda harus login untuk dapat melakukan pemesanan</h4>
-                <a href="<?= base_url('Login'); ?>" class="btn btn-primary">Login</a>
-              </center>
-            <?php } ?>
           </div>
       </section>
 
@@ -444,25 +365,6 @@
                 dataType: 'json'
             }
         });
-
-         function get_result(masuk, akhir) {
-            var tanggal_masuk = new Date(masuk);
-            var tanggal_akhir = new Date(akhir);
-            var timeDiff=0
-            if (tanggal_akhir) {
-                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
-            }
-
-            var selisih = Math.floor(timeDiff/(86400))
-            var biaya = $('#input_biaya').val()
-
-            var total_biaya = parseInt(selisih) * parseInt(biaya);
-
-            if (isNaN(total_biaya)) {
-                $('#input_hasil_total').val('0')
-            } else {
-                $('#input_hasil_total').val(total_biaya)
-            }
     }
       </script>
    </body>

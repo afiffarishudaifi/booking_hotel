@@ -41,10 +41,11 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No </th>
-                                        <th class="text-nowrap" style="text-align: center;">Nama Tempat</th>
-                                        <th class="text-nowrap" style="text-align: center;">Alamat Tempat</th>
-                                        <th class="text-nowrap" style="text-align: center;">Jarak Tempat</th>
-                                        <th class="text-nowrap" style="text-align: center;">Aksi</th>
+                                        <th class="text-nowrap" style="text-align: center;">Nama</th>
+                                        <th class="text-nowrap" style="text-align: center;">Alamat</th>
+                                        <th class="text-nowrap" style="text-align: center;">Deskripsi</th>
+                                        <th class="text-nowrap" style="text-align: center;">Jarak</th>
+                                        <th class="text-nowrap" style="text-align: center;" width="10%">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,7 +57,8 @@
                                         <td width="1%"><?= $no++; ?></td>
                                         <td><?= $item['nama_tempat']; ?></td>
                                         <td><?= $item['alamat_tempat']; ?></td>
-                                        <td><?= $item['jarak_tempat']; ?></td>
+                                        <td><?= substr($item['deskripsi'], 0, 300) ?></td>
+                                        <td><?= $item['jarak_tempat']; ?>  km</td>
                                         <td>
                                             <center>
                                                 <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_tempat']; ?>)" class="btn btn-sm btn-edit btn-warning"><i
@@ -107,8 +109,7 @@
     </div>
 
     <!-- Modal Add Class-->
-    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/add_tempat'); ?>" method="post" id="form_add" data-parsley-validate="true">
-    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/add_tempat'); ?>" method="post" id="form_add" data-parsley-validate="true">
+    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/add_tempat'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -133,12 +134,12 @@
 
                         <div class="form-group">
                             <label>Alamat Tempat</label>
-                            <textarea class="form-control" name="input_alamat" id="input_alamat" placeholder="Masukkan Alamat"></textarea>
+                            <textarea class="form-control" name="input_alamat" id="input_alamat" placeholder="Masukkan Alamat" required></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>Deskripsi Tempat</label>
-                            <textarea class="form-control" name="input_deskripsi" id="input_deskripsi" placeholder="Masukkan Deskripsi"></textarea>
+                            <textarea class="form-control" name="input_deskripsi" id="input_deskripsi" placeholder="Masukkan Deskripsi" required></textarea>
                         </div>
 
                         <div class="form-group">
@@ -156,6 +157,13 @@
                             <input type="text" class="form-control" id="input_long" name="input_long"  data-parsley-required="true" placeholder="Masukkan Longitude">
                         </div>
 
+                        <div class="form-group">
+                            <label>Foto Cover</label>
+                            <br>
+                            <input type="file" id="input_foto" name="input_foto"
+                                data-parsley-required="true" multiple />
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" id="batal_add" data-dismiss="modal">Batal</button>
@@ -168,8 +176,7 @@
     <!-- End Modal Add Class-->
 
     <!-- Modal Edit Class-->
-    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/update_tempat'); ?>" method="post" id="form_edit" data-parsley-validate="true">
-    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/update_tempat'); ?>" method="post" id="form_edit" data-parsley-validate="true">
+    <form autocomplete="off" action="<?php echo base_url('Admin/Tempat/update_tempat'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
         <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?= csrf_field(); ?>
             <div class="modal-dialog" role="document">
@@ -182,6 +189,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" class="id_tempat" name="id_tempat" id="id_tempat">
+                        <input type="hidden" class="id_tempat" name="foto_edit_lama" id="foto_edit_lama">
 
                         <div class="form-group">
                             <label>Nama Tempat</label>
@@ -195,12 +203,12 @@
 
                         <div class="form-group">
                             <label>Alamat Tempat</label>
-                            <textarea class="form-control" name="edit_alamat" id="edit_alamat" placeholder="Masukkan Alamat"></textarea>
+                            <textarea class="form-control" name="edit_alamat" id="edit_alamat" placeholder="Masukkan Alamat" required></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>Deskripsi Tempat</label>
-                            <textarea class="form-control" name="edit_deskripsi" id="edit_deskripsi" placeholder="Masukkan Deskripsi"></textarea>
+                            <textarea class="form-control" name="edit_deskripsi" id="edit_deskripsi" placeholder="Masukkan Deskripsi" required></textarea>
                         </div>
 
                         <div class="form-group">
@@ -216,6 +224,20 @@
                         <div class="form-group">
                             <label>Longitude Tempat</label>
                             <input type="text" class="form-control" id="edit_long" name="edit_long"  data-parsley-required="true" placeholder="Masukkan Longitude">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <center>
+                                    <img id="foto_lama" style="width: 300px; height: 160px;" src="">
+                                </center>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Foto Cover</label>
+                            <br>
+                            <input type="file" id="edit_foto" name="edit_foto"  />
                         </div>
 
                     </div>
@@ -323,6 +345,12 @@
                     $('#edit_lat').val(json.latitude);
                     $('#edit_long').val(json.longitude);
                     $('#edit_jarak').val(json.jarak_tempat);
+                    $('#foto_edit_lama').val(json.foto);
+                    if (json.foto != '' || json.foto != null) {
+                        $("#foto_lama").attr("src", "<?= base_url('docs/img/img_tempat') . '/' ?>" + json.foto) ;
+                    } else {
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + "docs/img/img_tempat/noimage.jpg");
+                    }
                 });
         }
     </script>

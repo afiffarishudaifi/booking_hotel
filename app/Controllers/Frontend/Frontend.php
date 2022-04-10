@@ -19,9 +19,11 @@ class Frontend extends BaseController
 
         $model_frontend = new model_frontend();
         $kamar = $model_frontend->view_data()->getResultArray();
+        $wisata = $model_frontend->view_data_wisata()->getResultArray();
         $data = [
             'judul' => 'Katalog Hotel',
-            'kamar' => $kamar
+            'kamar' => $kamar,
+            'wisata' => $wisata
         ];
         helper(['form']);
 

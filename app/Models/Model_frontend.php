@@ -23,6 +23,13 @@ class Model_frontend extends Model
         return $builder->get();
     }
 
+    public function view_data_wisata()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tempat');
+        return $builder->get();
+    }
+
     public function add_data($data)
     {
         $query = $this->db->table('kamar')->insert($data);

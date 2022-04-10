@@ -201,7 +201,7 @@ class Pemesanan extends BaseController
         $id = $this->request->getPost('id_pemesanan');
         $avatar      = $this->request->getFile('edit_foto');
         $foto_lama      = $this->request->getPost('foto_lama_transaksi');
-        if($avatar != null || $avatar != '') {
+        if($avatar != '') {
             if (file_exists('docs/img/img_transaksi/' . $foto_lama)) {
                 unlink('docs/img/img_transaksi/' . $foto_lama);
             }

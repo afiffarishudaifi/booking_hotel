@@ -42,6 +42,13 @@ class Tempat extends BaseController
     {
         $session = session();
         helper(['form', 'url']);
+        $avatar      = $this->request->getFile('input_foto');
+        if($avatar != '') {
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_tempat/', $namabaru);
+        } else {
+            $namabaru = 'n';
+        }
 
         $data = array(
             'nama_tempat'     => $this->request->getPost('input_nama'),
@@ -50,7 +57,8 @@ class Tempat extends BaseController
             'deskripsi'     => $this->request->getPost('input_deskripsi'),
             'jarak_tempat'     => $this->request->getPost('input_jarak'),
             'latitude'     => $this->request->getPost('input_lat'),
-            'longitude'     => $this->request->getPost('input_long')
+            'longitude'     => $this->request->getPost('input_long'),
+            'foto' => $namabaru
         );
         $model = new Model_tempat();
         $model->add_data($data);
@@ -63,17 +71,41 @@ class Tempat extends BaseController
         $session = session();
         helper(['form', 'url']);
         $model = new Model_tempat();
+
+        $avatar      = $this->request->getFile('edit_foto');
+        $foto_lama      = $this->request->getPost('foto_edit_lama');
+        if($avatar == '') {
+            $data = array(
+                'nama_tempat'     => $this->request->getPost('edit_nama'),
+                'url_tempat'     => $this->request->getPost('edit_url'),
+                'alamat_tempat'     => $this->request->getPost('edit_alamat'),
+                'deskripsi'     => $this->request->getPost('edit_deskripsi'),
+                'jarak_tempat'     => $this->request->getPost('edit_jarak'),
+                'latitude'     => $this->request->getPost('edit_lat'),
+                'longitude'     => $this->request->getPost('edit_long')
+            );
+        } else {
+            if($foto_lama != null && $foto_lama != 'n') {
+                if (file_exists('docs/img/img_tempat/' . $foto_lama)) {
+                    unlink('docs/img/img_tempat/' . $foto_lama);
+                }
+            }
+            
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_tempat/', $namabaru);
+            $data = array(
+                'nama_tempat'     => $this->request->getPost('edit_nama'),
+                'url_tempat'     => $this->request->getPost('edit_url'),
+                'alamat_tempat'     => $this->request->getPost('edit_alamat'),
+                'deskripsi'     => $this->request->getPost('edit_deskripsi'),
+                'jarak_tempat'     => $this->request->getPost('edit_jarak'),
+                'latitude'     => $this->request->getPost('edit_lat'),
+                'longitude'     => $this->request->getPost('edit_long'),
+                'foto' => $namabaru
+            ); 
+        }
         
         $id = $this->request->getPost('id_tempat');
-        $data = array(
-            'nama_tempat'     => $this->request->getPost('edit_nama'),
-            'url_tempat'     => $this->request->getPost('edit_url'),
-            'alamat_tempat'     => $this->request->getPost('edit_alamat'),
-            'deskripsi'     => $this->request->getPost('edit_deskripsi'),
-            'jarak_tempat'     => $this->request->getPost('edit_jarak'),
-            'latitude'     => $this->request->getPost('edit_lat'),
-            'longitude'     => $this->request->getPost('edit_long')
-        );
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
@@ -84,6 +116,13 @@ class Tempat extends BaseController
     {
         $model = new Model_tempat();
         $id = $this->request->getPost('id');
+        $wisata = $model->detail_data($id)->getRowArray();
+        dd($wisata['foto']);
+        if($wisata['foto'] != 'n') {
+            if (file_exists('docs/img/img_tempat/' . $wisata['foto'])) {
+                unlink('docs/img/img_tempat/' . $wisata['foto']);
+            }
+        }
         $session = session();
         $model->delete_data($id);
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
@@ -93,8 +132,8 @@ class Tempat extends BaseController
     public function data_edit($id_tempat)
     {
         $model = new Model_tempat();
-        $datafasilitas = $model->detail_data($id_tempat)->getResultArray();
-        $respon = json_decode(json_encode($datafasilitas), true);
+        $datawisata = $model->detail_data($id_tempat)->getResultArray();
+        $respon = json_decode(json_encode($datawisata), true);
         $data['results'] = array();
         foreach ($respon as $value) :
             $isi['id_tempat'] = $value['id_tempat'];
@@ -105,6 +144,7 @@ class Tempat extends BaseController
             $isi['jarak_tempat'] = $value['jarak_tempat'];
             $isi['latitude'] = $value['latitude'];
             $isi['longitude'] = $value['longitude'];
+            $isi['foto'] = $value['foto'];
         endforeach;
         echo json_encode($isi);
     }

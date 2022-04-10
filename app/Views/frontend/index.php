@@ -64,7 +64,7 @@
                                  <a class="nav-link" href="#kamar">Kamar</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="#contact">Hubungi Kami</a>
+                                 <a class="nav-link" href="#wisata">Wisata Terdekat</a>
                               </li>
                            </ul>
                            <?php if ($session->get('status_login') == 'customer') { ?>
@@ -163,27 +163,6 @@
          </div>
       </div>
 
-      <div class="our">
-         <div class="container">
-            <div class="row d_flex">
-               <div class="col-md-6">
-                  <div class="img_box">
-                     <figure><img src="<?= base_url() ?>/docs/frontend/images/img4.jpg" alt="#"/></figure>
-                  </div>
-               </div>
-               <div class="col-md-6">
-                  <div class="our_box">
-                     <div class="titlepage">
-                        <h2><span class="text_norlam">Hidangan Sarapan </span> <br>Terbaik</h2>
-                     </div>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit </p>
-                     <a class="read_more" href="#">Lihat Selengkapnya</a>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-
       <div id="kamar" class="testimonial" style="padding-top: 60px;">
          <div class="container">
             <div class="row">
@@ -198,7 +177,7 @@
                <div class="col-md-3" style="height: 350px;">
                       <div class="row" style="height: 150px;">
                           <div class="col-md-12">
-                              <img src="<?= base_url() . '/' . $item['nama_foto'] ?>" style="height: 150px;">
+                              <img src="<?= base_url() . '/' . $item['nama_foto'] ?>" style="height: 150px; border-radius:10px;">
                           </div>
                       </div>
                       <div class="row">
@@ -208,6 +187,37 @@
                               Kategori Kamar : <?= $item['nama_kategori'] ?><br>
                               Status Kamar : <?= $item['status_kamar'] ?></p><br>
                               <a href="<?= base_url('Frontend/Pencarian/detail/' . $item['id']); ?>" class="btn btn-sm btn-primary">Detail</a>
+                          </div>
+                      </div>
+                  </div>
+               <?php } ?>
+            </div>
+         </div>
+      </div>
+
+      <div id="wisata" class="testimonial" style="padding-top: 60px;">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Wisata Terdekat</h2>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <?php foreach($wisata as $item) {?>
+               <div class="col-md-3" style="height: 350px;">
+                      <div class="row" style="height: 150px;">
+                          <div class="col-md-12">
+                              <img src="<?= base_url('docs/img/img_tempat') . '/' . $item['foto'] ?>" style="height: 150px; border-radius:10px;">
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-12" style="padding-top: 10px;">
+                              <h4><b><?= $item['nama_tempat'] ?></b></h4>
+                              <p style="text-align: justify;"> <b>Deskripsi</b> : <?= substr($item['deskripsi'], 0, 200) ?> . . .<br>
+                              <b>Alamat</b> : <?= $item['alamat_tempat'] ?><br></p>
+                              <a href="<?= base_url('Frontend/Wisata/detail/' . $item['id_tempat']); ?>" class="btn btn-sm btn-primary">Detail</a>
                           </div>
                       </div>
                   </div>
