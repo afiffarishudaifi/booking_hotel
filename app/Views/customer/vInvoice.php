@@ -168,7 +168,7 @@
 					<!-- end invoice-content -->
 					<!-- begin invoice-note -->
 					<div class="invoice-note">
-						<b>
+						<b style="font-size: 12px">
 							* Pembayaran bisa dilakukan secara transfer atau langsung di Hotel Purbaya<br />
 							* Pembayaran melalui transfer harus dibayar dalam waktu 1x24 Jam<br />
 							* Bukti pembayaran melalui transfer harus di upload di menu Pemesanan<br />

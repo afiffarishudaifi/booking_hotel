@@ -151,15 +151,8 @@ class Pemesanan extends BaseController
         $respon = json_decode(json_encode($datapemesanan), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id'];
-            $isi['id_kamar'] = $value['id_kamar'];
-            $isi['nama_kamar'] = $value['nama_kamar'];
-            $isi['id_pengguna'] = $value['id_pengguna'];
-            $isi['nama_lengkap'] = $value['nama_lengkap'];
-            $isi['tanggal_masuk'] = $value['tanggal_masuk'];
-            $isi['tanggal_keluar'] = $value['tanggal_keluar'];
-            $isi['status_pemesanan'] = $value['status_pemesanan'];
-            $isi['total_biaya'] = $value['total_biaya'];
+            $isi['id_pemesanan'] = $value['id_pemesanan'];
+            $isi['bukti_transaksi'] = $value['bukti_transaksi'];
         endforeach;
         echo json_encode($isi);
     }
@@ -187,6 +180,40 @@ class Pemesanan extends BaseController
 
     public function upload_pemesanan()
     {
-        dd($this->request->getPost('edit_foto'));
+        $session = session();
+        $model = new Model_pemesanan();
+        $id = $this->request->getPost('id_pemesanan');
+        $avatar      = $this->request->getFile('edit_foto');
+        $namabaru     = $avatar->getRandomName();
+        $avatar->move('docs/img/img_transaksi/', $namabaru);
+        $data = array(
+            'bukti_transaksi' => $namabaru
+        );
+        $model->update_data($data, $id);
+        session()->setFlashdata('sukses', 'Bukti transaksi berhasil di simpan');
+        return redirect()->to('/Customer/Pemesanan');
+    }
+
+    public function upload_edit_pemesanan()
+    {
+        $session = session();
+        $model = new Model_pemesanan();
+        $id = $this->request->getPost('id_pemesanan');
+        $avatar      = $this->request->getFile('edit_foto');
+        $foto_lama      = $this->request->getPost('foto_lama_transaksi');
+        if($avatar != null || $avatar != '') {
+            if (file_exists('docs/img/img_transaksi/' . $foto_lama)) {
+                unlink('docs/img/img_transaksi/' . $foto_lama);
+            }
+            
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_transaksi/', $namabaru);
+            $data = array(
+                'bukti_transaksi' => $namabaru
+            );
+        }
+        $model->update_data($data, $id);
+        session()->setFlashdata('sukses', 'Bukti transaksi berhasil di simpan');
+        return redirect()->to('/Customer/Pemesanan');
     }
 }

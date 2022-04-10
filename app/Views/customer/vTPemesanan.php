@@ -51,9 +51,10 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Nama Pengunjung</th>
-                                        <th class="text-nowrap">Tanggal Pemesanan</th>
-                                        <th class="text-nowrap">Status Pemesanan</th>
+                                        <th class="text-nowrap">Pengunjung</th>
+                                        <th class="text-nowrap">Tanggal Pesan</th>
+                                        <th class="text-nowrap">Status Pesan</th>
+                                        <th class="text-nowrap">Rekening Tujuan</th>
                                         <th class="text-nowrap">Tagihan</th>
                                         <th class="text-nowrap">Bukti Pembayaran</th>
                                         <th class="text-nowrap">Aksi</th>
@@ -69,14 +70,17 @@
                                         <td><?= $item['nama_lengkap']; ?></td>
                                         <td><?= $item['tanggal_pesan']; ?></td>
                                         <td><?= $item['status_pemesanan']; ?></td>
+                                        <td> 
+                                            BNI : 071748734 <br>
+                                            Atas Nama : Hotel Purbaya
+                                        </td>
                                         <td><?= $item['total_tagihan']; ?></td>
                                         <td>
                                             <center>
                                                 <?php if($item['bukti_transaksi'] == 'n') { ?>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#uploadModal" class="btn btn-bayar btn-success btn-sm">Upload Bukti</a>
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#uploadModal" class="btn btn-bayar btn-warning btn-sm" onclick="Upload(<?= $item['id_pemesanan']; ?>)">Upload Bukti</a>
                                                 <?php } else { ?>
-
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#uploadModal" class="btn btn-bayar btn-success btn-sm">Bukti Terupload</a>
+                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#form_edit_upload" class="btn btn-bayar btn-success btn-sm" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)">Bukti Terupload</a>
                                                 <?php } ?>
                                             </center>
                                         </td>
@@ -84,8 +88,6 @@
                                             <center>
                                                 <a href="<?= base_url('/Customer/DetailPemesanan/viewData/' . $item['id_pemesanan']) ?>" class="btn btn-edit btn-info btn-sm"><i
                                                         class="fa fa-eye"></i></a>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)" class="btn btn-edit btn-warning btn-sm"><i
-                                                        class="fa fa-pen"></i></a>
                                             </center>
                                         </td>
                                     </tr>
@@ -101,89 +103,6 @@
         <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade"
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
-        <form action="<?php echo base_url('Customer/Pemesanan/add_pemesanan'); ?>" method="post" id="form_add" data-parsley-validate="true" enctype="multipart/form-data">
-            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <?= csrf_field(); ?>
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pemesanan </h5>
-                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="form-group">
-                                <label>Tanggal Pesan</label>
-                                <input type="datetime-local" class="form-control" id="input_tanggal" name="input_tanggal"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>">
-                            </div>
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary" id="batal_add" data-dismiss="modal">Batal</button>
-                            <button type="submit" name="tambah" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Modal Add Class-->
-
-        <!-- Modal Edit Class-->
-        <form action="<?php echo base_url('Customer/Pemesanan/update_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
-            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <?= csrf_field(); ?>
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Data Pemesanan </h5>
-                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="id_pemesanan" id="id_pemesanan">
-
-                            <div class="form-group">
-                                <label>Tanggal Pesan</label>
-                                <input type="datetime-local" class="form-control" id="edit_tanggal" name="edit_tanggal"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Status Pemesanan</label>
-                                <select name="edit_status" class="form-control" id="edit_status" disabled>
-                                    <option value="pengajuan" selected="">Pengajuan</option>
-                                    <option value="terkonfirmasi">Terkonfirmasi</option>
-                                    <option value="selesai">Selesai</option>
-                                </select>
-                            </div>
-
-
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <center>
-                                        <img id="foto_lama" style="width: 300px; height: 160px;" src="">
-                                    </center>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Bukti Pembayaran</label>
-                                <input type="file" name="edit_foto" id="edit_foto">
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary" id="batal_up" data-dismiss="modal">Batal</button>
-                            <button type="submit" name="update" class="btn btn-primary">Simpan</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <!-- End Modal Edit Class-->
-
         <!-- Modal Upload Class-->
         <form action="<?php echo base_url('Customer/Pemesanan/upload_pemesanan'); ?>" method="post" id="form_upload" data-parsley-validate="true" enctype="multipart/form-data">
             <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -197,11 +116,11 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <input type="text" name="id_pemesanan" id="id_pemesanan">
+                            <input type="hidden" name="id_pemesanan" id="id_pemesanan">
 
                             <div class="form-group">
                                 <label>Bukti Pembayaran</label>
-                                <input type="file" name="edit_foto" id="edit_foto">
+                                <input class="form_group" type="file" name="edit_foto" id="edit_foto">
                             </div>
 
                         </div>
@@ -214,6 +133,47 @@
             </div>
         </form>
         <!-- End Modal Upload Class-->
+
+        <!-- Modal Upload Class-->
+        <form action="<?php echo base_url('Customer/Pemesanan/upload_edit_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
+            <div class="modal fade" id="form_edit_upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <?= csrf_field(); ?>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ubah Bukti Pembayaran </h5>
+                            <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="id_pemesanan" id="id_pemesanan">
+                            <input type="hidden" name="foto_lama_transaksi" id="foto_lama_transaksi">
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <center>
+                                        <img id="foto_lama" style="width: 300px; height: 100%;" src="">
+                                    </center>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Bukti Pembayaran</label>
+                                <input class="form-group" type="file" name="edit_foto" id="edit_foto" required>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary" id="batal_up" data-dismiss="modal">Batal</button>
+                            <button type="submit" name="update" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- End Modal Upload Class-->
+
     </div>
     <!-- end page container -->
     </div>
@@ -221,10 +181,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
-        function Hapus(id, id_kamar){
-            $('.id').val(id);
-            $('.id_kamar').val(id_kamar);
-            $('#deleteModal').modal('show');
+        function Upload(id){
+            $('#id_pemesanan').val(id);
+            $('#form_upload').modal('show');
         };
     </script>
 
@@ -271,10 +230,9 @@
         function detail_edit(isi) {
             $.getJSON('<?php echo base_url('customer/Pemesanan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pemesanan').val(json.id);
-                    $('#edit_masuk').val(json.tanggal_masuk);
-                    $('#edit_keluar').val(json.tanggal_keluar);
-                    $('#edit_hasil_total').val(json.total_biaya);
+                    $('#id_pemesanan').val(json.id_pemesanan);
+                    $('#foto_lama_transaksi').val(json.bukti_transaksi);
+                    $("#foto_lama").attr("src", "<?= base_url('docs/img/img_transaksi') . '/' ?>" + json.bukti_transaksi);
                 });
         }
     </script>

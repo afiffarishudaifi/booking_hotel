@@ -95,7 +95,7 @@ class Model_pemesanan extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
-        $builder->select('pemesanan.id_pemesanan, pengunjung.nama_lengkap, tanggal_pesan, status_pemesanan, bukti_transaksi, SUM(detail_pemesanan.total_biaya) as total_tagihan');
+        $builder->select("pemesanan.id_pemesanan, pengunjung.nama_lengkap, DATE_FORMAT(tanggal_pesan, '%d %M %Y') as tanggal_pesan, status_pemesanan, bukti_transaksi, SUM(detail_pemesanan.total_biaya) as total_tagihan");
         $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
         $builder->join('detail_pemesanan', 'detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan', 'left');
         // $builder->where('pemesanan.status_pemesanan !=','selesai');
