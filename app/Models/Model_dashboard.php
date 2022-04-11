@@ -98,4 +98,27 @@ class Model_dashboard extends Model
         return $builder->update();
     }
 
+    public function cek_status_pembayaran($tanggal)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->select('pemesanan.id_pemesanan as id, kamar.id_kamar as id_kamar, kamar.nama_kamar, tanggal_pesan, pemesanan.status_pemesanan');
+        $builder->join('detail_pemesanan','detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan');
+        $builder->join('kamar','kamar.id_kamar = detail_pemesanan.id_kamar');
+        $builder->groupBy('pemesanan.id_pemesanan');
+        $builder->where('DATE_ADD(tanggal_pesan, INTERVAL 1 DAY) <', $tanggal);
+        $builder->where('pemesanan.status_pemesanan','pengajuan');
+        $builder->where('bukti_transaksi', 'n');
+        return $builder->get();
+    }
+
+    public function update_status_pemesanan_batal($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->where('id_pemesanan', $id);
+        $builder->set('status_pemesanan','batal');
+        return $builder->update();
+    }
+
 }

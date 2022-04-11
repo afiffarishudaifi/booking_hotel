@@ -100,6 +100,13 @@ class Dashboard extends BaseController
             $ubah_pemesanan = $model->update_status_pemesanan($cek_status['id']);
             $ubah_kamar = $model->update_status_kamar($cek_status['id_kamar']);
         }
+        
+        $cek_pembayaran = $model->cek_status_pembayaran(date("Y-m-d H:i:s"))->getRowArray();
+        if ($cek_pembayaran != null) {
+            $ubah_pemesanan = $model->update_status_pemesanan_batal($cek_pembayaran['id']);
+            $ubah_kamar = $model->update_status_kamar($cek_pembayaran['id_kamar']);
+        }
+
         $result['total_pemesanan'] = $jumlah_pemesanan['id_pemesanan'];
         echo json_encode($result);
     }
