@@ -45,7 +45,7 @@ class Pencarian extends BaseController
         $data['results'] = array();
 
         foreach ($respon as $value) {
-            $isi['id'] = $value['id'];
+            $isi['id'] = $value['id_kategori'];
             $isi['text'] = $value['nama_kategori'];
             array_push($data['results'], $isi);
         }

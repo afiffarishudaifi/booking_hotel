@@ -8,17 +8,17 @@ class Model_pencarian extends Model
 {
 
     protected $table = 'kamar';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_kamar';
     // ======= PENGADUAN ======= //
 
     public function cek_kamar($params)
     {
         $db = \Config\Database::connect();
-        $builder = $db->table('pemesanan');
+        $builder = $db->table('detail_pemesanan');
         $builder->select('id_kamar');
 
         if ($params['input_masuk'] != '') {
-            $builder->where('pemesanan.tanggal_keluar >', $params['input_masuk']);
+            $builder->where('detail_pemesanan.tanggal_keluar >', $params['input_masuk']);
         }
         return $builder->get();
     }
@@ -31,7 +31,7 @@ class Model_pencarian extends Model
         $builder->join('kategori_kamar', 'kategori_kamar.id_kategori = kamar.id_kategori');
         $builder->join('foto','kamar.id_kamar = foto.id_kamar');
         if (count($id) != 0) {
-            $builder->whereNotIn('kamar.id',$id);
+            $builder->whereNotIn('kamar.id_kamar',$id);
         }
         $builder->groupBy('kamar.id_kamar');
         return $builder->get();

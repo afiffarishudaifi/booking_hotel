@@ -64,7 +64,7 @@
                                  <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#kamar">Kamar</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#contact">Hubungi Kami</a>
+                                 <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#wisata">Wisata Terdekat</a>
                               </li>
                            </ul>
                            <?php if ($session->get('status_login') == 'customer') { ?>
@@ -101,6 +101,18 @@
                   </div>
               </div>
               <div class="row" style="padding-top: 20px; height: 330px;">
+                  <?php if(count($kamar) == 0) { ?>
+                  <div class="col-md-12">
+                     <center>
+                        <img src="<?= base_url('docs/img/tambahan/illustration-2.png') ?>" style="width:30%"><br>
+                        <div class="alert alert-danger alert-dismissible fade show col-md-8" role="alert">
+                                 <center>
+                                       <strong>Peringatan!</strong> Kamar Penuh
+                                 </center>
+                              </div>
+                     </center> 
+                  </div>
+               <?php } else { ?>
                   <?php foreach ($kamar as $item) { ?>
                   <div class="col-md-3" style="height: 400px;">
                       <div class="row" style="height: 150px;">
@@ -118,7 +130,8 @@
                           </div>
                       </div>
                   </div>
-                  <?php } ?>
+                  <?php }
+               } ?>
               </div>
           </div>
       </section>

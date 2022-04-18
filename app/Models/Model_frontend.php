@@ -27,6 +27,14 @@ class Model_frontend extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('tempat');
+        $builder->limit(4);
+        return $builder->get();
+    }
+
+    public function view_data_wisata_full()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('tempat');
         return $builder->get();
     }
 

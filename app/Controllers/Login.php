@@ -42,6 +42,17 @@ class Login extends BaseController
                     'email'=>$data['email']
                 ];
                 $this->loginModel->updateUserData($userdata, $data['id']);
+
+                $data_login = $model->cek_login($data['id'])->getRowArray();
+                $ses_data = [
+                    'user_id' => $data_login['id_pengguna'],
+                    'username_login' => $data_login['nama_lengkap'],
+                    'email_login' => $data_login['email'],
+                    'foto' => $data_login['file'],
+                    'status_login' => 'customer',
+                    'logged_in' => TRUE,
+                    'is_admin' => TRUE
+                ];
             }else{
                 //new User want to Login
                 $userdata = array(
@@ -52,18 +63,20 @@ class Login extends BaseController
                     'file' => 'n'
                 );
                 $this->loginModel->insertUserData($userdata);
+
+                $max_login = $model->cek_max_login($data['id'])->getRowArray()['id_pengguna'];
+                $ses_data = [
+                    'user_id' => $max_login,
+                    'username_login' => $data['name'],
+                    'email_login' => $data['email'],
+                    'foto' => $data['file'],
+                    'status_login' => 'customer',
+                    'logged_in' => TRUE,
+                    'is_admin' => TRUE
+                ];
             }
 
-            $max_login = $model->cek_max_login($data['id'])->getRowArray()['id_pengguna'];
-            $ses_data = [
-                'user_id' => $max_login,
-                'username_login' => $data['name'],
-                'email_login' => $data['email'],
-                'foto' => $data['file'],
-                'status_login' => 'customer',
-                'logged_in' => TRUE,
-                'is_admin' => TRUE
-            ];
+            
             $session->set("LoggedUserData", $ses_data);
             $session->set($ses_data);
 
@@ -157,7 +170,7 @@ class Login extends BaseController
             if ($verify_pass == $password) {
                 if ($status == 'customer') {
                     $ses_data = [
-                        'user_id' => $data['id'],
+                        'user_id' => $data['id_pengguna'],
                         'username_login' => $data['nama_lengkap'],
                         'email_login' => $data['email'],
                         'foto' => $data['file'],

@@ -199,7 +199,7 @@
                            <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#kamar">Kamar</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#contact">Hubungi Kami</a>
+                           <a class="nav-link" href="<?= base_url() . '/' . 'Frontend/Frontend'; ?>#wisata">Wisata Terdekat</a>
                         </li>
                      </ul>
                      <?php if ($session->get('status_login') == 'customer') { ?>

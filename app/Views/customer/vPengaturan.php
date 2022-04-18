@@ -35,13 +35,24 @@
                         <div class="panel-body">
                             <form action="<?php echo base_url('Customer/Pengaturan/update_pengguna'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
                        			<input type="hidden" class="id_pengguna" name="id_pengguna" id="id_pengguna" value="<?= $id_pengguna; ?>">
+
                                 <div class="form-group row m-b-15">
-                                    <label class="col-form-label col-md-3">Username</label>
+                                    <label class="col-form-label col-md-3">Email</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="edit_username" name="edit_username"  data-parsley-required="true" placeholder="Masukkan Username">
-                                            <span class="text-danger" id="error_edit_username"></span>
+                                        <input type="email" class="form-control" id="edit_email" name="edit_email"  data-parsley-required="true" placeholder="Masukkan Email" autofocus>
+                                        <span class="text-danger" id="error_edit_email"></span>
                                     </div>
-                                </div> 
+                                </div>
+                                
+                                <div class="form-group row m-b-15">
+                                    <label class="col-form-label col-md-3">NIK</label>
+                                    <div class="col-md-9">
+                                    <input type="text" class="form-control" id="edit_nik" name="edit_nik"
+                                        data-parsley-required="true" placeholder="Masukkan NIK Pasien" minlength="16" maxlength="16" autofocus="on">
+                                    <span class="text-danger" id="error_nik_edit"></span>
+                                    <small id="emailHelp" class="form-text text-muted">Masukkan 16 karakter.</small>
+                                    </div>
+                                </div>
 
                                 <div class="form-group row m-b-15">
                                     <label class="col-form-label col-md-3">Password</label>
@@ -54,13 +65,6 @@
                                     <label class="col-form-label col-md-3">Nama Lengkap</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" id="edit_nama" name="edit_nama"  data-parsley-required="true" placeholder="Masukkan Nama Lengkap">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row m-b-15">
-                                    <label class="col-form-label col-md-3">Email</label>
-                                    <div class="col-md-9">
-                                        <input type="email" class="form-control" id="edit_email" name="edit_email"  data-parsley-required="true" placeholder="Masukkan Email">
                                     </div>
                                 </div>
 
@@ -89,8 +93,7 @@
                                 <div class="form-group row m-b-15">
                                     <label class="col-form-label col-md-3">Foto Baru</label>
                                     <div class="col-md-9">
-                                        <input type="file" id="edit_file" name="edit_file"
-                                        data-parsley-required="true"/>
+                                        <input type="file" id="edit_file" name="edit_file"/>
                                     </div>
                                 </div>
 
@@ -149,18 +152,18 @@
 
             $.getJSON('<?php echo base_url('Customer/Pengguna/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pengguna').val(json.id);
-                    $('#edit_username').val(json.username);
+                    $('#id_pengguna').val(json.id_pengguna);
                     $('#edit_password').val(json.password);
                     $('#edit_nama').val(json.nama_lengkap);
+                    $('#edit_nik').val(json.nik);
                     $('#edit_email').val(json.email);
                     $('#edit_no_hp').val(json.no_hp);
                     $('#edit_alamat').val(json.alamat);
 
                     if (json.file != '' || json.file != null) {
-                        $("#foto_lama").attr("src", "http://localhost:8080/booking_hotel/" + json.file) ;
+                        $("#foto_lama").attr("src", "<?= base_url() ?>" + "/" +json.file) ;
                     } else {
-                        $("#foto_lama").attr("src", "http://localhost:8080/booking_hotel/docs/img/img_pengguna/noimage.jpg");
+                        $("#foto_lama").attr("src", "<?= base_url() ?>" + "/docs/img/img_pengguna/noimage.jpg");
                     }
                 });
         })
@@ -169,21 +172,21 @@
     <script type="text/javascript">
         $(function() {
 
-            $("#input_username").keyup(function(){
+            $("#edit_email").keyup(function(){
 
-                var input_username = $(this).val().trim();
+                var edit_email = $(this).val().trim();
           
-                if(input_username != ''){
+                if(edit_email != ''){
                     $.ajax({
                         type: 'GET',
                         dataType: 'json',
-                        url: '<?php echo base_url('Customer/Pengguna/cek_username'); ?>' + '/' + input_username,
+                        url: '<?php echo base_url('Customer/Pengguna/cek_email'); ?>' + '/' + edit_email,
                         success: function (data) {
                             if(data['results']>0){
-                                $("#error_username").html('Username telah dipakai,coba yang lain');
-                                $("#input_username").val(input_username);
+                                $("#error_email").html('Email telah dipakai,coba yang lain');
+                                $("#edit_email").val(edit_email);
                             }else{
-                                $("#error_username").html('');
+                                $("#error_email").html('');
                             }
                         }, error: function () {
             

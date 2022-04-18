@@ -121,4 +121,12 @@ class Model_dashboard extends Model
         return $builder->update();
     }
 
+    public function cek_data($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pengunjung');
+        $builder->where('id_pengguna', $id);
+        return $builder->get();
+    }
+
 }

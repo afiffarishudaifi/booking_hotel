@@ -54,4 +54,12 @@ class Model_login extends Model
         return $builder->get();
     }
 
+    public function cek_login($authid)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pengunjung');
+        $builder->where('oauth_id',$authid);
+        return $builder->get();
+    }
+
 }

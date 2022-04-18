@@ -4,6 +4,8 @@ namespace App\Controllers\Frontend;
 
 use App\Controllers\BaseController;
 use App\Models\Model_wisata;
+use App\Models\Model_dashboard;
+use App\Models\model_frontend;
 
 class Wisata extends BaseController
 {
@@ -15,7 +17,23 @@ class Wisata extends BaseController
         helper('form');
     }
 
-    
+    public function index()
+    {
+        $session = session();
+
+        $model = new Model_dashboard();
+        $id = $session->get('user_id');
+
+        $model_frontend = new model_frontend();
+        $wisata = $model_frontend->view_data_wisata_full()->getResultArray();
+        $data = [
+            'judul' => 'Wisata Terdeket',
+            'wisata' => $wisata
+        ];
+        helper(['form']);
+
+        return view('frontend/listWisata', $data);
+    }
 
     public function detail($id)
     {

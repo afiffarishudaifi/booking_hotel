@@ -3,16 +3,16 @@
 namespace App\Controllers\Customer;
 
 use App\Controllers\BaseController;
-use App\Models\Model_pengguna;
+use App\Models\Model_pengunjung;
 use App\Models\Model_dashboard;
 
 class Pengaturan extends BaseController
 {
 
-    protected $Model_pengguna;
+    protected $Model_pengunjung;
     public function __construct()
     {
-        $this->Model_pengguna = new Model_pengguna();
+        $this->Model_pengunjung = new Model_pengunjung();
         helper(['form', 'url']);
     }
 
@@ -39,7 +39,7 @@ class Pengaturan extends BaseController
         $session = session();
         $encrypter = \Config\Services::encrypter();
 
-        $model = new Model_pengguna();
+        $model = new Model_pengunjung();
         $avatar      = $this->request->getFile('edit_file');
         if ($avatar != '') {
             $namabaru     = $avatar->getRandomName();
@@ -47,15 +47,13 @@ class Pengaturan extends BaseController
 
             $id = $this->request->getPost('id_pengguna');
 	        $data = array(
-	            'username' => $this->request->getPost('edit_username'),
 	            'password' => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
 	            'email' => $this->request->getPost('edit_email'),
+	            'nik' => $this->request->getPost('edit_nik'),
 	            'nama_lengkap' => $this->request->getPost('edit_nama'),
 	            'no_hp' => $this->request->getPost('edit_no_hp'),
 	            'alamat' => $this->request->getPost('edit_alamat'),
-	            'status' => $this->request->getPost('edit_status'),
-	            'file' => "docs/img/img_pengguna/" . $namabaru,
-	            'id' => $this->request->getPost('id_pengguna')
+	            'file' => "docs/img/img_pengguna/" . $namabaru
 	        );
 
 	        $data_foto = $model->detail_data($id)->getRowArray();
@@ -70,14 +68,12 @@ class Pengaturan extends BaseController
         } else {
         	$id = $this->request->getPost('id_pengguna');
 	        $data = array(
-	            'username' => $this->request->getPost('edit_username'),
 	            'password' => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
 	            'email' => $this->request->getPost('edit_email'),
+	            'nik' => $this->request->getPost('edit_nik'),
 	            'nama_lengkap' => $this->request->getPost('edit_nama'),
 	            'no_hp' => $this->request->getPost('edit_no_hp'),
-	            'alamat' => $this->request->getPost('edit_alamat'),
-	            'status' => $this->request->getPost('edit_status'),
-	            'id' => $this->request->getPost('id_pengguna')
+	            'alamat' => $this->request->getPost('edit_alamat')
 	        );
         }
 
@@ -87,18 +83,18 @@ class Pengaturan extends BaseController
         return redirect()->to(base_url('/Login'));
     }
 
-    public function cek_username($username)
+    public function cek_email($email)
     {
-        $model = new Model_pengguna();
-        $cek_username = $model->cek_username($username)->getResultArray();
-        $respon = json_decode(json_encode($cek_username), true);
+        $model = new Model_pengunjung();
+        $cek_email = $model->cek_email($email)->getResultArray();
+        $respon = json_decode(json_encode($cek_email), true);
         $data['results'] = count($respon);
         echo json_encode($data);
     }
 
     public function data_edit($id_pengguna)
     {
-        $model = new Model_pengguna();
+        $model = new Model_pengunjung();
         $encrypter = \Config\Services::encrypter();
 
         $data_pengguna = $model->detail_data($id_pengguna)->getResultArray();
@@ -108,14 +104,13 @@ class Pengaturan extends BaseController
         $respon = json_decode(json_encode($data_pengguna), true);
         $data['results'] = array();
         foreach ($respon as $value) :
-            $isi['id'] = $value['id'];
-            $isi['username'] = $value['username'];
+            $isi['id_pengguna'] = $value['id_pengguna'];
             $isi['password'] = $password;
             $isi['nama_lengkap'] = $value['nama_lengkap'];
+            $isi['nik'] = $value['nik'];
             $isi['email'] = $value['email'];
             $isi['no_hp'] = $value['no_hp'];
             $isi['alamat'] = $value['alamat'];
-            $isi['status'] = $value['status'];
             $isi['file'] = $value['file'];
         endforeach;
         echo json_encode($isi);

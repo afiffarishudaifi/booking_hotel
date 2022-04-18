@@ -173,24 +173,37 @@
                </div>
             </div>
             <div class="row">
-               <?php foreach($kamar as $item) {?>
-               <div class="col-md-3" style="height: 350px;">
-                      <div class="row" style="height: 150px;">
-                          <div class="col-md-12">
-                              <img src="<?= base_url() . '/' . $item['nama_foto'] ?>" style="height: 150px; border-radius:10px;">
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-12" style="padding-top: 10px;">
-                              <h4><b><?= $item['nama_kamar'] ?></b></h4>
-                              <p style="text-align: justify;"> Harga : <?= $item['biaya'] ?>/Malam<br>
-                              Kategori Kamar : <?= $item['nama_kategori'] ?><br>
-                              Status Kamar : <?= $item['status_kamar'] ?></p><br>
-                              <a href="<?= base_url('Frontend/Pencarian/detail/' . $item['id']); ?>" class="btn btn-sm btn-primary">Detail</a>
-                          </div>
-                      </div>
+               <?php if(count($kamar) == 0) { ?>
+                  <div class="col-md-12">
+                     <center>
+                        <img src="<?= base_url('docs/img/tambahan/illustration-2.png') ?>" style="width:30%"><br>
+                        <div class="alert alert-danger alert-dismissible fade show col-md-8" role="alert">
+                                 <center>
+                                       <strong>Peringatan!</strong> Kamar Penuh
+                                 </center>
+                              </div>
+                     </center> 
                   </div>
-               <?php } ?>
+               <?php } else { ?>
+                  <?php foreach($kamar as $item) {?>
+                  <div class="col-md-3" style="height: 350px;">
+                        <div class="row" style="height: 150px;">
+                           <div class="col-md-12">
+                                 <img src="<?= base_url() . '/' . $item['nama_foto'] ?>" style="height: 150px; border-radius:10px;">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-12" style="padding-top: 10px;">
+                                 <h4><b><?= $item['nama_kamar'] ?></b></h4>
+                                 <p style="text-align: justify;"> Harga : <?= $item['biaya'] ?>/Malam<br>
+                                 Kategori Kamar : <?= $item['nama_kategori'] ?><br>
+                                 Status Kamar : <?= $item['status_kamar'] ?></p><br>
+                                 <a href="<?= base_url('Frontend/Pencarian/detail/' . $item['id']); ?>" class="btn btn-sm btn-primary">Detail</a>
+                           </div>
+                        </div>
+                     </div>
+                  <?php } 
+                  } ?>
             </div>
          </div>
       </div>
@@ -222,6 +235,13 @@
                       </div>
                   </div>
                <?php } ?>
+            </div>
+            <div class="row" style="padding-top:90px;">
+               <div class="col-md-12">
+                  <center>
+                     <a href="<?= base_url('Frontend/Wisata') ?>" class="btn btn-success"><i class="fa fa-info-circle"></i> Lebih banyak</a>
+                  </center> 
+               </div>
             </div>
          </div>
       </div>
