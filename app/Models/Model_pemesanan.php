@@ -49,8 +49,23 @@ class Model_pemesanan extends Model
         return $builder->get();
     }
 
-    public function update_data($data, $id)
+    public function update_data($data, $id, $data_pengunjung)
     {
+        $link = 'https://cepogo.wablas.com/api/send-message';
+        $curl = \Config\Services::curlrequest();
+        $response = $curl->request('POST', $link, [
+            'form_params' => [
+                'phone' => $data_pengunjung['no_hp'],
+                'message' => 'Selamat Datang di Hotel Purbaya. Transaksi pembayaran sudah terkonfirmasi dan kamar siap untuk ditempati. Terimakasih ' . $data_pengunjung['nama_lengkap'] . ' telah melakukan pemesanan pada tanggal ' . $data_pengunjung['tanggal_pesan'] . ' dan selamat menikmati',
+                'secret' => false, // or true
+                'priority' => false, // or true
+            ],
+            "headers" => [
+                "Content-Type" => "application/x-www-form-urlencoded",
+                "Authorization" => "uCOdT9hNtbtCOds5BhR2UA20y4wdWmA70AGMCKsuYtM0J1CeXWqJi81pyVpFrF89"
+            ]
+        ]);        
+        
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
         $builder->where('id_pemesanan', $id);
@@ -87,6 +102,16 @@ class Model_pemesanan extends Model
         $builder = $db->table('kamar');
         $builder->select('biaya');
         $builder->where('id',$id);
+        return $builder->get();
+    }
+
+    public function cari_pengunjung($id_pemesanan)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->select('pengunjung.nama_lengkap, no_hp, alamat, tanggal_pesan');
+        $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
+        $builder->where('pemesanan.id_pemesanan', $id_pemesanan);
         return $builder->get();
     }
 

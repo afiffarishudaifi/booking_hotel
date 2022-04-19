@@ -47,12 +47,23 @@ class KonfirmasiPemesanan extends BaseController
         $model = new Model_pemesanan();
 
         $id = $this->request->getPost('id_pemesanan');
+
+        $pengunjung = $model->cari_pengunjung($id)->getRowArray();
+        
         $id_user = $session->get('user_id');
+        $data_pengunjung = array(
+            'nama_lengkap' => $pengunjung['nama_lengkap'],
+            'no_hp' => $pengunjung['no_hp'],
+            'alamat' => $pengunjung['alamat'],
+            'tanggal_pesan' => $pengunjung['tanggal_pesan']
+        );
+
         $data = array(
             'status_pemesanan'     => 'terkonfirmasi',
             'id_admin' => $id_user
         );
-        $model->update_data($data, $id);
+        $model->update_data($data, $id, $data_pengunjung);
+
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
         return redirect()->to(base_url('Admin/KonfirmasiPemesanan'));
     }
