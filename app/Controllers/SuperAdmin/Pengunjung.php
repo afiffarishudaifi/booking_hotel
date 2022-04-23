@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\SuperAdmin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_pengunjung;
@@ -19,7 +19,7 @@ class Pengunjung extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -35,7 +35,7 @@ class Pengunjung extends BaseController
             'pengunjung' => $pengunjung,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
-        return view('admin/vTPengunjung', $data);
+        return view('superadmin/vTPengunjung', $data);
     }
 
     public function add_pengguna()
@@ -64,7 +64,7 @@ class Pengunjung extends BaseController
         $model = new Model_pengunjung();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/Pengunjung'));
+        return redirect()->to(base_url('SuperAdmin/Pengunjung'));
     }
 
     public function update_pengguna()
@@ -112,7 +112,7 @@ class Pengunjung extends BaseController
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/Pengunjung'));
+        return redirect()->to(base_url('SuperAdmin/Pengunjung'));
     }
 
     public function delete_pengguna()
@@ -135,7 +135,7 @@ class Pengunjung extends BaseController
         } else {
             session()->setFlashdata('sukses', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         }
-        return redirect()->to('/Admin/Pengunjung');
+        return redirect()->to('/SuperAdmin/Pengunjung');
     }
 
     public function cek_email($email)

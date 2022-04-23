@@ -19,7 +19,7 @@ class Tempat extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') == 'customer') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
             return redirect()->to('Login/indexAdmin');
         }
 

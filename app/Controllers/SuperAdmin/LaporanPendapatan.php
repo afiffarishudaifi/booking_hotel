@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\SuperAdmin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_laporan_admin;
 use App\Models\Model_dashboard;
 
-class Laporan extends BaseController
+class LaporanPendapatan extends BaseController
 {
 
     protected $Model_laporan_admin;
@@ -20,7 +20,7 @@ class Laporan extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -28,15 +28,16 @@ class Laporan extends BaseController
         $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
 
         $model = new Model_laporan_admin();
-        $pemesanan = $model->view_data()->getResultArray();
+        $pendapatan = $model->view_data_pendapatan()->getResultArray();
         $data = [
-            'judul' => 'Laporan Pemesanan',
-            'page_header' => 'Laporan Pemesanan',
-            'panel_title' => 'Laporan Pemesanan',
-            'pemesanan' => $pemesanan,
+            'judul' => 'Laporan Pendapatan',
+            'page_header' => 'Laporan Pendapatan',
+            'panel_title' => 'Laporan Pendapatan',
+            'pendapatan' => $pendapatan,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
-        return view('admin/vLaporanPemesanan', $data);
+        // dd($data);
+        return view('superadmin/vLaporanPendapatan', $data);
     }
 
     public function data_kategori()
@@ -85,7 +86,7 @@ class Laporan extends BaseController
     public function data($tanggal = null, $kategori = null, $status = null)
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -93,18 +94,18 @@ class Laporan extends BaseController
         if ($tanggal) $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0]));
         if ($tanggal) $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1]));
         if ($kategori != 'null') {
-        	$param['id_kategori'] = $kategori;
+            $param['id_kategori'] = $kategori;
         } else {
-        	$param['id_kategori'] = null;
+            $param['id_kategori'] = null;
         }
         if ($status != 'null') {
-        	$param['status_pemesanan'] = $status;
+            $param['status_pemesanan'] = $status;
         } else {
-        	$param['status_pemesanan'] = null;
+            $param['status_pemesanan'] = null;
         }
 
         $model = new Model_laporan_admin();
-        $laporan = $model->view_data_filter($param)->getResultArray();
+        $laporan = $model->view_data_filter_pendapatan($param)->getResultArray();
 
         $respon = $laporan;
         $data = array();
@@ -112,10 +113,8 @@ class Laporan extends BaseController
         if ($respon) {
             foreach ($respon as $value) {
                 $isi['id_pemesanan'] = $value['id_pemesanan'];
-                $isi['nama_kategori'] = $value['nama_kategori'];
-                $isi['tanggal_pesan'] = date("d-m-Y h:i:s", strtotime($value['tanggal_pesan']));
-                $isi['nama_lengkap'] = $value['nama_lengkap'];
-                $isi['status_pemesanan'] = $value['status_pemesanan'];
+                $isi['tanggal'] = $value['tanggal'];
+                $isi['total'] = $value['total'];
                 array_push($data, $isi);
             }
         }

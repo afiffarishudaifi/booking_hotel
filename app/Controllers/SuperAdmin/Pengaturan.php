@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\SuperAdmin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_pengguna;
@@ -19,7 +19,7 @@ class Pengaturan extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -43,7 +43,7 @@ class Pengaturan extends BaseController
             'id_pengguna' => $id_pengguna,
             'jumlah_pemesanan' => $jumlah_pemesanan['id']
         ];
-        return view('admin/vPengaturan', $data);
+        return view('superadmin/vPengaturan', $data);
     }
 
     public function update_pengguna()

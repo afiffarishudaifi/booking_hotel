@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\SuperAdmin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_kamar;
@@ -21,7 +21,7 @@ class Kamar extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -37,7 +37,7 @@ class Kamar extends BaseController
             'kamar' => $kamar,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
-        return view('admin/vTKamar', $data);
+        return view('superadmin/vTKamar', $data);
     }
 
     public function add_kamar()
@@ -52,7 +52,7 @@ class Kamar extends BaseController
         $model = new Model_kamar();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/Kamar'));
+        return redirect()->to(base_url('SuperAdmin/Kamar'));
     }
 
     public function update_kamar()
@@ -70,7 +70,7 @@ class Kamar extends BaseController
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/Kamar'));
+        return redirect()->to(base_url('SuperAdmin/Kamar'));
     }
 
     public function delete_kamar()
@@ -85,7 +85,7 @@ class Kamar extends BaseController
         } else {
             session()->setFlashdata('sukses', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         }
-        return redirect()->to('/Admin/Kamar');
+        return redirect()->to('/SuperAdmin/Kamar');
     }
 
     public function data_kategori()
@@ -205,7 +205,7 @@ class Kamar extends BaseController
         }
         
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to('/Admin/Kamar/view_foto/' . $id_kamar);
+        return redirect()->to('/SuperAdmin/Kamar/view_foto/' . $id_kamar);
     }
 
     public function data_edit_foto($id_foto)
@@ -252,7 +252,7 @@ class Kamar extends BaseController
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil di Ubah');
 
-        return redirect()->to('/Admin/Kamar/view_foto/' . $id_kamar);
+        return redirect()->to('/SuperAdmin/Kamar/view_foto/' . $id_kamar);
     }
 
     public function delete_foto_kamar()
@@ -272,6 +272,6 @@ class Kamar extends BaseController
             }
         }
         
-        return redirect()->to('/Admin/Kamar/view_foto/' . $id_kamar);
+        return redirect()->to('/SuperAdmin/Kamar/view_foto/' . $id_kamar);
     }
 }

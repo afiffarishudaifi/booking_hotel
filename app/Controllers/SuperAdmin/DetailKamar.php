@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\SuperAdmin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_detail_Kamar;
@@ -20,7 +20,7 @@ class DetailKamar extends BaseController
     public function view($id)
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -38,7 +38,7 @@ class DetailKamar extends BaseController
             'id_kamar' => $id,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
-        return view('admin/vTDetailKamar', $data);
+        return view('superadmin/vTDetailKamar', $data);
     }
 
     public function add_detail_kamar()
@@ -54,7 +54,7 @@ class DetailKamar extends BaseController
         $model = new Model_detail_Kamar();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/DetailKamar/view/' . $id_kamar));
+        return redirect()->to(base_url('SuperAdmin/DetailKamar/view/' . $id_kamar));
     }
 
     public function update_detail_kamar()
@@ -71,7 +71,7 @@ class DetailKamar extends BaseController
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/DetailKamar/view/' . $id_kamar));
+        return redirect()->to(base_url('SuperAdmin/DetailKamar/view/' . $id_kamar));
     }
 
     public function delete_detail_kamar()
@@ -82,7 +82,7 @@ class DetailKamar extends BaseController
         $session = session();
         $model->delete_data($id);
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
-        return redirect()->to(base_url('Admin/DetailKamar/view/' . $id_kamar));
+        return redirect()->to(base_url('SuperAdmin/DetailKamar/view/' . $id_kamar));
     }
 
     public function data_edit($id_detail)

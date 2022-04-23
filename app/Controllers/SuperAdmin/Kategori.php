@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\SuperAdmin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_kategori_kamar;
@@ -19,7 +19,7 @@ class Kategori extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -35,7 +35,7 @@ class Kategori extends BaseController
             'kategori' => $kategori,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
-        return view('admin/vTKategori', $data);
+        return view('superadmin/vTKategori', $data);
     }
 
     public function add_kategori_kamar()
@@ -50,7 +50,7 @@ class Kategori extends BaseController
         $model = new Model_kategori_kamar();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/Kategori'));
+        return redirect()->to(base_url('SuperAdmin/Kategori'));
     }
 
     public function update_kategori_kamar()
@@ -68,7 +68,7 @@ class Kategori extends BaseController
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/Kategori'));
+        return redirect()->to(base_url('SuperAdmin/Kategori'));
     }
 
     public function delete_kategori_kamar()
@@ -83,7 +83,7 @@ class Kategori extends BaseController
         } else {
             session()->setFlashdata('sukses', 'Data ini dipakai di tabel lain dan tidak bisa dihapus');
         }
-        return redirect()->to('/Admin/Kategori');
+        return redirect()->to('/SuperAdmin/Kategori');
     }
 
     public function data_edit($id_kategori)

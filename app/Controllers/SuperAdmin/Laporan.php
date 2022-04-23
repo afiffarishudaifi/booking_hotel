@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\SuperAdmin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_laporan_admin;
@@ -20,7 +20,7 @@ class Laporan extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -36,7 +36,7 @@ class Laporan extends BaseController
             'pemesanan' => $pemesanan,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
-        return view('admin/vLaporanPemesanan', $data);
+        return view('superadmin/vLaporanPemesanan', $data);
     }
 
     public function data_kategori()
@@ -85,7 +85,7 @@ class Laporan extends BaseController
     public function data($tanggal = null, $kategori = null, $status = null)
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 

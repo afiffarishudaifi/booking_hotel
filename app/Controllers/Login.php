@@ -130,23 +130,44 @@ class Login extends BaseController
 
         if ($data) {
             $pass = $data['password'];
-            $status = 'admin';
-            $verify_pass =  $encrypter->decrypt(base64_decode($pass));
-            if ($verify_pass == $password) {
-                $ses_data = [
-                    'user_id' => $data['id_admin'],
-                    'username_login' => $data['nama_lengkap'],
-                    'email_login' => $data['email'],
-                    'foto' => $data['file'],
-                    'status_login' => $status,
-                    'logged_in' => TRUE,
-                    'is_admin' => TRUE
-                ];
-                $session->set($ses_data);
-                return redirect()->to('/Admin/Dashboard');
+            if($data['level'] == 'Super Admin') {
+                $status = 'superadmin';
+                $verify_pass =  $encrypter->decrypt(base64_decode($pass));
+                if ($verify_pass == $password) {
+                    $ses_data = [
+                        'user_id' => $data['id_admin'],
+                        'username_login' => $data['nama_lengkap'],
+                        'email_login' => $data['email'],
+                        'foto' => $data['file'],
+                        'status_login' => $status,
+                        'logged_in' => TRUE,
+                        'is_admin' => TRUE
+                    ];
+                    $session->set($ses_data);
+                    return redirect()->to('/SuperAdmin/Dashboard');
+                } else {
+                    $session->setFlashdata('msg', 'Password Tidak Sesuai');
+                    return redirect()->to('/Login');
+                }
             } else {
-                $session->setFlashdata('msg', 'Password Tidak Sesuai');
-                return redirect()->to('/Login');
+                $status = 'admin';
+                $verify_pass =  $encrypter->decrypt(base64_decode($pass));
+                if ($verify_pass == $password) {
+                    $ses_data = [
+                        'user_id' => $data['id_admin'],
+                        'username_login' => $data['nama_lengkap'],
+                        'email_login' => $data['email'],
+                        'foto' => $data['file'],
+                        'status_login' => $status,
+                        'logged_in' => TRUE,
+                        'is_admin' => TRUE
+                    ];
+                    $session->set($ses_data);
+                    return redirect()->to('/Admin/Dashboard');
+                } else {
+                    $session->setFlashdata('msg', 'Password Tidak Sesuai');
+                    return redirect()->to('/Login');
+                }
             }
         } else {
             $session->setFlashdata('msg', 'Email Tidak di Temukan');

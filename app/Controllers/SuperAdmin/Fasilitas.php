@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\SuperAdmin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_fasilitas;
@@ -19,7 +19,7 @@ class Fasilitas extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -35,7 +35,7 @@ class Fasilitas extends BaseController
             'fasilitas' => $fasilitas,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
-        return view('admin/vTFasilitas', $data);
+        return view('superadmin/vTFasilitas', $data);
     }
 
     public function add_fasilitas()
@@ -49,7 +49,7 @@ class Fasilitas extends BaseController
         $model = new Model_fasilitas();
         $model->add_data($data);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Admin/Fasilitas'));
+        return redirect()->to(base_url('SuperAdmin/Fasilitas'));
     }
 
     public function update_fasilitas()
@@ -65,7 +65,7 @@ class Fasilitas extends BaseController
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
-        return redirect()->to(base_url('Admin/Fasilitas'));
+        return redirect()->to(base_url('SuperAdmin/Fasilitas'));
     }
 
     public function delete_fasilitas()
@@ -75,7 +75,7 @@ class Fasilitas extends BaseController
         $session = session();
         $model->delete_data($id);
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');
-        return redirect()->to('/Admin/Fasilitas');
+        return redirect()->to('/SuperAdmin/Fasilitas');
     }
 
     public function data_edit($id_fasilitas)

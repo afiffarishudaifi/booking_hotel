@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\SuperAdmin;
 
 use App\Controllers\BaseController;
 use App\Models\Model_dashboard;
@@ -17,7 +17,7 @@ class Dashboard extends BaseController
     public function index()
     {
         $session = session();
-        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+        if (!$session->get('username_login') || $session->get('status_login') != 'superadmin') {
             return redirect()->to('Login/indexAdmin');
         }
 
@@ -88,7 +88,7 @@ class Dashboard extends BaseController
         // dd($data);
         helper(['form']);
 
-        return view('admin/index', $data);
+        return view('superadmin/index', $data);
     }
 
     public function jumlah_pemesanan()
