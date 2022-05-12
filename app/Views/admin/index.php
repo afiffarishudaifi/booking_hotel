@@ -134,7 +134,7 @@
 							</div>
 						</div>
 						<div class="panel-body pr-1">
-	                        <form action="<?php echo base_url('Admin/dashboard') ?>" method="POST" id="filter_form">
+	                        <form action="<?php echo base_url('Admin/Dashboard') ?>" method="POST" id="filter_form">
 	                            <?= csrf_field(); ?>
 	                            <div class="form-row">
 	                                <div class="d-sm-flex align-items-center mb-5">
@@ -150,7 +150,7 @@
 	                    <?php
 	                    foreach ($pemesanan as $data) {
 	                        $tanggal[] = $data['tanggal_pesan'];
-	                        $jml[] = $data['id_pemesanan'];
+	                        $jml[] = $data['id'];
 
 	                        // echo json_encode($tanggal);
 	                    }
