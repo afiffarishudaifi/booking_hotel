@@ -88,11 +88,6 @@ $session = session();
                                     echo "active";
                                 } ?>"><a href="<?= base_url('SuperAdmin/Laporan'); ?>">
                                 <i class="fa fa-book"></i> &nbsp;Laporan Pemesanan</a></li>
-                    <li class="<?php
-                                if ($uri->getSegment(2) == 'LaporanPendapatan') {
-                                    echo "active";
-                                } ?>"><a href="<?= base_url('SuperAdmin/LaporanPendapatan'); ?>">
-                                <i class="fa fa-archive"></i> &nbsp;Laporan Pendapatan</a></li>
                 </ul>
             </li>
         </ul>
