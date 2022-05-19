@@ -150,7 +150,7 @@
 	                    <?php
 	                    foreach ($pemesanan as $data) {
 	                        $tanggal[] = $data['tanggal_pesan'];
-	                        $jml[] = $data['id_pemesanan'];
+	                        $jml[] = $data['id'];
 
 	                        // echo json_encode($tanggal);
 	                    }
