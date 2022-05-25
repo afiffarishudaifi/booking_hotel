@@ -8,7 +8,7 @@ class Login extends BaseController
     private $loginModel=NULL;
     private $googleClient=NULL;
     function __construct(){
-        require_once APPPATH. "libraries/vendor/autoload.php";
+        require_once APPPATH. "Libraries/vendor/autoload.php";
         $this->loginModel = new Model_login();
         $this->googleClient = new \Google_Client();
         $this->googleClient->setClientId("668824993527-85c5qphkc0svk4r2lrfjlhbkkgfplini.apps.googleusercontent.com");
