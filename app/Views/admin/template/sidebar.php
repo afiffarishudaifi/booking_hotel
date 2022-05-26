@@ -13,7 +13,7 @@ $session = session();
                     </div>
                     <div class="info">
                         Admin Sistem
-                        <small>Pemilik Hotel</small>
+                        <small>Pegawai Hotel</small>
                     </div>
                 </a>
             </li>

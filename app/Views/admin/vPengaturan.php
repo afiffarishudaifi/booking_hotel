@@ -33,20 +33,13 @@
                             <h4 class="panel-title">Form Pengaturan</h4>
                         </div>
                         <div class="panel-body">
-                            <form action="<?php echo base_url('Admin/Pengaturan/update_pengguna'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
+                            <form action="<?= base_url('Admin/Pengaturan/update_pengguna'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
                        			<input type="hidden" class="id_pengguna" name="id_pengguna" id="id_pengguna" value="<?= $id_pengguna; ?>">
-                                <div class="form-group row m-b-15">
-                                    <label class="col-form-label col-md-3">Username</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="edit_username" name="edit_username"  data-parsley-required="true" placeholder="Masukkan Username">
-                                            <span class="text-danger" id="error_edit_username"></span>
-                                    </div>
-                                </div> 
 
                                 <div class="form-group row m-b-15">
                                     <label class="col-form-label col-md-3">Password</label>
                                     <div class="col-md-9">
-                                        <input type="password" class="form-control" id="edit_password" name="edit_password"  data-parsley-required="true" placeholder="Masukkan Password">
+                                        <input type="text" class="form-control" id="edit_password" name="edit_password"  data-parsley-required="true" placeholder="Masukkan Password">
                                     </div>
                                 </div>
 
@@ -54,13 +47,6 @@
                                     <label class="col-form-label col-md-3">Nama Lengkap</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" id="edit_nama" name="edit_nama"  data-parsley-required="true" placeholder="Masukkan Nama Lengkap">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row m-b-15">
-                                    <label class="col-form-label col-md-3">Email</label>
-                                    <div class="col-md-9">
-                                        <input type="email" class="form-control" id="edit_email" name="edit_email"  data-parsley-required="true" placeholder="Masukkan Email">
                                     </div>
                                 </div>
 
@@ -75,32 +61,6 @@
                                     <label class="col-form-label col-md-3">Alamat</label>
                                     <div class="col-md-9">
                                         <textarea id="edit_alamat" class="form-control" rows="3" name="edit_alamat"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row m-b-15">
-                                    <label class="col-form-label col-md-3">Status Pengguna</label>
-                                    <div class="col-md-9">
-                                        <select name="edit_status" class="form-control" id="edit_status">
-                                            <option value="admin" selected="">Admin</option>
-                                            <option value="customer">Customer</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row m-b-15">
-                                    <div class="col-md-12">
-                                        <center>
-                                            <img id="foto_lama" style="width: 120px; height: 160px;" src="">
-                                        </center>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row m-b-15">
-                                    <label class="col-form-label col-md-3">Foto Baru</label>
-                                    <div class="col-md-9">
-                                        <input type="file" id="edit_file" name="edit_file"
-                                        data-parsley-required="true"/>
                                     </div>
                                 </div>
 
@@ -168,58 +128,14 @@
                 })
             }, 5000)
 
-            $.getJSON('<?php echo base_url('Admin/Pengguna/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?php echo base_url('Admin/Pengaturan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#id_pengguna').val(json.id);
-                    $('#edit_username').val(json.username);
                     $('#edit_password').val(json.password);
                     $('#edit_nama').val(json.nama_lengkap);
                     $('#edit_email').val(json.email);
                     $('#edit_no_hp').val(json.no_hp);
                     $('#edit_alamat').val(json.alamat);
-
-                    if (json.status == 'customer') {
-                        document.getElementById("edit_status").selectedIndex = 1;
-                    } else {
-                        document.getElementById("edit_status").selectedIndex = 0;
-                    }
-
-                    if (json.file != '' || json.file != null) {
-                        $("#foto_lama").attr("src", "http://localhost:8080/booking_hotel/" + json.file) ;
-                    } else {
-                        $("#foto_lama").attr("src", "http://localhost:8080/booking_hotel/docs/img/img_pengguna/noimage.jpg");
-                    }
                 });
-        })
-    </script>
-
-    <script type="text/javascript">
-        $(function() {
-
-            $("#input_username").keyup(function(){
-
-                var input_username = $(this).val().trim();
-          
-                if(input_username != ''){
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'json',
-                        url: '<?php echo base_url('Admin/Pengguna/cek_username'); ?>' + '/' + input_username,
-                        success: function (data) {
-                            if(data['results']>0){
-                                $("#error_username").html('Username telah dipakai,coba yang lain');
-                                $("#input_username").val(input_username);
-                            }else{
-                                $("#error_username").html('');
-                            }
-                        }, error: function () {
-            
-                            alert('error');
-                        }
-                    });
-                }
-          
-            });
         })
     </script>
 </body>

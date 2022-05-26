@@ -29,11 +29,11 @@
         </li>
         <li class="dropdown navbar-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="<?= base_url() . '/' . $session->get('foto'); ?>" alt="" />
+                <img src="<?= base_url() . '/' . 'docs/img/img_logo/logo.png' ?>" alt="" />
                 <span class="d-none d-md-inline"><?= $session->get('username_login'); ?></span> <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="<?= base_url('Admin/Pengaturan'); ?>" class="dropdown-item">Pengaturan</a>
+                <a href="<?= base_url('SuperAdmin/Pengaturan'); ?>" class="dropdown-item">Pengaturan</a>
                 <div class="dropdown-divider"></div>
                 <a href="" data-toggle="modal" data-target="#logoutModal" class="dropdown-item">Keluar</a>
             </div>
