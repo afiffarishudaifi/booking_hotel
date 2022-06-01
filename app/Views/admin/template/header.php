@@ -35,7 +35,11 @@
         </li>
         <li class="dropdown navbar-user">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="<?= base_url() . '/' . 'docs/img/img_logo/logo.png' ?>" alt="" />
+                <?php if($session->get('foto') == 'n') { ?>
+                    <img src="<?= base_url() . '/' . 'docs/img/img_logo/logo.png' ?>" alt="" />
+                <?php } else { ?>
+                    <img src="<?= base_url() . '/' . $session->get('foto') ?>" alt="" />
+                <?php } ?>
                 <span class="d-none d-md-inline"><?= $session->get('username_login'); ?></span> <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right">

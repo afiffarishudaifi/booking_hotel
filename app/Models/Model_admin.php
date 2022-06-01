@@ -65,4 +65,12 @@ class Model_admin extends Model
         return $builder->get();
     }
 
+    public function cek_admin($id_admin)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('admin');
+        $builder->where('id_admin', $id_admin);
+        return $builder->get();
+    }
+
 }

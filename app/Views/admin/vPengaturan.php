@@ -64,6 +64,22 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group row m-b-15">
+                                    <div class="col-md-12">
+                                        <center>
+                                            <img id="foto_lama" style="width: 120px; height: 160px;" src="">
+                                        </center>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row m-b-15">
+                                    <label class="col-form-label col-md-3">Foto Baru</label>
+                                    <div class="col-md-9">
+                                        <input type="file" id="edit_file" name="edit_file"
+                                        data-parsley-required="true"/>
+                                    </div>
+                                </div>
+
                                 <div class="form-group row m-b-15" style="padding-top: 10px;">
                                 	<div class="col-md-12">
                                     <center>
@@ -135,6 +151,11 @@
                     $('#edit_email').val(json.email);
                     $('#edit_no_hp').val(json.no_hp);
                     $('#edit_alamat').val(json.alamat);
+                    if (json.file != '' && json.file != 'n') {
+                        $("#foto_lama").attr("src", "<?= base_url()?>" + "/" + json.file) ;
+                    } else {
+                        $("#foto_lama").attr("src", "<?= base_url()?>" + "/docs/img/img_pengguna/noimage.jpg");
+                    }
                 });
         })
     </script>

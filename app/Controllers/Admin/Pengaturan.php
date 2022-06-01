@@ -52,19 +52,43 @@ class Pengaturan extends BaseController
         $encrypter = \Config\Services::encrypter();
 
         $model = new Model_admin();
+        $avatar      = $this->request->getFile('edit_file');
+        if ($avatar != '') {
+            $namabaru     = $avatar->getRandomName();
+            $avatar->move('docs/img/img_pengguna/', $namabaru);
 
-        $id = $this->request->getPost('id_pengguna');
-        $data = array(
-            'password' => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
-            'nama_lengkap' => $this->request->getPost('edit_nama'),
-            'no_hp' => $this->request->getPost('edit_no_hp'),
-            'alamat' => $this->request->getPost('edit_alamat')
-        );
+            $id = $this->request->getPost('id_pengguna');
+            $data = array(
+                'password' => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                'nama_lengkap' => $this->request->getPost('edit_nama'),
+                'no_hp' => $this->request->getPost('edit_no_hp'),
+                'alamat' => $this->request->getPost('edit_alamat'),
+                'file' => "docs/img/img_pengguna/" . $namabaru
+            );
+
+            $data_foto = $model->detail_data($id)->getRowArray();
+
+            if ($data_foto != null) {
+                if ($data_foto['file'] != 'docs/img/img_pengguna/noimage.jpg') {
+                    if (file_exists($data_foto['file'])) {
+                        unlink($data_foto['file']);
+                    }
+                }
+            }
+        } else {
+            $id = $this->request->getPost('id_pengguna');
+            $data = array(
+                'password' => base64_encode($encrypter->encrypt($this->request->getPost('edit_password'))),
+                'nama_lengkap' => $this->request->getPost('edit_nama'),
+                'no_hp' => $this->request->getPost('edit_no_hp'),
+                'alamat' => $this->request->getPost('edit_alamat')
+            );
+        }
 
         $model->update_data($data, $id);
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
         $session->destroy();
-        return redirect()->to(base_url('/Login'));
+        return redirect()->to(base_url('/Login/indexAdmin'));
     }
 
     public function cek_username($username)
@@ -93,6 +117,7 @@ class Pengaturan extends BaseController
             $isi['email'] = $value['email'];
             $isi['no_hp'] = $value['no_hp'];
             $isi['alamat'] = $value['alamat'];
+            $isi['file'] = $value['file'];
         endforeach;
         echo json_encode($isi);
     }

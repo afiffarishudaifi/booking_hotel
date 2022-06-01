@@ -72,7 +72,7 @@
                 <?php endif; ?>
                 <form action="<?php echo base_url('Login/login'); ?>" method="POST" class="margin-bottom-0" style="padding-bottom: 10px;">
                     <div class="form-group m-b-20">
-                        <input type="email" name="email" class="form-control form-control-lg" placeholder="Email Address" required />
+                        <input type="email" name="email" class="form-control form-control-lg" placeholder="Email Address" required autofocus="" />
                     </div>
                     <div class="form-group m-b-20">
                         <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" required />
