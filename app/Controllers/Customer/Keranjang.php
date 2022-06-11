@@ -28,10 +28,20 @@ class Keranjang extends BaseController
         if (!$session->get('username_login') || $session->get('status_login') != 'customer') {
             return redirect()->to('Login');
         }
+
         $id = $session->get('user_id');
         
         $model_dash = new Model_dashboard();
         $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
+        
+
+        $cek_data =  $model_dash->cek_data($id)->getRowArray();
+
+        if($cek_data != null) {
+            if($cek_data['nama_lengkap'] == '' || $cek_data['nik'] == '' || $cek_data['alamat'] == '' || $cek_data['no_hp'] == null) {
+                return redirect()->to(base_url('Customer/Pengaturan'));
+            } 
+        }
 
         $model = new Model_keranjang();
         $pemesanan = $model->view_data_keranjang($id)->getResultArray();

@@ -28,141 +28,8 @@
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-
-      <style>
-        .act-btn{
-              background:#e28743;
-              display: block;
-              width: 50px;
-              height: 50px;
-              line-height: 50px;
-              text-align: center;
-              color: white;
-              font-size: 30px;
-              font-weight: bold;
-              border-radius: 50%;
-              -webkit-border-radius: 50%;
-              text-decoration: none;
-              transition: ease all 0.3s;
-              position: fixed;
-              right: 30px;
-              bottom:30px;
-            }
-        .act-btn:hover{background: #eab676}
-
-          .title-app {
-              margin-top: 5px;
-          }
-          .main-menu {
-              top: 7px;
-          }
-
-          @media (max-width: 480px) {
-              .title-app {
-                  margin-top: 15px;
-              }
-              ul.mm-listview li a.btn{
-                  color: #fff !important;
-                  width: 60%;
-                  padding: 10px;
-              }
-          }
-          
-          @media (max-width: 767px) {
-              ul#top_menu li:first-child {
-                  display: inherit;
-              }
-          }
-
-          @media (max-width: 991px) {
-              .title-app {
-                  margin-top: 15px;
-              }
-              ul.mm-listview li a.btn{
-                  color: #fff !important;
-                  width: 60%;
-                  padding: 10px;
-              }
-          }
-      </style>
-
-      <style type="text/css">
-
-        @media (max-width: 575px) {
-          .hero_in.hotels_detail2 {
-            /*width: 1650px;*/
-            height: 500px;
-          }
-          
-          img.mfp-img {
-            height: inherit !important;
-          }
-        }
-
-        .hero_in.hotels_detail2 .wrapper {
-          background-color: black;
-          background-color: rgba(0, 0, 0, 0.6);
-        }
-        
-        .list_articles ul li {
-              width: 100%;
-          }
-
-        @media (max-width: 991px) {
-          
-          img.mfp-img {
-            height: inherit !important;
-          }
-        }
-        
-        .tabs nav ul {
-            display: inline-flex;
-          }
-          a.grid_item figure img{
-              width: 100% !important;
-              height: 165px;
-          }
-
-          .tabs nav ul li a i {
-              top: 10px !important;
-          }
-
-          .tabs nav ul li.tab-current {
-              background-color: #d9d9d9;
-              z-index: 100;
-          }
-          .logo_objek {
-              width: 100px;
-              margin-bottom: -20px;
-              height: auto;
-              position: inherit;
-          }
-          
-          .list_articles ul li {
-              width: 100%;
-          }
-
-          @media (max-width: 1199px) {
-              .logo_objek {
-                  width: 100px;
-                  margin-bottom: -20px;
-                  height: auto;
-                  position: inherit;
-              }
-          }
-
-          @media (max-width: 767px) {
-              .logo_objek {
-                  width: 100px;
-                  margin-bottom: -20px;
-                  height: auto;
-                  position: inherit;
-              }
-          }
-          .nice-select{
-            display: none;
-          }
-      </style>
+    <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2/css/select2.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
    </head>
    <!-- body -->
    <body class="main-layout">
@@ -222,6 +89,7 @@
                         <h1>SELAMAT DATANG DI HOTEL PURBAYA </h1>
                         <span> Jalan Raya Magetan Sarangan No. 8, Ngerong</span>
                         <p>Penginapan yang wajib menjadi tempat istirahat kalian. Lokasi yang sangat strategis dan dapat menjakau tempat wisata di sekitarnya</p>
+                        <a href="#">Baca Selengkapnya</a>
                      </div>
                   </div>
                </div>
@@ -236,25 +104,21 @@
                   <center>
                      <form class="form_book" method="get" action="<?php echo base_url('Frontend/Pencarian/pencarian'); ?>">
                         <div class="row">
-                           <div class="col-md-3">
+                           <div class="col-md-4">
                               <label class="date">Tanggal Masuk</label>
-                              <input class="book_n"  type="datetime-local" required="" name="input_masuk" data-date-format="DD MMMM YYYY">
+                              <input class="book_n"  type="datetime-local" name="input_masuk" data-date-format="DD MMMM YYYY">
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-4">
                               <label class="date">Tanggal Keluar</label>
-                              <input class="book_n"  type="datetime-local" required="" name="input_keluar" data-date-format="DD MMMM YYYY">
+                              <input class="book_n"  type="datetime-local" name="input_keluar" data-date-format="DD MMMM YYYY">
                            </div>
-                           <div class="col-md-3">
-                              <label class="isi">Maksimal Penghuni</label>
-                              <select name="input_isi" class="book_n">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
+                           <!-- <div class="col-md-3">
+                              <label class="date">Tipe Kamar</label>
+                              <select id="select_kategori" name="input_kategori" class="book_n">
                               </select>
-                           </div>
+                           </div> -->
                            <div class="col-md-3">
-                              <button type="submit" class="book_btn">Cari</button>
+                              <button type="submit" class="book_btn">Pencarian</button>
                            </div>
                         </div>
                      </form>
@@ -273,6 +137,7 @@
                         <h2><span class="text_norlam">PILIHAN YANG TEPAT</span> <br>Penginapan</h2>
                      </div>
                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit </p>
+                     <a class="read_more" href="#">Lihat Selengkapnya</a>
                   </div>
                </div>
                <div class="col-md-6">
@@ -303,7 +168,7 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage">
-                     <h2>Kamar Kosong Hari Ini</h2>
+                     <h2>Kamar</h2>
                   </div>
                </div>
             </div>
@@ -332,10 +197,10 @@
                                  <h4><b><?= $item['nama_kamar'] ?></b></h4>
                                  <p style="text-align: justify;"> Harga : <?= $item['biaya'] ?>/Malam<br>
                                  Kategori Kamar : <?= $item['nama_kategori'] ?><br>
-                                 Status Kamar : Kosong</p><br>
-                                 <a href="javascript:void(0);" class="btn btn-sm btn-primary" onclick="detail(<?= $item['id']; ?>)" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn_1 outline">Detail</a>
+                                 Status Kamar : <?= $item['status_kamar'] ?></p><br>
+                                 <a href="<?= base_url('Frontend/Pencarian/detail/' . $item['id']); ?>" class="btn btn-sm btn-primary">Detail</a>
 
-                                 <a href="javascript:void(0);" class="btn btn-sm btn-success" onclick="detail_pesan(<?= $item['id']; ?>)" data-toggle="modal" data-target=".bd-example-modal-lg-pesan" class="btn_1 outline">Pesan</a>
+                                 <a href="javascript:void(0);" class="btn btn-sm btn-success" onclick="detail(<?= $item['id']; ?>)" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn_1 outline">Pesan</a>
                            </div>
                         </div>
                      </div>
@@ -357,20 +222,20 @@
               </button>
             </div>
             
-              <section style="padding-bottom: 20px;">
+              <section style="padding-top: 60px;">
                 <div class="container">
-                    <div class="row" style="padding-left: 20px; padding-right: 20px;">
+                    <div class="row" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                         <div class="col-md-12">
                             <div class="row" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                                 <div class="col-md-12" style="padding-top: 10px;">
                                     <h2>Deskirpsi : </h2>
-                                    <p style="text-align: justify;" id="text_deskripsi">  
-                                      </p>
+                                    <p style="text-align: justify;">  
+                                      lorem  </p>
                                 </div>
                             </div>
                             <div class="row" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                                 <div class="col-md-12">
-                                 <h2></i> Informasi</h2>
+                                 <h2><i class="fa fa-info-circle"></i> Informasi</h2>
                                  <div class="">
                                           <ul style='word-break: break-word;'>
                                               
@@ -385,9 +250,10 @@
                             <?php if (4 != 1) { ?>
                             <div class="row" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                                 <div class="col-md-12">
-                                  <h2>Fasilitas</h2>
+                                  <h2><i class='fa fa-hotel'></i> Fasilitas</h2>
                                   <div class="">
-                                    <ul style='word-break: break-word;' id="text_fasilitas">
+                                    <ul style='word-break: break-word;'>
+                                        <li> - bagus</li>
                                     </ul>
                                   </div>
                                 </div>
@@ -395,56 +261,36 @@
                             <?php } ?>
                             <div class="row" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                                 <div class="col-md-12">
-                                  <h2>Galeri</h2>
-                                    <div class="pictures_grid magnific-gallery clearfix">
-                                        <ul style='word-break: break-word;' id="text_foto">
-                                        </ul>
-                                    </div>
-                                </div>
+                                 <h2><i class="fa fa-image"></i> Galeri</h2>
+                                 <div class="pictures_grid magnific-gallery clearfix">
+                                       </div>
                             </div>
                             <div class="row"  style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                                 <div class="col-md-12">
-                                  <h2></i> Lokasi</h2>
+                                  <h2><i class="fa fa-map-marker"></i> Lokasi</h2>
                                   <div class="pictures_grid magnific-gallery clearfix">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.1044759537126!2d111.21650181419785!3d-7.671916378061466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e798e9e0ba4721f%3A0x3c5dbc151c888349!2sPurboyo%20Hotel!5e0!3m2!1sen!2sid!4v1653579980321!5m2!1sen!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                   </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal fade bd-example-modal-lg-pesan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-
-          <div class="modal-content">
-            
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Pemesanan Kamar</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            
-              <section>
-                <div class="container">
-                    <div class="row" style="padding-top: 20px; padding-bottom: 20px">
+                    <div class="row" style="padding-top: 20px">
                          <div class="col-md-12">
                             <?php if ($session->get('status_login') == 'customer') { ?>
                              <form action="<?php echo base_url('Frontend/Pemesanan/add_detail_pemesanan'); ?>" method="post" data-parsley-validate="true">
                                <?= csrf_field(); ?>
                                <div class="modal-dialog" role="document">
                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                           <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pemesanan </h5>
+                                       </div>
                                        <div class="modal-body">
 
-                                           <input type="hidden" name="input_kamar" id="input_kamar">
+                                           <input type="hidden" name="input_kamar" id="input_kamar" value="5">
 
                                            <div class="form-group">
                                                <label>Biaya Kamar/malam</label>
-                                               <input type="text" name="input_biaya" id="input_biaya" class="form-control" readonly="" value="">
+                                               <input type="text" name="input_biaya" id="input_biaya" class="form-control" readonly="" value="345345">
                                            </div>
 
                                            <div class="form-group">
@@ -471,7 +317,7 @@
                                        </div>
                                        <div class="modal-footer">
                                            <button type="reset" class="btn btn-secondary" id="batal_add" data-dismiss="modal">Batal</button>
-                                           <button type="submit" name="tambah" class="btn btn-primary">Pesan</button>
+                                           <button type="submit" name="tambah" class="btn btn-primary">Simpan</button>
                                        </div>
                                    </div>
                                </div>
@@ -479,14 +325,29 @@
 
                            <?php } else { ?>
                              <center>
-                               <h4>Anda harus sign in untuk dapat melakukan pemesanan</h4>
-                               <a href="<?= base_url('Login'); ?>" class="btn btn-primary">Sign In</a>
+                               <h4>Anda harus login untuk dapat melakukan pemesanan</h4>
+                               <a href="<?= base_url('Login'); ?>" class="btn btn-primary">Login</a>
                              </center>
                            <?php } ?>
                          </div>
                     </div>
                 </div>
             </section>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Detail Kamar</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            </div>
           </div>
         </div>
       </div>
@@ -512,6 +373,7 @@
                           <div class="col-md-12" style="padding-top: 10px;">
                               <h4><b><?= $item['nama_tempat'] ?></b></h4>
                               <p style="text-align: justify;"> <b>Deskripsi</b> : <?= substr($item['deskripsi'], 0, 200) ?> . . .<br>
+                              <b>Alamat</b> : <?= $item['alamat_tempat'] ?><br></p>
                               <a href="<?= base_url('Frontend/Wisata/detail/' . $item['id_tempat']); ?>" class="btn btn-sm btn-primary">Detail</a>
                           </div>
                       </div>
@@ -528,8 +390,6 @@
          </div>
       </div>
 
-
-      <?php if ($session->get('status_login') == '') { ?>
       <footer id="contact">
          <div class="footer">
             <div class="container">
@@ -577,12 +437,6 @@
             </div>
          </div>
       </footer>
-      <?php } else {?>
-
-        <a href="<?= base_url('Customer/Keranjang'); ?>" class="act-btn">
-          <i class="fa fa-shopping-cart" alt="Keranjang"></i>
-        </a>
-      <?php } ?>
 
       <script src="<?= base_url() ?>/docs/frontend/js/jquery.min.js"></script>
       <script src="<?= base_url() ?>/docs/frontend/js/popper.min.js"></script>
@@ -594,70 +448,38 @@
       <script src="<?= base_url() ?>/docs/frontend/js/custom.js"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
+      
+    <script src="<?php echo base_url('docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
+
       <script type="text/javascript">
-        function detail(isi) {
-            $.getJSON('<?= base_url('Frontend/Pencarian/detail'); ?>' + '/' + isi, {},
-                function(json) {              
-                  var foto_cover = json.kamar.foto;
-                    $('#id_tempat').val(json.id_tempat);
-                    document.getElementById("text_deskripsi").innerHTML = "";
-                    document.getElementById("text_deskripsi").textContent += json.kamar.deskripsi;
+         $('#select_kategori').select2({
+            placeholder: "Pilih Kategori",
+            theme: 'bootstrap4',
+            ajax: {
+                url: '<?php echo base_url('Frontend/Frontend/data_kategori'); ?>',
+                dataType: 'json'
+            }
+        });
 
-                    document.getElementById("text_fasilitas").innerHTML = "";
-                    var ul = document.getElementById("text_fasilitas");
-                    var li = document.createElement("li");
-                    for(i = 0; i <= json.fasilitas.length ; i++) {
-                      if (i == json.fasilitas.length - 1) {
-                        li.appendChild(document.createTextNode(json.fasilitas[i].nama_fasilitas));
-                        ul.appendChild(li);
-                      } else {
-                        li.appendChild(document.createTextNode(json.fasilitas[i].nama_fasilitas  + ', '));
-                        ul.appendChild(li);
-                      }
-                    }  
-
-                    document.getElementById("text_foto").innerHTML = "";
-                    var ul2 = document.getElementById("text_foto");
-                    var li2 = document.createElement("li");
-                    for(j = 0; j <= json.foto.length ; j++) {
-                      if (j == json.foto.length - 1) {
-                        li2.appendChild(document.createTextNode(json.foto[j].nama_foto));
-                        ul2.appendChild(li2);
-                      } else {
-                        li2.appendChild(document.createTextNode(json.foto[j].nama_foto  + ', '));
-                        ul2.appendChild(li2);
-                      }
-                    }              
-                });
-        }
-
-        function detail_pesan(isi) {
+         function detail(isi) {
             $.getJSON('<?= base_url('Frontend/Pencarian/detail'); ?>' + '/' + isi, {},
                 function(json) {
-                    $('#input_biaya').val(json.kamar.biaya);
-                    $('#input_kamar').val(json.kamar.id_kamar);        
+                    $('#id_tempat').val(json.id_tempat);
+                    $('#edit_nama').val(json.nama_tempat);
+                    $('#edit_url').val(json.url_tempat);
+                    $('#edit_alamat').val(json.alamat_tempat);
+                    $('#edit_deskripsi').val(json.deskripsi);
+                    $('#edit_lat').val(json.latitude);
+                    $('#edit_long').val(json.longitude);
+                    $('#edit_jarak').val(json.jarak_tempat);
+                    $('#foto_edit_lama').val(json.foto);
+                    if (json.foto != '' || json.foto != null) {
+                        $("#foto_lama").attr("src", "<?= base_url('docs/img/img_tempat') . '/' ?>" + json.foto) ;
+                    } else {
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + "docs/img/img_tempat/noimage.jpg");
+                    }
                 });
         }
-
-        function get_result(masuk, akhir) {
-            var tanggal_masuk = new Date(masuk);
-            var tanggal_akhir = new Date(akhir);
-            var timeDiff=0
-            if (tanggal_akhir) {
-                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
-            }
-
-            var selisih = Math.floor(timeDiff/(86400))
-            var biaya = $('#input_biaya').val()
-
-            var total_biaya = parseInt(selisih) * parseInt(biaya);
-
-            if (isNaN(total_biaya)) {
-                $('#input_hasil_total').val('0')
-            } else {
-                $('#input_hasil_total').val(total_biaya)
-            }
-          }
       </script>
    </body>
 </html>

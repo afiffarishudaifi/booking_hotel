@@ -150,6 +150,11 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label>Maksimal Penghuni </label>
+                                <input type="number" class="form-control" id="input_isi" name="input_isi"  data-parsley-required="true" placeholder="Masukkan Maksimal Penghuni">
+                            </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_add" data-dismiss="modal">Batal</button>
@@ -199,6 +204,11 @@
                                     <option value="kosong" selected="">Kosong</option>
                                     <option value="terisi">Terisi</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Maksimal Penghuni </label>
+                                <input type="number" class="form-control" id="edit_isi" name="edit_isi"  data-parsley-required="true" placeholder="Masukkan Maksimal Penghuni">
                             </div>
 
                         </div>
@@ -365,6 +375,7 @@
                 $("#input_kategori").val('');
                 $("#input_nama").val('');
                 $("#input_biaya").val('');
+                $("#input_isi").val('');
                 $("#input_status").val('');
             });
 
@@ -373,6 +384,7 @@
                 $("#input_kategori").val('');
                 $("#input_nama").val('');
                 $("#input_biaya").val('');
+                $("#input_isi").val('');
                 $("#input_status").val('');
             });
 
@@ -381,6 +393,7 @@
                 $("#edit_kategori").val('');
                 $("#edit_nama").val('');
                 $("#edit_biaya").val('');
+                $("#edit_isi").val('');
                 $("#edit_status").val('');
             });
         })
@@ -391,6 +404,7 @@
                     $('#id_kamar').val(json.id_kamar);
                     $('#edit_nama').val(json.nama_kamar);
                     $('#edit_biaya').val(json.biaya);
+                    $('#edit_isi').val(json.isi);
 
                     $('#edit_kategori').append('<option selected value="' + json.id_kategori + '">' + json.nama_kategori +
                         '</option>');

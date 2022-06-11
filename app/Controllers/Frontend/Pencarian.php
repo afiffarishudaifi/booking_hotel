@@ -21,6 +21,7 @@ class Pencarian extends BaseController
         $kosong = array();
         $session = session();
         $model = new Model_pencarian();
+        $param['input_isi'] = $this->request->getGet('input_isi');
         $param['input_masuk'] = substr($this->request->getGet('input_masuk'),0,10) . ' ' . substr($this->request->getGet('input_masuk'),11,15);
         $param['input_keluar'] =substr($this->request->getGet('input_keluar'),0,10) . ' ' . substr($this->request->getGet('input_keluar'),11,15);
         $data = $model->cek_kamar($param)->getResultArray();
@@ -112,7 +113,22 @@ class Pencarian extends BaseController
             'foto_cover' => $foto_limit['nama_foto']
         ];
 
-        return view('frontend/vDetailKamar', $data);
+        // dd($data);
+
+        // return view('frontend/vDetailKamar', $data);
+
+        // $kamar = $model->detail_kamar($id)->getResultArray();
+        // $respon = json_decode(json_encode($kamar), true);
+        // $data['results'] = array();
+        // foreach ($respon as $value) :
+        //     $isi['id_kamar'] = $value['id_kamar'];
+        //     $isi['nama_kamar'] = $value['nama_kamar'];
+        //     $isi['biaya'] = $value['biaya'];
+        //     $isi['nama_kategori'] = $value['nama_kategori'];
+        //     $isi['id_kategori'] = $value['id_kategori'];
+        //     $isi['deskripsi'] = $value['deskripsi'];
+        // endforeach;
+        echo json_encode($data);
     }
 
 }

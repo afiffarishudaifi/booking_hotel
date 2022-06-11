@@ -80,7 +80,7 @@ class Login extends BaseController
             $session->set("LoggedUserData", $ses_data);
             $session->set($ses_data);
 
-            return redirect()->to('/Customer/Dashboard');
+            return redirect()->to('/Frontend/Frontend');
 
         }else{
             $session->setFlashData("Error", "Something went Wrong");

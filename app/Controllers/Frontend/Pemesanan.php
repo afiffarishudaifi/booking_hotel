@@ -64,6 +64,6 @@ class Pemesanan extends BaseController
         $id_kamar = $this->request->getPost('input_kamar');
         $model_kamar->update_data($data_kamar, $id_kamar);
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
-        return redirect()->to(base_url('Customer/Keranjang'));
+        return redirect()->to(base_url('Frontend/Frontend'));
     }
 }

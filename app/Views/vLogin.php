@@ -91,7 +91,6 @@
                         </a>
                     </div>
                 </form>
-                Apakah anda belum memiliki akun ? klik <a href="<?php echo base_url('Register'); ?>">Daftar</a>
             </div>
             <!-- end login-content -->
         </div>

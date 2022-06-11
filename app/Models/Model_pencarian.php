@@ -15,11 +15,13 @@ class Model_pencarian extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('detail_pemesanan');
-        $builder->select('id_kamar');
+        $builder->select('kamar.id_kamar');
 
         if ($params['input_masuk'] != '') {
             $builder->where('detail_pemesanan.tanggal_keluar >', $params['input_masuk']);
         }
+        $builder->where('kamar.isi <=', 2);
+        $builder->join('kamar','detail_pemesanan.id_kamar = kamar.id_kamar');
         return $builder->get();
     }
 

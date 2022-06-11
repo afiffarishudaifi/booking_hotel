@@ -47,6 +47,7 @@ class Kamar extends BaseController
             'nama_kamar'     => $this->request->getPost('input_nama'),
             'status_kamar'     => $this->request->getPost('input_status'),
             'biaya'     => $this->request->getPost('input_biaya'),
+            'isi'     => $this->request->getPost('input_isi'),
             'id_kategori'     => $this->request->getPost('input_kategori')
         );
         $model = new Model_kamar();
@@ -65,6 +66,7 @@ class Kamar extends BaseController
             'nama_kamar'     => $this->request->getPost('edit_nama'),
             'id_kategori'     => $this->request->getPost('edit_kategori'),
             'biaya'     => $this->request->getPost('edit_biaya'),
+            'isi'     => $this->request->getPost('edit_isi'),
             'status_kamar'     => $this->request->getPost('edit_status')
         );
 
@@ -153,6 +155,7 @@ class Kamar extends BaseController
             $isi['id_kategori'] = $value['id_kategori'];
             $isi['nama_kategori'] = $value['nama_kategori'];
             $isi['biaya'] = $value['biaya'];
+            $isi['isi'] = $value['isi'];
         endforeach;
         echo json_encode($isi);
     }
