@@ -45,11 +45,11 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Nama Kamar</th>
-                                        <th class="text-nowrap">Tanggal Masuk</th>
-                                        <th class="text-nowrap">Tanggal Keluar</th>
-                                        <th class="text-nowrap">Total Biaya</th>
-                                        <th class="text-nowrap">Aksi</th>
+                                        <th class="text-nowrap" style="text-align: center;">Nama Kamar</th>
+                                        <th class="text-nowrap" style="text-align: center;">Tanggal Masuk</th>
+                                        <th class="text-nowrap" style="text-align: center;">Tanggal Keluar</th>
+                                        <th class="text-nowrap" style="text-align: center;">Total Biaya</th>
+                                        <th class="text-nowrap" style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

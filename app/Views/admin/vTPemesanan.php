@@ -46,10 +46,10 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Nama Pengunjung</th>
-                                        <th class="text-nowrap">Tanggal Pemesanan</th>
-                                        <th class="text-nowrap">Status Pemesanan</th>
-                                        <th class="text-nowrap">Aksi</th>
+                                        <th class="text-nowrap" style="text-align: center;">Nama Pengunjung</th>
+                                        <th class="text-nowrap" style="text-align: center;">Tanggal Pemesanan</th>
+                                        <th class="text-nowrap" style="text-align: center;">Status Pemesanan</th>
+                                        <th class="text-nowrap" style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

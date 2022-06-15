@@ -51,12 +51,12 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Nama Pengunjung</th>
-                                        <th class="text-nowrap">Tanggal Pemesanan</th>
-                                        <th class="text-nowrap">Status Pemesanan</th>
-                                        <th class="text-nowrap">Tagihan</th>
-                                        <th class="text-nowrap">Bukti Pembayaran</th>
-                                        <th class="text-nowrap">Aksi</th>
+                                        <th class="text-nowrap" style="text-align: center;">Nama Pengunjung</th>
+                                        <th class="text-nowrap" style="text-align: center;">Tanggal Pemesanan</th>
+                                        <th class="text-nowrap" style="text-align: center;">Status Pemesanan</th>
+                                        <th class="text-nowrap" style="text-align: center;">Tagihan</th>
+                                        <th class="text-nowrap" style="text-align: center;">Bukti Pembayaran</th>
+                                        <th class="text-nowrap" style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,9 +72,13 @@
                                         <td><?= $item['total_tagihan']; ?></td>
                                         <td>
                                             <center>
-                                            <a href="" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#pembayaranModal" data-whatever="<?= $item['bukti_transaksi']; ?>" name="btn-detail">
-                                                Lihat
-                                            </a>
+                                                <?php if($item['bukti_transaksi'] != 'n') { ?>
+                                                    <a href="" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#pembayaranModal" data-whatever="<?= $item['bukti_transaksi']; ?>" name="btn-detail">
+                                                        Lihat
+                                                    </a>
+                                                <?php } else { ?>
+                                                    Belum Upload Bukti
+                                                <?php } ?>
                                             </center>
                                         </td>
                                         <td>
@@ -140,7 +144,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_up" data-dismiss="modal">Batal</button>
-                            <button type="submit" name="update" class="btn btn-primary">Konfirmasi</button>
+                            <button type="submit" name="update" class="btn btn-primary" value="Konfirmasi">Konfirmasi</button>
+                            <button type="submit" name="tolak" class="btn btn-danger" value="Batalkan">Batalkan</button>
                         </div>
                     </div>
                 </div>

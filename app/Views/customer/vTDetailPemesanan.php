@@ -20,7 +20,6 @@
 
         <div id="content" class="content">
             <ol class="breadcrumb float-xl-right">
-                <button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i>Tambah Data</button>
             </ol>
 
             <h1 class="page-header"><?= $page_header; ?>
@@ -45,11 +44,11 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Nama Kamar</th>
-                                        <th class="text-nowrap">Tanggal Masuk</th>
-                                        <th class="text-nowrap">Tanggal Keluar</th>
-                                        <th class="text-nowrap">Total Biaya</th>
-                                        <th class="text-nowrap">Aksi</th>
+                                        <th class="text-nowrap" style="text-align: center;">Nama Kamar</th>
+                                        <th class="text-nowrap" style="text-align: center;">Tanggal Masuk</th>
+                                        <th class="text-nowrap" style="text-align: center;">Tanggal Keluar</th>
+                                        <th class="text-nowrap" style="text-align: center;">Total Biaya</th>
+                                        <!-- <th class="text-nowrap" style="text-align: center;">Aksi</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,13 +62,13 @@
                                         <td><?= $item['tanggal_masuk']; ?></td>
                                         <td><?= $item['tanggal_keluar']; ?></td>
                                         <td><?= $item['total_biaya']; ?></td>
-                                        <td>
+                                        <!-- <td>
                                             <center>
                                                 <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_detail']; ?>)" class="btn btn-edit btn-warning btn-sm"><i
                                                         class="fa fa-pen"></i></a>
                                                 <a href="" type="button" onclick="Hapus(<?= $item['id_detail']; ?>,<?= $item['id_kamar']; ?>)" class="btn btn-danger btn-sm" id="btn-delete" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i></a>
                                             </center>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     <?php } ?>
                                 </tbody>

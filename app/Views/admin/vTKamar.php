@@ -46,10 +46,10 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Nama Kamar</th>
-                                        <th class="text-nowrap">Status Kamar</th>
-                                        <th class="text-nowrap">Biaya/malam</th>
-                                        <th class="text-nowrap">Aksi</th>
+                                        <th class="text-nowrap" style="text-align: center;">Nama Kamar</th>
+                                        <th class="text-nowrap" style="text-align: center;">Status Kamar</th>
+                                        <th class="text-nowrap" style="text-align: center;">Biaya/malam</th>
+                                        <th class="text-nowrap" style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

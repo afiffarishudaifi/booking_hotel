@@ -29,8 +29,6 @@ class Frontend extends BaseController
         }
 
         $model_frontend = new model_frontend();
-        // $kamar = $model_frontend->view_data()->getResultArray();
-        // dd($kamar);
         $param['input_masuk'] = date('Y-m-d');
         $data = $model_frontend->cek_kamar($param)->getResultArray();
         foreach ($data as $value) {

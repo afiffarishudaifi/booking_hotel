@@ -49,22 +49,32 @@ class Model_pemesanan extends Model
         return $builder->get();
     }
 
-    public function update_data($data, $id, $data_pengunjung)
+    public function update_data($data, $id)
+    {  
+        
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->where('id_pemesanan', $id);
+        $builder->set($data);
+        return $builder->update();
+    }
+
+    public function update_data_admin($data, $id, $data_pengunjung)
     {
-        $link = 'https://cepogo.wablas.com/api/send-message';
-        $curl = \Config\Services::curlrequest();
-        $response = $curl->request('POST', $link, [
-            'form_params' => [
-                'phone' => $data_pengunjung['no_hp'],
-                'message' => 'Selamat Datang di Hotel Purbaya. Transaksi pembayaran sudah terkonfirmasi dan kamar siap untuk ditempati. Terimakasih ' . $data_pengunjung['nama_lengkap'] . ' telah melakukan pemesanan pada tanggal ' . $data_pengunjung['tanggal_pesan'] . ' dan selamat menikmati',
-                'secret' => false, // or true
-                'priority' => false, // or true
-            ],
-            "headers" => [
-                "Content-Type" => "application/x-www-form-urlencoded",
-                "Authorization" => "uCOdT9hNtbtCOds5BhR2UA20y4wdWmA70AGMCKsuYtM0J1CeXWqJi81pyVpFrF89"
-            ]
-        ]);        
+        // $link = 'https://cepogo.wablas.com/api/send-message';
+        // $curl = \Config\Services::curlrequest();
+        // $response = $curl->request('POST', $link, [
+        //     'form_params' => [
+        //         'phone' => $data_pengunjung['no_hp'],
+        //         'message' => 'Selamat Datang di Hotel Purbaya. Transaksi pembayaran sudah terkonfirmasi dan kamar siap untuk ditempati. Terimakasih ' . $data_pengunjung['nama_lengkap'] . ' telah melakukan pemesanan pada tanggal ' . $data_pengunjung['tanggal_pesan'] . ' dan selamat menikmati',
+        //         'secret' => false, // or true
+        //         'priority' => false, // or true
+        //     ],
+        //     "headers" => [
+        //         "Content-Type" => "application/x-www-form-urlencoded",
+        //         "Authorization" => "uCOdT9hNtbtCOds5BhR2UA20y4wdWmA70AGMCKsuYtM0J1CeXWqJi81pyVpFrF89"
+        //     ]
+        // ]);        
         
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
@@ -137,4 +147,22 @@ class Model_pemesanan extends Model
         return $builder->get();
     }
 
+    public function view_data_detail_pemesanan($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('detail_pemesanan');
+        $builder->select('id_detail, nama_kamar, kamar.id_kamar, tanggal_masuk, tanggal_keluar, total_biaya');
+        $builder->join('kamar', 'kamar.id_kamar = detail_pemesanan.id_kamar');
+        $builder->where('id_pemesanan', $id);
+        return $builder->get();
+    }
+
+    public function update_data_batal_pemesanan($data, $id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('kamar');
+        $builder->where('id_kamar', $id);
+        $builder->set($data);
+        return $builder->update();
+    }
 }

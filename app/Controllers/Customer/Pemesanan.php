@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\Model_pemesanan;
 use App\Models\model_kamar;
 use App\Models\Model_dashboard;
+use App\Models\Model_pengunjung;
 
 class Pemesanan extends BaseController
 {
@@ -180,8 +181,18 @@ class Pemesanan extends BaseController
 
     public function upload_pemesanan()
     {
+        $data_pemesan = [];
         $session = session();
         $model = new Model_pemesanan();
+        $model_pengunjung = new Model_pengunjung();
+        $id_pengguna = $session->get('user_id');
+        $data_pengunjung = $model_pengunjung->detail_data($id_pengguna)->getRowArray();
+
+        $data_pemesan = [
+            'no_hp' => $data_pengunjung['no_hp'],
+            'nama_lengkap' => $data_pengunjung['nama_lengkap']
+        ];
+
         $id = $this->request->getPost('id_pemesanan');
         $avatar      = $this->request->getFile('edit_foto');
         $namabaru     = $avatar->getRandomName();
@@ -189,7 +200,7 @@ class Pemesanan extends BaseController
         $data = array(
             'bukti_transaksi' => $namabaru
         );
-        $model->update_data($data, $id);
+        $model->upload_bukti($data, $id, $data_pemesan);
         session()->setFlashdata('sukses', 'Bukti transaksi berhasil di simpan');
         return redirect()->to('/Customer/Pemesanan');
     }

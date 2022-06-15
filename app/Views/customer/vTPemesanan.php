@@ -51,13 +51,13 @@
                                 <thead>
                                     <tr>
                                         <th width="1%">No</th>
-                                        <th class="text-nowrap">Pengunjung</th>
-                                        <th class="text-nowrap">Tanggal Pesan</th>
-                                        <th class="text-nowrap">Status Pesan</th>
-                                        <th class="text-nowrap">Rekening Tujuan</th>
-                                        <th class="text-nowrap">Tagihan</th>
-                                        <th class="text-nowrap">Bukti Pembayaran</th>
-                                        <th class="text-nowrap">Aksi</th>
+                                        <th class="text-nowrap" style="text-align: center;">Pengunjung</th>
+                                        <th class="text-nowrap" style="text-align: center;">Tanggal Pesan</th>
+                                        <th class="text-nowrap" style="text-align: center;">Status Pesan</th>
+                                        <th class="text-nowrap" style="text-align: center;">Rekening Tujuan</th>
+                                        <th class="text-nowrap" style="text-align: center;">Tagihan</th>
+                                        <th class="text-nowrap" style="text-align: center;">Bukti Pembayaran</th>
+                                        <th class="text-nowrap" style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,11 +77,13 @@
                                         <td><?= $item['total_tagihan']; ?></td>
                                         <td>
                                             <center>
-                                                <?php if($item['bukti_transaksi'] == 'n') { ?>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#uploadModal" class="btn btn-bayar btn-warning btn-sm" onclick="Upload(<?= $item['id_pemesanan']; ?>)">Upload Bukti</a>
+                                                <?php if($item['status_pemesanan'] != 'batal') { 
+                                                    if($item['bukti_transaksi'] == 'n') { ?>
+                                                    <a href="" data-toggle="modal" data-toggle="modal" data-target="#uploadModal" class="btn btn-bayar btn-warning btn-sm" onclick="Upload(<?= $item['id_pemesanan']; ?>)">Upload Bukti</a>
                                                 <?php } else { ?>
-                                                <a href="" data-toggle="modal" data-toggle="modal" data-target="#form_edit_upload" class="btn btn-bayar btn-success btn-sm" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)">Bukti Terupload</a>
-                                                <?php } ?>
+                                                    <a href="" data-toggle="modal" data-toggle="modal" data-target="#form_edit_upload" class="btn btn-bayar btn-success btn-sm" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)">Bukti Terupload</a>
+                                                <?php } 
+                                                } else { echo "-";} ?>
                                             </center>
                                         </td>
                                         <td>
@@ -104,7 +106,7 @@
             data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
 
         <!-- Modal Upload Class-->
-        <form action="<?php echo base_url('Customer/Pemesanan/upload_pemesanan'); ?>" method="post" id="form_upload" data-parsley-validate="true" enctype="multipart/form-data">
+        <form action="<?= base_url('Customer/Pemesanan/upload_pemesanan'); ?>" method="post" id="form_upload" data-parsley-validate="true" enctype="multipart/form-data">
             <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
@@ -135,13 +137,13 @@
         <!-- End Modal Upload Class-->
 
         <!-- Modal Upload Class-->
-        <form action="<?php echo base_url('Customer/Pemesanan/upload_edit_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
+        <form action="<?= base_url('Customer/Pemesanan/upload_edit_pemesanan'); ?>" method="post" id="form_edit" data-parsley-validate="true" enctype="multipart/form-data">
             <div class="modal fade" id="form_edit_upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <?= csrf_field(); ?>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ubah Bukti Pembayaran </h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Bukti Pembayaran </h5>
                             <button type="reset" class="close" data-dismiss="modal" id="batal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -158,15 +160,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Bukti Pembayaran</label>
-                                <input class="form-group" type="file" name="edit_foto" id="edit_foto" required>
-                            </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="reset" class="btn btn-secondary" id="batal_up" data-dismiss="modal">Batal</button>
-                            <button type="submit" name="update" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
                 </div>

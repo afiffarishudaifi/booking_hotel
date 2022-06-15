@@ -57,12 +57,27 @@ class KonfirmasiPemesanan extends BaseController
             'alamat' => $pengunjung['alamat'],
             'tanggal_pesan' => $pengunjung['tanggal_pesan']
         );
-
-        $data = array(
-            'status_pemesanan'     => 'terkonfirmasi',
-            'id_admin' => $id_user
-        );
-        $model->update_data($data, $id, $data_pengunjung);
+        if($this->request->getPost('tolak')) {
+            $pemesanan = $model->view_data_detail_pemesanan($id)->getResultArray();
+        
+            foreach ($pemesanan as $key) {
+                $data = array(
+                    'status_kamar'     => 'kosong'
+                );
+                $model->update_data_batal_pemesanan($data, $key['id_kamar']);
+            }
+        
+            $data = array(
+                'status_pemesanan'     => 'batal',
+                'id_admin' => $id_user
+            );
+        } else {
+            $data = array(
+                'status_pemesanan'     => 'terkonfirmasi',
+                'id_admin' => $id_user
+            );
+        }
+        $model->update_data_admin($data, $id, $data_pengunjung);
 
         $session->setFlashdata('sukses', 'Data sudah berhasil diubah');
         return redirect()->to(base_url('Admin/KonfirmasiPemesanan'));
