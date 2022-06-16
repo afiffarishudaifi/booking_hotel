@@ -50,8 +50,7 @@ class Model_pemesanan extends Model
     }
 
     public function update_data($data, $id)
-    {  
-        
+    {
         $db      = \Config\Database::connect();
         $builder = $db->table('pemesanan');
         $builder->where('id_pemesanan', $id);
