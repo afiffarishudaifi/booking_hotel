@@ -393,7 +393,7 @@
                                 </div>
                             </div>
                             <?php } ?>
-                            <div class="row" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
+                            <!-- <div class="row" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                                 <div class="col-md-12">
                                   <h2>Galeri</h2>
                                     <div class="pictures_grid magnific-gallery clearfix">
@@ -401,7 +401,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row"  style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                                 <div class="col-md-12">
                                   <h2></i> Lokasi</h2>
@@ -606,8 +606,9 @@
                     document.getElementById("text_fasilitas").innerHTML = "";
                     var ul = document.getElementById("text_fasilitas");
                     var li = document.createElement("li");
-                    for(i = 0; i <= json.fasilitas.length ; i++) {
-                      if (i == json.fasilitas.length - 1) {
+                    var panjang_fasilitas =  json.fasilitas.length;
+                    for(i = 0; i < panjang_fasilitas ; i++) {
+                      if (i == (panjang_fasilitas-1)) {
                         li.appendChild(document.createTextNode(json.fasilitas[i].nama_fasilitas));
                         ul.appendChild(li);
                       } else {
@@ -616,18 +617,14 @@
                       }
                     }  
 
-                    document.getElementById("text_foto").innerHTML = "";
-                    var ul2 = document.getElementById("text_foto");
-                    var li2 = document.createElement("li");
-                    for(j = 0; j <= json.foto.length ; j++) {
-                      if (j == json.foto.length - 1) {
-                        li2.appendChild(document.createTextNode(json.foto[j].nama_foto));
-                        ul2.appendChild(li2);
-                      } else {
-                        li2.appendChild(document.createTextNode(json.foto[j].nama_foto  + ', '));
-                        ul2.appendChild(li2);
-                      }
-                    }              
+                    // var panjang_foto =  json.foto.length;
+                    // document.getElementById("text_foto").innerHTML = "";
+                    // var ul2 = document.getElementById("text_foto");
+                    // var li2 = document.createElement("li");
+                    // for(j = 0; j < panjang_foto ; j++) {
+                    //     li2.appendChild(document.createTextNode(json.foto[j].nama_foto));
+                    //     ul2.appendChild(li2);
+                    // }
                 });
         }
 
