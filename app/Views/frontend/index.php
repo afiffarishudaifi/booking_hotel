@@ -459,14 +459,37 @@
                                            </div>
 
                                            <div class="form-group">
+                                               <label>Lama Menginap</label>
+                                              <div class="row">
+                                                   <div class="col-md-3">
+                                                      <select name="input_lama" class="book_n">
+                                                        <?php for($i = 1; $i <= 31; $i++){ ?>
+                                                          <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                        <?php } ?>
+                                                      </select>
+                                                   </div>
+                                                   <div class="col-md-6">
+                                                      <select name="input_durasi" class="book_n">
+                                                        <option value="Hari">Hari</option>
+                                                        <option value="Minggu">Minggu</option>
+                                                        <option value="Bulan">Bulan</option>
+                                                      </select>
+                                                   </div>
+                                              </div>
+                                           </div>
+
+                                           <div class="form-group">
                                                <label>Tanggal Keluar</label>
-                                               <input type="datetime-local" class="form-control" id="input_keluar" name="input_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result($('#input_masuk').val(),this.value)">
+                                               <input type="datetime-local" class="form-control" id="input_keluar" readonly="" name="input_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result($('#input_masuk').val(),this.value)">
                                            </div>
 
                                            <div class="form-group">
                                                <label>Tagihan Biaya</label>
                                                <input type="text" name="input_hasil_total" value="0" id="input_hasil_total" class="form-control"  readonly="">
                                            </div>
+
+
+                                            <div id="wrapper-pengunjung"></div>
 
                                        </div>
                                        <div class="modal-footer">
@@ -629,10 +652,27 @@
         }
 
         function detail_pesan(isi) {
+            const wrapper = $("#wrapper-pengunjung");
             $.getJSON('<?= base_url('Frontend/Pencarian/detail'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#input_biaya').val(json.kamar.biaya);
-                    $('#input_kamar').val(json.kamar.id_kamar);        
+                    $('#input_kamar').val(json.kamar.id_kamar);
+                    $("#wrapper-pengunjung").empty();
+                    for( i = 1; i <= json.kamar.isi; i++) {
+                      wrapper.append(
+                            `<div class="form-group">
+                               <label>Nama Pengguna ${i}</label>
+                               <input type="text" name="input_pengunjung_${i}" id="" placeholder="Masukkan Nama" class="form-control">
+                           </div>
+                           <div class="form-group">
+                               <label>Jenis Kelamin ${i}</label>
+                                <select name="input_pengunjung_jenis_kelamin_${i}" class="form-control">
+                                  <option value="Laki - Laki">Laki - Laki</option>
+                                  <option value="Perempuan">Perempuan</option>
+                                </select>
+                           </div>`
+                        );
+                    }
                 });
         }
 

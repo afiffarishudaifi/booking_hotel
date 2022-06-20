@@ -69,7 +69,7 @@ class Model_pencarian extends Model
     {
         $db = \Config\Database::connect();
         $builder = $db->table('kamar');
-        $builder->select('kamar.id_kamar as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id_kategori as id_kategori, kategori_kamar.deskripsi as deskripsi');
+        $builder->select('kamar.id_kamar as id_kamar, nama_kamar, biaya, kategori_kamar.nama_kategori, kategori_kamar.id_kategori as id_kategori, kategori_kamar.deskripsi as deskripsi, isi');
         $builder->join('kategori_kamar', 'kategori_kamar.id_kategori=kamar.id_kategori');
         $builder->where('kamar.id_kamar', $id);
         return $builder->get();
