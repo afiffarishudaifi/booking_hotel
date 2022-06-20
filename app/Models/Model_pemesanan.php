@@ -49,6 +49,18 @@ class Model_pemesanan extends Model
         return $builder->get();
     }
 
+    public function detail_data_konfirmasi($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->select("pemesanan.id_pemesanan, pemesanan.id_pengguna, pengunjung.nama_lengkap, DATE_FORMAT(pemesanan.tanggal_pesan, '%Y-%m-%d') as tanggal_pesan, pemesanan.status_pemesanan, bukti_transaksi, SUM(detail_pemesanan.total_biaya) as total_tagihan, bukti_transaksi");
+        $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
+        $builder->join('detail_pemesanan', 'detail_pemesanan.id_pemesanan = pemesanan.id_pemesanan', 'left');
+        $builder->groupBy('detail_pemesanan.id_pemesanan');
+        $builder->where('pemesanan.id_pemesanan', $id);
+        return $builder->get();
+    }
+
     public function update_data($data, $id)
     {
         $db      = \Config\Database::connect();

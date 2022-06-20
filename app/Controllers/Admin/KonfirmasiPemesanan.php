@@ -54,10 +54,9 @@ class KonfirmasiPemesanan extends BaseController
         $data_pengunjung = array(
             'nama_lengkap' => $pengunjung['nama_lengkap'],
             'no_hp' => $pengunjung['no_hp'],
-            'alamat' => $pengunjung['alamat'],
-            'tanggal_pesan' => $pengunjung['tanggal_pesan']
+            'alamat' => $pengunjung['alamat']
         );
-        if($this->request->getPost('tolak')) {
+        if($this->request->getPost('input_konfirmasi') == 'tolak') {
             $pemesanan = $model->view_data_detail_pemesanan($id)->getResultArray();
         
             foreach ($pemesanan as $key) {
@@ -69,6 +68,7 @@ class KonfirmasiPemesanan extends BaseController
         
             $data = array(
                 'status_pemesanan'     => 'batal',
+                'alasan_ditolak' => $this->request->getPost('edit_alasan'),
                 'id_admin' => $id_user
             );
         } else {
@@ -86,7 +86,7 @@ class KonfirmasiPemesanan extends BaseController
     public function data_edit($id_pemesanan)
     {
         $model = new Model_pemesanan();
-        $datapemesanan = $model->detail_data($id_pemesanan)->getResultArray();
+        $datapemesanan = $model->detail_data_konfirmasi($id_pemesanan)->getResultArray();
         $respon = json_decode(json_encode($datapemesanan), true);
         $data['results'] = array();
         foreach ($respon as $value) :

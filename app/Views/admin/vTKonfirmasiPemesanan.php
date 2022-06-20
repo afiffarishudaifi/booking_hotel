@@ -122,13 +122,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Tanggal Masuk</label>
-                                <input type="text" class="form-control" id="edit_masuk" name="edit_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Tanggal Keluar</label>
-                                <input type="text" class="form-control" id="edit_keluar" name="edit_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" readonly>
+                                <label>Tanggal Pemesanan</label>
+                                <input type="text" class="form-control" id="tanggal_pesan" name="tanggal_pesan"  data-parsley-required="true" value="<?= date('Y-m-d'); ?>" readonly>
                             </div>
 
                             <div class="form-group">
@@ -141,11 +136,32 @@
                                 <input type="text" name="edit_status" value="Pengajuan" id="edit_status" class="form-control"  readonly="">
                             </div>
 
+                            <div class="form-group">
+                                <label>Konfirmasi Pemesanan</label>
+                                <select name="input_konfirmasi" class="form-control" id="input_konfirmasi">
+                                    <option value="terima" selected="">Terima</option>
+                                    <option value="tolak">Tolak</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="see_alasan" style="display: none;">
+                                <label>Alasan Ditolak</label>
+                                <textarea name="edit_alasan" id="edit_alasan" class="form-control" placeholder="Masukkan Alasan Di Tolak"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <center>
+                                        <img id="foto_lama" style="width: 300px; height: 160px;" src="">
+                                    </center>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary" id="batal_up" data-dismiss="modal">Batal</button>
-                            <button type="submit" name="update" class="btn btn-primary" value="Konfirmasi">Konfirmasi</button>
-                            <button type="submit" name="tolak" class="btn btn-danger" value="Batalkan">Batalkan</button>
+                            <button type="reset" class="btn btn-secondary" id="batal_up" data-dismiss="modal">Kembali</button>
+                            <button type="submit" name="update" class="btn btn-primary" value="Konfirmasi">Simpan</button>
+                            <!-- <button type="submit" name="tolak" class="btn btn-danger" value="Batalkan">Batalkan</button> -->
                         </div>
                     </div>
                 </div>
@@ -228,19 +244,38 @@
                 })
             }, 5000)
         })
+
+        $("#input_konfirmasi").change(function() {
+            var see_alasan = $('#see_alasan');
+            
+            if (this.value == "tolak"){
+                see_alasan.show();
+                $("#edit_alasan").attr('required', '');
+            } else {
+                see_alasan.hide();
+                $('#edit_alasan').val('');
+                $("#edit_alasan").removeAttr('required', '');
+            }
+        }).change();
     </script>
 
     <script type="text/javascript">
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('Admin/KonfirmasiPemesanan/data_edit'); ?>' + '/' + isi, {},
+            var link_bukti = "<?= base_url('docs/img/img_transaksi') . '/' ?>";
+            $.getJSON('<?= base_url('Admin/KonfirmasiPemesanan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_pemesanan').val(json.id_pemesanan);
                     
                     $('#edit_pengguna').val(json.nama_lengkap);
                     $('#edit_hasil_total').val(json.total_tagihan);
 
-                    $('#edit_tanggal').val(json.tanggal_pesan);
+                    $('#tanggal_pesan').val(json.tanggal_pesan);
                     $('#edit_bukti').val(json.bukti_transaksi);
+                    if (json.bukti_transaksi != '' || json.bukti_transaksi != null) {
+                        $("#foto_lama").attr("src", link_bukti + json.bukti_transaksi) ;
+                    } else {
+                        $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + "docs/img/img_kamar/noimage.jpg");
+                    }
                 });
         }
     </script>
