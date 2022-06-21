@@ -7,6 +7,7 @@ use App\Models\Model_pemesanan;
 use App\Models\Model_keranjang;
 use App\Models\model_kamar;
 use App\Models\Model_dashboard;
+use App\Models\Model_keranjang_pengunjung;
 
 class Pemesanan extends BaseController
 {
@@ -36,7 +37,7 @@ class Pemesanan extends BaseController
         $model = new Model_pemesanan();
         $model->add_data($data);
 
-        $model_kamar = new model_kamar();
+        $model_kamar = new Model_kamar();
         $data_kamar = array('status_kamar' => 'terisi');
         $id_kamar = $this->request->getPost('input_kamar');
         $model_kamar->update_data($data_kamar, $id_kamar);
@@ -49,6 +50,7 @@ class Pemesanan extends BaseController
         $session = session();
         helper(['form', 'url']);
 
+        // insert detail pemesanan
         $data = array(
             'id_pengguna'     => $session->get('user_id'),
             'id_kamar'     => $this->request->getPost('input_kamar'),
@@ -57,12 +59,29 @@ class Pemesanan extends BaseController
             'total_biaya'     => $this->request->getPost('input_hasil_total')
         );
         $model = new Model_keranjang();
-        $model->add_data($data);
+        $model->add_data_frontend($data);
 
-        $model_kamar = new model_kamar();
+        $id_detail = $model->detail_max()->getRowArray()['id_keranjang'];
+
+        // update kamar
+        $model_kamar = new Model_kamar();
         $data_kamar = array('status_kamar' => 'terisi');
         $id_kamar = $this->request->getPost('input_kamar');
         $model_kamar->update_data($data_kamar, $id_kamar);
+
+        // insert pengunjung
+        $model_keranjang_pengunjung = new Model_keranjang_pengunjung();
+        for($i = 1; $i <= $this->request->getPost('total_pengunjung'); $i++){
+            if($this->request->getPost('input_pengunjung_' . $i) != '') {
+                $data = array(
+                    'nama'     => $this->request->getPost('input_pengunjung_' . $i),
+                    'id_keranjang'     => $id_detail,
+                    'jenis_kelamin'     => $this->request->getPost('input_pengunjung_jenis_kelamin_' . $i)
+                );
+                $model_keranjang_pengunjung->add_data($data);
+            }
+        }
+
         $session->setFlashdata('sukses', 'Data sudah berhasil ditambah');
         return redirect()->to(base_url('Frontend/Frontend'));
     }

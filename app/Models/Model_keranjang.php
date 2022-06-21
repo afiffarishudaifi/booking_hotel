@@ -24,6 +24,12 @@ class Model_keranjang extends Model
         return $query;
     }
 
+    public function add_data_frontend($data)
+    {
+        $query = $this->db->table('keranjang')->insert($data);
+        return $query;
+    }
+
     public function detail_data($id)
     {
         $db      = \Config\Database::connect();
@@ -80,6 +86,14 @@ class Model_keranjang extends Model
         $builder->select('id_keranjang, nama_kamar, kamar.id_kamar, tanggal_masuk, tanggal_keluar, id_pengguna, total_biaya');
         $builder->join('kamar', 'kamar.id_kamar = keranjang.id_kamar');
         $builder->where('keranjang.id_pengguna', $id);
+        return $builder->get();
+    }
+
+    public function detail_max()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('keranjang');
+        $builder->selectMax('id_keranjang');
         return $builder->get();
     }
 

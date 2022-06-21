@@ -138,12 +138,12 @@
 
                             <div class="form-group">
                                 <label>Tanggal Masuk</label>
-                                <input type="datetime-local" class="form-control" id="input_masuk" name="input_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result(this.value, $('#input_keluar').val())">
+                                <input type="date" class="form-control" id="input_masuk" name="input_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result(this.value, $('#input_keluar').val())" min="<?= date('Y-m-d'); ?>">
                             </div>
 
                             <div class="form-group">
                                 <label>Tanggal Keluar</label>
-                                <input type="datetime-local" class="form-control" id="input_keluar" name="input_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result($('#input_masuk').val(),this.value)">
+                                <input type="date" class="form-control" id="input_keluar" name="input_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result($('#input_masuk').val(),this.value)" min="<?= date('Y-m-d'); ?>">
                             </div>
 
                             <div class="form-group">
@@ -192,12 +192,12 @@
 
                             <div class="form-group">
                                 <label>Tanggal Masuk</label>
-                                <input type="datetime-local" class="form-control" id="edit_masuk" name="edit_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit(this.value, $('#edit_keluar').val())">
+                                <input type="date" class="form-control" id="edit_masuk" name="edit_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit(this.value, $('#edit_keluar').val())" min="<?= date('Y-m-d'); ?>">
                             </div>
 
                             <div class="form-group">
                                 <label>Tanggal Keluar</label>
-                                <input type="datetime-local" class="form-control" id="edit_keluar" name="edit_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit($('#edit_masuk').val(),this.value)">
+                                <input type="date" class="form-control" id="edit_keluar" name="edit_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result_edit($('#edit_masuk').val(),this.value)" min="<?= date('Y-m-d'); ?>">
                             </div>
 
                             <div class="form-group">

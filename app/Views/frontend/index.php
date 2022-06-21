@@ -238,11 +238,11 @@
                         <div class="row">
                            <div class="col-md-3">
                               <label class="date">Tanggal Masuk</label>
-                              <input class="book_n"  type="datetime-local" required="" name="input_masuk" data-date-format="DD MMMM YYYY">
+                              <input class="book_n"  type="date" required="" name="input_masuk" data-date-format="DD MMMM YYYY" min="<?= date('Y-m-d'); ?>">
                            </div>
                            <div class="col-md-3">
                               <label class="date">Tanggal Keluar</label>
-                              <input class="book_n"  type="datetime-local" required="" name="input_keluar" data-date-format="DD MMMM YYYY">
+                              <input class="book_n"  type="date" required="" name="input_keluar" data-date-format="DD MMMM YYYY" min="<?= date('Y-m-d'); ?>">
                            </div>
                            <div class="col-md-3">
                               <label class="isi">Maksimal Penghuni</label>
@@ -393,15 +393,13 @@
                                 </div>
                             </div>
                             <?php } ?>
-                            <!-- <div class="row" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
+                            <div class="row" style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                                 <div class="col-md-12">
                                   <h2>Galeri</h2>
-                                    <div class="pictures_grid magnific-gallery clearfix">
-                                        <ul style='word-break: break-word;' id="text_foto">
-                                        </ul>
-                                    </div>
+                                  <div class="pictures_grid magnific-gallery clearfix" id="wrapper-foto">
+                                  </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="row"  style="padding-top: 20px; padding-left: 20px; padding-right: 20px;">
                                 <div class="col-md-12">
                                   <h2></i> Lokasi</h2>
@@ -434,13 +432,14 @@
                     <div class="row" style="padding-top: 20px; padding-bottom: 20px">
                          <div class="col-md-12">
                             <?php if ($session->get('status_login') == 'customer') { ?>
-                             <form action="<?php echo base_url('Frontend/Pemesanan/add_detail_pemesanan'); ?>" method="post" data-parsley-validate="true">
+                             <form action="<?= base_url('Frontend/Pemesanan/add_detail_pemesanan'); ?>" method="post" data-parsley-validate="true" autocomplete="off">
                                <?= csrf_field(); ?>
                                <div class="modal-dialog" role="document">
                                    <div class="modal-content">
                                        <div class="modal-body">
 
                                            <input type="hidden" name="input_kamar" id="input_kamar">
+                                           <input type="hidden" name="total_pengunjung" id="total_pengunjung">
 
                                            <div class="form-group">
                                                <label>Biaya Kamar/malam</label>
@@ -455,21 +454,21 @@
 
                                            <div class="form-group">
                                                <label>Tanggal Masuk</label>
-                                               <input type="datetime-local" class="form-control" id="input_masuk" name="input_masuk"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result(this.value, $('#input_keluar').val())">
+                                               <input type="date" class="form-control" id="input_masuk" name="input_masuk"  data-parsley-required="true" value="<?= date('Y-m-d'); ?>" onchange="get_result(this.value, $('#input_keluar').val())" min="<?= date('Y-m-d'); ?>">
                                            </div>
 
                                            <div class="form-group">
                                                <label>Lama Menginap</label>
                                               <div class="row">
                                                    <div class="col-md-3">
-                                                      <select name="input_lama" class="book_n">
+                                                      <select name="input_lama" id="input_lama" class="book_n" onchange="hitung_tanggal(this.value, $('#tipe_lama').val())">
                                                         <?php for($i = 1; $i <= 31; $i++){ ?>
                                                           <option value="<?= $i; ?>"><?= $i; ?></option>
                                                         <?php } ?>
                                                       </select>
                                                    </div>
                                                    <div class="col-md-6">
-                                                      <select name="input_durasi" class="book_n">
+                                                      <select name="tipe_lama" id="tipe_lama" class="book_n" onchange="hitung_tanggal($('#input_lama').val(), this.value)">
                                                         <option value="Hari">Hari</option>
                                                         <option value="Minggu">Minggu</option>
                                                         <option value="Bulan">Bulan</option>
@@ -480,14 +479,13 @@
 
                                            <div class="form-group">
                                                <label>Tanggal Keluar</label>
-                                               <input type="datetime-local" class="form-control" id="input_keluar" readonly="" name="input_keluar"  data-parsley-required="true" value="<?= date('Y-m-d G:i:s'); ?>" onchange="get_result($('#input_masuk').val(),this.value)">
+                                               <input type="date" class="form-control" id="input_keluar" readonly="" name="input_keluar"  data-parsley-required="true" value="<?= date('Y-m-d', strtotime("+1 day")); ?>" onchange="get_result($('#input_masuk').val(),this.value)">
                                            </div>
 
                                            <div class="form-group">
                                                <label>Tagihan Biaya</label>
-                                               <input type="text" name="input_hasil_total" value="0" id="input_hasil_total" class="form-control"  readonly="">
+                                               <input type="text" name="input_hasil_total" id="input_hasil_total" class="form-control"  readonly="">
                                            </div>
-
 
                                             <div id="wrapper-pengunjung"></div>
 
@@ -550,7 +548,6 @@
             </div>
          </div>
       </div>
-
 
       <?php if ($session->get('status_login') == '') { ?>
       <footer id="contact">
@@ -619,6 +616,7 @@
 
       <script type="text/javascript">
         function detail(isi) {
+            const wrapper = $("#wrapper-foto");
             $.getJSON('<?= base_url('Frontend/Pencarian/detail'); ?>' + '/' + isi, {},
                 function(json) {              
                   var foto_cover = json.kamar.foto;
@@ -638,16 +636,14 @@
                         li.appendChild(document.createTextNode(json.fasilitas[i].nama_fasilitas  + ', '));
                         ul.appendChild(li);
                       }
-                    }  
+                    }
 
-                    // var panjang_foto =  json.foto.length;
-                    // document.getElementById("text_foto").innerHTML = "";
-                    // var ul2 = document.getElementById("text_foto");
-                    // var li2 = document.createElement("li");
-                    // for(j = 0; j < panjang_foto ; j++) {
-                    //     li2.appendChild(document.createTextNode(json.foto[j].nama_foto));
-                    //     ul2.appendChild(li2);
-                    // }
+                    $("#wrapper-foto").empty();
+                    for( i = 1; i <= json.foto.length; i++) {
+                        wrapper.append(
+                            `<figure><a href="<?= base_url() . '/'?>${json.foto[i].nama_foto}" title="Foto Hotel Purbaya" data-effect="mfp-zoom-in"><img src="<?= base_url() . '/'?>${json.foto[i].nama_foto}" alt="" height="200" width="200"></a></figure>`
+                        );
+                    }
                 });
         }
 
@@ -656,10 +652,27 @@
             $.getJSON('<?= base_url('Frontend/Pencarian/detail'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#input_biaya').val(json.kamar.biaya);
+                    $('#input_hasil_total').val(json.kamar.biaya);
                     $('#input_kamar').val(json.kamar.id_kamar);
+                    $('#total_pengunjung').val(json.kamar.isi);
                     $("#wrapper-pengunjung").empty();
                     for( i = 1; i <= json.kamar.isi; i++) {
-                      wrapper.append(
+                      if(i == 1) {
+                        wrapper.append(
+                            `<div class="form-group">
+                               <label>Nama Pengguna ${i}</label>
+                               <input type="text" name="input_pengunjung_${i}" id="" placeholder="Masukkan Nama" class="form-control" required>
+                           </div>
+                           <div class="form-group">
+                               <label>Jenis Kelamin ${i}</label>
+                                <select name="input_pengunjung_jenis_kelamin_${i}" class="form-control">
+                                  <option value="Laki - Laki">Laki - Laki</option>
+                                  <option value="Perempuan">Perempuan</option>
+                                </select>
+                           </div>`
+                        );
+                      } else {
+                        wrapper.append(
                             `<div class="form-group">
                                <label>Nama Pengguna ${i}</label>
                                <input type="text" name="input_pengunjung_${i}" id="" placeholder="Masukkan Nama" class="form-control">
@@ -672,11 +685,87 @@
                                 </select>
                            </div>`
                         );
+                      }
                     }
                 });
         }
 
+        function hitung_tanggal(lama, type) {
+            var default_tipe;
+
+            if(type == 'Hari') {
+              default_tipe = 1;
+            } else if(type == 'Minggu') {
+              default_tipe = 7;
+            } else {
+              default_tipe = 30;
+            }
+
+            var tanggal_awal = new Date($('#input_masuk').val());
+            var total_tanggal = tanggal_awal.setDate(tanggal_awal.getDate() + (lama*default_tipe));
+
+            var tanggal_awal = new Date($('#input_masuk').val());
+            var tanggal_baru = new Date(tanggal_awal);
+
+            tanggal_baru.setDate(tanggal_baru.getDate() + (lama*default_tipe)); // minus the date
+
+            var nd = new Date(tanggal_baru);
+            // console.log($('#input_masuk').val(dateFormat(nd, 'Y-m-d')));
+            $('#input_keluar').val(dateFormat(nd, 'Y-m-d'));
+
+            akhir = dateFormat(nd, 'Y-m-d');
+            masuk = $('#input_masuk').val();
+
+            var tanggal_masuk = new Date(masuk);
+            var tanggal_akhir = new Date(akhir);
+            var timeDiff=0
+            if (tanggal_akhir) {
+                timeDiff = (tanggal_akhir - tanggal_masuk) / 1000;
+            }
+
+            var selisih = Math.floor(timeDiff/(86400))
+            var biaya = $('#input_biaya').val()
+
+            var total_biaya = parseInt(selisih) * parseInt(biaya);
+
+            if (isNaN(total_biaya)) {
+                $('#input_hasil_total').val('0')
+            } else {
+                $('#input_hasil_total').val(total_biaya)
+            }
+
+          }
+
+        function dateFormat(inputDate, format) {
+            //parse the input date
+            const date = new Date(inputDate);
+
+            //extract the parts of the date
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();    
+
+            //replace the month
+            format = format.replace("m", month.toString().padStart(2,"0"));        
+
+            //replace the year
+            if (format.indexOf("Y") > -1) {
+                format = format.replace("Y", year.toString());
+            } else if (format.indexOf("yy") > -1) {
+                format = format.replace("yy", year.toString().substr(2,2));
+            }
+
+            //replace the day
+            format = format.replace("d", day.toString().padStart(2,"0"));
+
+            return format;
+        }
+
         function get_result(masuk, akhir) {
+            document.getElementById("input_lama").selectedIndex = 0;
+            document.getElementById("tipe_lama").selectedIndex = 0;
+            $('#input_keluar').val(new Date('Y-m-d'));
+
             var tanggal_masuk = new Date(masuk);
             var tanggal_akhir = new Date(akhir);
             var timeDiff=0
