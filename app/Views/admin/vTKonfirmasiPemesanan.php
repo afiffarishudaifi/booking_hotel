@@ -271,7 +271,8 @@
 
                     $('#tanggal_pesan').val(json.tanggal_pesan);
                     $('#edit_bukti').val(json.bukti_transaksi);
-                    if (json.bukti_transaksi != '' || json.bukti_transaksi != null) {
+                    console.log(json.bukti_transaksi);
+                    if (json.bukti_transaksi != 'n') {
                         $("#foto_lama").attr("src", link_bukti + json.bukti_transaksi) ;
                     } else {
                         $("#foto_lama").attr("src", "<?= base_url() . '/' ?>" + "docs/img/img_kamar/noimage.jpg");

@@ -113,16 +113,15 @@ class Keranjang extends BaseController
             );
             $model_detail->add_data($data);
 
-            $id_pemesanan_max = $model_detail->select_max_id()->getRowArray(); //buat insert
+            $id_pemesanan_max = $model_detail->select_max_id()->getRowArray()['id_pemesanan']; //buat insert
             $cari_keranjang_pengunjung = $model_keranjang_pengunjung->cari_keranjang_pengunjung($input[$i])->getResultArray();
-            foreach ($cari_keranjang_pengunjung => $value) {
+            foreach ($cari_keranjang_pengunjung as $value) {
                 $data = array(
-                    'id_detail_pemesanan'     => $id_pemesanan_max,
+                    'id_detail'     => $id_pemesanan_max,
                     'nama'     => $value['nama'],
                     'jenis_kelamin'     => $value['jenis_kelamin']
                 );
                 $model_detail_pengunjung->add_data($data);
-                $model_keranjang_pengunjung->delete_data_keranjang_pengunjung($id_pemesanan_max);
             }
 
             $model_detail->delete_data_from_keranjang($input[$i]);

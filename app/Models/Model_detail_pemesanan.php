@@ -98,4 +98,12 @@ class Model_detail_pemesanan extends Model
         $builder->where('id_keranjang', $id);
         return $builder->delete();
     }
+
+    public function select_max_id()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('pemesanan');
+        $builder->selectMax('id_pemesanan');
+        return $builder->get();
+    }
 }
