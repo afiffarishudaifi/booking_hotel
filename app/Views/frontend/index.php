@@ -427,7 +427,7 @@
               </button>
             </div>
             
-              <section>
+            <section>
                 <div class="container">
                     <div class="row" style="padding-top: 20px; padding-bottom: 20px">
                          <div class="col-md-12">
@@ -733,8 +733,7 @@
             } else {
                 $('#input_hasil_total').val(total_biaya)
             }
-
-          }
+        }
 
         function dateFormat(inputDate, format) {
             //parse the input date
@@ -783,7 +782,7 @@
             } else {
                 $('#input_hasil_total').val(total_biaya)
             }
-          }
+        }
       </script>
    </body>
 </html>
