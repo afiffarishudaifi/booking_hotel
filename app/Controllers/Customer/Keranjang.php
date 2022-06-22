@@ -9,6 +9,8 @@ use App\Models\Model_dashboard;
 use App\Models\Model_pemesanan;
 use App\Models\model_pengunjung;
 use App\Models\Model_detail_pemesanan;
+use App\Models\Model_detail_pengunjung;
+use App\Models\Model_keranjang_pengunjung;
 
 class Keranjang extends BaseController
 {
@@ -83,7 +85,9 @@ class Keranjang extends BaseController
         $session = session();
         $model = new Model_keranjang();
         $model_detail = new Model_detail_pemesanan();
+        $model_keranjang_pengunjung = new Model_keranjang_pengunjung();
         $model_pemesanan = new Model_pemesanan();
+        $model_detail_pengunjung = new Model_detail_pengunjung();
 
         // pemesanan
         $data = array(
@@ -108,6 +112,19 @@ class Keranjang extends BaseController
                 'total_biaya'     => $pilih['total_biaya']
             );
             $model_detail->add_data($data);
+
+            $id_pemesanan_max = $model_detail->select_max_id()->getRowArray(); //buat insert
+            $cari_keranjang_pengunjung = $model_keranjang_pengunjung->cari_keranjang_pengunjung($input[$i])->getResultArray();
+            foreach ($cari_keranjang_pengunjung => $value) {
+                $data = array(
+                    'id_detail_pemesanan'     => $id_pemesanan_max,
+                    'nama'     => $value['nama'],
+                    'jenis_kelamin'     => $value['jenis_kelamin']
+                );
+                $model_detail_pengunjung->add_data($data);
+                $model_keranjang_pengunjung->delete_data_keranjang_pengunjung($id_pemesanan_max);
+            }
+
             $model_detail->delete_data_from_keranjang($input[$i]);
         }
         session()->setFlashdata('sukses', 'Data sudah berhasil dihapus');

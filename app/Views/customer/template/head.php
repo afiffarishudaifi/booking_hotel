@@ -27,7 +27,7 @@
     <link
         href="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
         rel="stylesheet" />
-    <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2/css/select2.min.css') ?>">
-    <link rel="stylesheet" href="<?php echo base_url('docs/dashboard/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('docs/dashboard/assets/plugins/select2/css/select2.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('docs/dashboard/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
     <!-- ================== END PAGE LEVEL STYLE ================== -->
 </head>

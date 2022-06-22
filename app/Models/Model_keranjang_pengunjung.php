@@ -48,4 +48,21 @@ class Model_keranjang_pengunjung extends Model
         $builder->where('id_detail_keranjang', $id);
         return $builder->delete();
     }
+
+    public function cari_keranjang_pengunjung($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('detail_keranjang_pengunjung');
+        $builder->select("id_detail_keranjang, nama, jenis_kelamin");
+        $builder->where('id_keranjang', $id);
+        return $builder->get();
+    }
+
+    public function delete_data_keranjang_pengunjung($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('detail_keranjang_pengunjung');
+        $builder->where('id_keranjang', $id);
+        return $builder->delete();
+    }
 }
