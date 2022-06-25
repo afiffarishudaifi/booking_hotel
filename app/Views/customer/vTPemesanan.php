@@ -90,7 +90,7 @@
                                             <center>
                                                 <a href="<?= base_url('/Customer/DetailPemesanan/viewData/' . $item['id_pemesanan']) ?>" class="btn btn-edit btn-info btn-sm"><i
                                                         class="fa fa-eye"></i></a>
-                                                <?php if($item['status_pemesanan'] == 'selesai') { ?>
+                                                <?php if($item['status_pemesanan'] != 'pengajuan' || $item['status_pemesanan'] != 'batal') { ?>
                                                     <a href="<?= base_url('/Customer/DetailPemesanan/cetakPdf/' . $item['id_pemesanan']) ?>" class="btn btn-edit btn-success btn-sm"><i
                                                             class="fa fa-print"></i></a>
                                                 <?php }?>

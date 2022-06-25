@@ -68,7 +68,7 @@
                                                         class="fa fa-eye"></i></a>
                                                 <a href="" data-toggle="modal" data-toggle="modal" data-target="#updateModal" name="btn-edit" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)" class="btn btn-edit btn-warning btn-sm"><i
                                                         class="fa fa-pen"></i></a>
-                                                <?php if($item['status_pemesanan'] == 'selesai') { ?>
+                                                <?php if($item['status_pemesanan'] != 'pengajuan' || $item['status_pemesanan'] != 'batal') { ?>
                                                     <a href="<?= base_url('/Admin/DetailPemesanan/cetakPdf/' . $item['id_pemesanan']) ?>" class="btn btn-edit btn-success btn-sm"><i
                                                             class="fa fa-print"></i></a>
                                                 <?php }?>
