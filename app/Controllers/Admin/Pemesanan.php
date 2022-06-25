@@ -32,9 +32,9 @@ class Pemesanan extends BaseController
         $model = new Model_pemesanan();
         $pemesanan = $model->view_data()->getResultArray();
         $data = [
-            'judul' => 'Pemesanan',
-            'page_header' => 'Pemesanan',
-            'panel_title' => 'Tabel Pemesanan',
+            'judul' => 'Pemesanan Bulan Ini',
+            'page_header' => 'Pemesanan Bulan Ini',
+            'panel_title' => 'Tabel Pemesanan Bulan Ini',
             'pemesanan' => $pemesanan,
             'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan']
         ];
