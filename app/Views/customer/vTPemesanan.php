@@ -81,7 +81,7 @@
                                                     if($item['bukti_transaksi'] == 'n') { ?>
                                                     <a href="" data-toggle="modal" data-toggle="modal" data-target="#uploadModal" class="btn btn-bayar btn-warning btn-sm" onclick="Upload(<?= $item['id_pemesanan']; ?>)">Upload Bukti</a>
                                                 <?php } else { ?>
-                                                    <a href="" data-toggle="modal" data-toggle="modal" data-target="#form_edit_upload" class="btn btn-bayar btn-success btn-sm" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)">Bukti Terupload</a>
+                                                    <a href="" data-toggle="modal" data-toggle="modal" data-target="#form_edit_upload" class="btn btn-bayar btn-primary btn-sm" onclick="detail_edit(<?= $item['id_pemesanan']; ?>)">Bukti Terupload</a>
                                                 <?php } 
                                                 } else { echo "-";} ?>
                                             </center>
@@ -90,6 +90,10 @@
                                             <center>
                                                 <a href="<?= base_url('/Customer/DetailPemesanan/viewData/' . $item['id_pemesanan']) ?>" class="btn btn-edit btn-info btn-sm"><i
                                                         class="fa fa-eye"></i></a>
+                                                <?php if($item['status_pemesanan'] == 'selesai') { ?>
+                                                    <a href="<?= base_url('/Customer/DetailPemesanan/cetakPdf/' . $item['id_pemesanan']) ?>" class="btn btn-edit btn-success btn-sm"><i
+                                                            class="fa fa-print"></i></a>
+                                                <?php }?>
                                             </center>
                                         </td>
                                     </tr>
@@ -224,7 +228,7 @@
         })
 
         function detail_edit(isi) {
-            $.getJSON('<?php echo base_url('customer/Pemesanan/data_edit'); ?>' + '/' + isi, {},
+            $.getJSON('<?= base_url('customer/Pemesanan/data_edit'); ?>' + '/' + isi, {},
                 function(json) {
                     $('#id_pemesanan').val(json.id_pemesanan);
                     $('#foto_lama_transaksi').val(json.bukti_transaksi);

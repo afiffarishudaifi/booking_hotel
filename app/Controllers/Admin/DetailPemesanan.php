@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\Model_detail_pemesanan;
 use App\Models\model_kamar;
 use App\Models\Model_dashboard;
+use App\Models\Model_pemesanan;
+use App\Models\Model_pengunjung;
 
 class DetailPemesanan extends BaseController
 {
@@ -45,6 +47,9 @@ class DetailPemesanan extends BaseController
     public function add_pemesanan()
     {
         $session = session();
+        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+            return redirect()->to('Login/indexAdmin');
+        }
         helper(['form', 'url']);
 
         $id_pemesanan = $this->request->getPost('id_pemesanan');
@@ -69,6 +74,9 @@ class DetailPemesanan extends BaseController
     public function update_pemesanan()
     {
         $session = session();
+        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+            return redirect()->to('Login/indexAdmin');
+        }
         helper(['form', 'url']);
         $model = new Model_detail_pemesanan();
 
@@ -100,10 +108,13 @@ class DetailPemesanan extends BaseController
 
     public function delete_pemesanan()
     {
+        $session = session();
+        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+            return redirect()->to('Login/indexAdmin');
+        }
         $model = new Model_detail_pemesanan();
         $id = $this->request->getPost('id');
         $id_pemesanan = $this->request->getPost('id_pemesanan');
-        $session = session();
         $model->delete_data($id);
 
         $model_kamar = new model_kamar();
@@ -162,6 +173,10 @@ class DetailPemesanan extends BaseController
 
     public function data_edit($id_pemesanan)
     {
+        $session = session();
+        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+            return redirect()->to('Login/indexAdmin');
+        }
         $model = new Model_detail_pemesanan();
         $datapemesanan = $model->detail_data($id_pemesanan)->getResultArray();
         $respon = json_decode(json_encode($datapemesanan), true);
@@ -183,5 +198,43 @@ class DetailPemesanan extends BaseController
         $biaya_kamar = $model->biaya_kamar($id)->getRowArray();
         $result['biaya'] = $biaya_kamar['biaya'];
         echo json_encode($result);
+    }
+
+    public function cetakPdf($id)
+    {
+        $session = session();
+        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+            return redirect()->to('Login/indexAdmin');
+        }
+        
+        $model_dash = new Model_dashboard();
+        $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
+
+        $model = new Model_detail_pemesanan();
+        $pemesanan = $model->view_data_customer_selesai($id)->getResultArray();
+
+        $model_pemesanan = new Model_pemesanan();
+        $total = $model_pemesanan->detail_data($id)->getRowArray();
+
+        $model_pengunjung = new Model_pengunjung();
+        $pengunjung = $model_pengunjung->detail_data($total['id_pengguna'])->getRowArray();
+
+        $data = [
+            'judul' => 'Detail Pemesanan',
+            'page_header' => 'Detail Pemesanan',
+            'panel_title' => 'Tabel Detail Pemesanan',
+            'pemesanan' => $pemesanan,
+            'pengunjung' => $pengunjung,
+            'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan'],
+            'id_pemesanan' => $id,
+            'total_pembayaran' => $total['total_tagihan']
+        ];
+
+        $dompdf = new \Dompdf\Dompdf(); 
+        $dompdf->loadHtml(view('customer/pdf-view', $data));
+        $dompdf->setPaper('A5', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("bukti_pembayaran ". date('d-M-Y') .".pdf");
+        // return view('customer/pdf-view', $data);
     }
 }

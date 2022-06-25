@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\Model_detail_pemesanan;
 use App\Models\model_kamar;
 use App\Models\Model_dashboard;
+use App\Models\Model_pengunjung;
+use App\Models\Model_pemesanan;
 
 class DetailPemesanan extends BaseController
 {
@@ -40,6 +42,46 @@ class DetailPemesanan extends BaseController
             'id_pemesanan' => $id
         ];
         return view('customer/vTDetailPemesanan', $data);
+    }
+
+    public function cetakPdf($id)
+    {
+        $session = session();
+        if (!$session->get('username_login') || $session->get('status_login') != 'customer') {
+            return redirect()->to('Login');
+        }
+        
+        $model_dash = new Model_dashboard();
+        $jumlah_pemesanan = $model_dash->jumlah_pemesanan()->getRowArray();
+
+        $model = new Model_detail_pemesanan();
+        $pemesanan = $model->view_data_customer_selesai($id)->getResultArray();
+
+        $id_pengunjung = $session->get('user_id');
+        $model_pengunjung = new Model_pengunjung();
+        $pengunjung = $model_pengunjung->detail_data($id_pengunjung)->getRowArray();
+
+        $model_pemesanan = new Model_pemesanan();
+        $total = $model_pemesanan->detail_data($id)->getRowArray();
+
+        $data = [
+            'judul' => 'Detail Pemesanan',
+            'page_header' => 'Detail Pemesanan',
+            'panel_title' => 'Tabel Detail Pemesanan',
+            'pemesanan' => $pemesanan,
+            'pengunjung' => $pengunjung,
+            'jumlah_pemesanan' => $jumlah_pemesanan['id_pemesanan'],
+            'id_pemesanan' => $id,
+            'total_pembayaran' => $total['total_tagihan']
+        ];
+        // dd($data);
+
+        $dompdf = new \Dompdf\Dompdf(); 
+        $dompdf->loadHtml(view('customer/pdf-view', $data));
+        $dompdf->setPaper('A5', 'landscape');
+        $dompdf->render();
+        $dompdf->stream("bukti_pembayaran ". date('d-M-Y') .".pdf");
+        // return view('customer/pdf-view', $data);
     }
 
     public function add_pemesanan()

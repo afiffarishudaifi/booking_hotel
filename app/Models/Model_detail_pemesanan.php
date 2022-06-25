@@ -76,7 +76,19 @@ class Model_detail_pemesanan extends Model
         $builder->select('id_detail, nama_kamar, kamar.id_kamar, tanggal_masuk, tanggal_keluar, total_biaya');
         $builder->join('kamar', 'kamar.id_kamar = detail_pemesanan.id_kamar');
         $builder->join('pemesanan', 'pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan');
-        $builder->where('pemesanan.status_pemesanan !=','selesai');
+        // $builder->where('pemesanan.status_pemesanan !=','selesai');
+        $builder->where('pemesanan.id_pemesanan', $id);
+        return $builder->get();
+    }
+
+    public function view_data_customer_selesai($id)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('detail_pemesanan');
+        $builder->select('id_detail, nama_kamar, kamar.id_kamar, tanggal_masuk, tanggal_keluar, total_biaya');
+        $builder->join('kamar', 'kamar.id_kamar = detail_pemesanan.id_kamar');
+        $builder->join('pemesanan', 'pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan');
+        // $builder->where('pemesanan.status_pemesanan !=','selesai');
         $builder->where('pemesanan.id_pemesanan', $id);
         return $builder->get();
     }

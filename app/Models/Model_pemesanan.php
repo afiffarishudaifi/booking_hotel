@@ -15,7 +15,7 @@ class Model_pemesanan extends Model
         $builder = $db->table('pemesanan');
         $builder->select('pemesanan.id_pemesanan, pengunjung.nama_lengkap, tanggal_pesan, status_pemesanan, bukti_transaksi');
         $builder->join('pengunjung', 'pengunjung.id_pengguna = pemesanan.id_pengguna');
-        $builder->where('pemesanan.status_pemesanan !=','selesai');
+        // $builder->where('pemesanan.status_pemesanan !=','selesai');
         return $builder->get();
     }
 
