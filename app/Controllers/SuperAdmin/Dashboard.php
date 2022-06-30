@@ -53,11 +53,11 @@ class Dashboard extends BaseController
             $data_pemesanan = array(
                 "0" => array(
                     "tanggal_pesan" => $awal,
-                    "id" => "0"
+                    "id_pemesanan" => "0"
                 ),
                 "1" => array(
                     "tanggal_pesan" => $akhir,
-                    "id" => "0"
+                    "id_pemesanan" => "0"
                 )
             );
         }
