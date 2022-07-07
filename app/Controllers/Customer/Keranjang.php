@@ -4,10 +4,10 @@ namespace App\Controllers\Customer;
 
 use App\Controllers\BaseController;
 use App\Models\Model_keranjang;
-use App\Models\model_kamar;
+use App\Models\Model_kamar;
 use App\Models\Model_dashboard;
 use App\Models\Model_pemesanan;
-use App\Models\model_pengunjung;
+use App\Models\Model_pengunjung;
 use App\Models\Model_detail_pemesanan;
 use App\Models\Model_detail_pengunjung;
 use App\Models\Model_keranjang_pengunjung;
@@ -48,7 +48,7 @@ class Keranjang extends BaseController
         $model = new Model_keranjang();
         $pemesanan = $model->view_data_keranjang($id)->getResultArray();
 
-        $model_pengunjung = new model_pengunjung();
+        $model_pengunjung = new Model_pengunjung();
         $pengunjung = $model_pengunjung->detail_data($id)->getRowArray();
 
         $data = [
@@ -72,7 +72,7 @@ class Keranjang extends BaseController
         $session = session();
         $model->delete_data($id);
 
-        $model_kamar = new model_kamar();
+        $model_kamar = new Model_kamar();
         $data_kamar = array('status_kamar' => 'kosong');
         $id_kamar = $this->request->getPost('id_kamar');
         $model_kamar->update_data($data_kamar, $id_kamar);

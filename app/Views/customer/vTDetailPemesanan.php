@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?= $this->include("Customer/template/head") ?>
+<?= $this->include("customer/template/head") ?>
 
 <body>
     <div id="page-loader" class="fade show">
@@ -11,11 +11,11 @@
     <div id="page-container"
         class="fade page-sidebar-fixed page-header-fixed page-with-wide-sidebar page-with-light-sidebar">
         <!-- begin #header -->
-        <?= $this->include("Customer/template/header") ?>
+        <?= $this->include("customer/template/header") ?>
         <!-- end #header -->
 
         <!-- begin #sidebar -->
-        <?= $this->include("Customer/template/sidebar"); date_default_timezone_set('Asia/Jakarta'); ?>
+        <?= $this->include("customer/template/sidebar"); date_default_timezone_set('Asia/Jakarta'); ?>
         <!-- end #sidebar -->
 
         <div id="content" class="content">
@@ -244,7 +244,7 @@
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
     <script src="<?php echo base_url('/docs/dashboard/assets/plugins/select2/js/select2.full.min.js') ?>"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
-    <?= $this->include("Customer/template/js") ?>
+    <?= $this->include("customer/template/js") ?>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
 

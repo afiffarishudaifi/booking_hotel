@@ -34,7 +34,7 @@ class Pemesanan extends BaseController
             'panel_title' => 'Tabel Pemesanan',
             'pemesanan' => $pemesanan
         ];
-        return view('Customer/vTPemesanan', $data);
+        return view('customer/vTPemesanan', $data);
     }
 
     public function add_pemesanan()

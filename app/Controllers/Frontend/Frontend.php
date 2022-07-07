@@ -5,7 +5,7 @@ namespace App\Controllers\Frontend;
 use App\Controllers\BaseController;
 use App\Models\Model_dashboard;
 use App\Models\Model_laporan;
-use App\Models\model_frontend;
+use App\Models\Model_frontend;
 
 class Frontend extends BaseController
 {
@@ -28,7 +28,7 @@ class Frontend extends BaseController
             } 
         }
 
-        $model_frontend = new model_frontend();
+        $model_frontend = new Model_frontend();
         $param['input_masuk'] = date('Y-m-d');
         $data = $model_frontend->cek_kamar($param)->getResultArray();
         foreach ($data as $value) {

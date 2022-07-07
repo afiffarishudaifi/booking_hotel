@@ -13,7 +13,7 @@ class Login extends BaseController
         $this->googleClient = new \Google_Client();
         $this->googleClient->setClientId("668824993527-85c5qphkc0svk4r2lrfjlhbkkgfplini.apps.googleusercontent.com");
         $this->googleClient->setClientSecret("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");
-        $this->googleClient->setRedirectUri("http://localhost:8080/booking_hotel/Login/loginWithGoogle");
+        $this->googleClient->setRedirectUri("https://bookinghotelpurbaya.silda.xyz/Login/loginWithGoogle");
         $this->googleClient->addScope("email");
         $this->googleClient->addScope("profile");
 

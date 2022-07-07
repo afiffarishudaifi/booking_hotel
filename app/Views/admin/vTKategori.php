@@ -204,7 +204,7 @@
     </script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/js/demo/table-manage-responsive.demo.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
-    <?= $this->include("Admin/template/js") ?>
+    <?= $this->include("admin/template/js") ?>
     <!-- ================== END PAGE LEVEL JS ================== -->
 
     <script type="text/javascript">

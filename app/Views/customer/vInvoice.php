@@ -23,11 +23,11 @@
 	
 	<!-- begin #page-container -->
 	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed page-with-wide-sidebar page-with-light-sidebar">
-		<?= $this->include("Customer/template/header") ?>
+		<?= $this->include("customer/template/header") ?>
         <!-- end #header -->
 
         <!-- begin #sidebar -->
-        <?= $this->include("Customer/template/sidebar"); date_default_timezone_set('Asia/Jakarta'); ?>
+        <?= $this->include("customer/template/sidebar"); date_default_timezone_set('Asia/Jakarta'); ?>
         <!-- end #sidebar -->
 		
 		<!-- begin #content -->
