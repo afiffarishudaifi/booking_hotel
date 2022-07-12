@@ -639,7 +639,7 @@
                     }
 
                     $("#wrapper-foto").empty();
-                    for( i = 1; i <= json.foto.length; i++) {
+                    for( i = 0; i < json.foto.length; i++) {
                         wrapper.append(
                             `<figure><a href="<?= base_url() . '/'?>${json.foto[i].nama_foto}" title="Foto Hotel Purbaya" data-effect="mfp-zoom-in"><img src="<?= base_url() . '/'?>${json.foto[i].nama_foto}" alt="" height="200" width="200"></a></figure>`
                         );
