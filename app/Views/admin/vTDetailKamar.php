@@ -220,7 +220,7 @@
                 placeholder: "Pilih Fasilitas",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/Detailkamar/data_fasilitas'); ?>',
+                    url: '<?php echo base_url('Admin/DetailKamar/data_fasilitas'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
@@ -242,7 +242,7 @@
                 placeholder: "Pilih Fasilitas",
                 theme: 'bootstrap4',
                 ajax: {
-                    url: '<?php echo base_url('Admin/Detailkamar/data_fasilitas'); ?>',
+                    url: '<?php echo base_url('Admin/DetailKamar/data_fasilitas'); ?>',
                     type: "post",
                     delay: 250,
                     dataType: 'json',
