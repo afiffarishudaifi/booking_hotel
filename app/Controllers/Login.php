@@ -147,7 +147,7 @@ class Login extends BaseController
                     return redirect()->to('/SuperAdmin/Dashboard');
                 } else {
                     $session->setFlashdata('msg', 'Password Tidak Sesuai');
-                    return redirect()->to('/Login');
+                    return redirect()->to('/Login/indexAdmin');
                 }
             } else {
                 $status = 'admin';
@@ -166,12 +166,12 @@ class Login extends BaseController
                     return redirect()->to('/Admin/Dashboard');
                 } else {
                     $session->setFlashdata('msg', 'Password Tidak Sesuai');
-                    return redirect()->to('/Login');
+                    return redirect()->to('/Login/indexAdmin');
                 }
             }
         } else {
             $session->setFlashdata('msg', 'Email Tidak di Temukan');
-            return redirect()->to('/Login');
+            return redirect()->to('/Login/indexAdmin');
         }
     }
 

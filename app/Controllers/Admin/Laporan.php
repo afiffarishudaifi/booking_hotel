@@ -123,4 +123,39 @@ class Laporan extends BaseController
         echo json_encode($data);
     }
 
+    public function data_cetak()
+    {
+        $session = session();
+        if (!$session->get('username_login') || $session->get('status_login') != 'admin') {
+            return redirect()->to('Login/indexAdmin');
+        }
+
+        $tanggal = $this->request->getPost('tanggal') ;
+        $kategori = $this->request->getPost('kategori') ;
+        $status = $this->request->getPost('status') ;
+
+        if ($tanggal) $tgl = explode(' - ', $tanggal);
+        if ($tanggal) $param['cek_waktu1'] = date("Y-m-d", strtotime($tgl[0]));
+        if ($tanggal) $param['cek_waktu2'] = date("Y-m-d", strtotime($tgl[1]));
+        if ($kategori != 'null') {
+        	$param['id_kategori'] = $kategori;
+        } else {
+        	$param['id_kategori'] = null;
+        }
+        if ($status != 'null') {
+        	$param['status_pemesanan'] = $status;
+        } else {
+        	$param['status_pemesanan'] = null;
+        }
+
+        $model = new Model_laporan_admin();
+        $laporan = $model->view_data_filter($param)->getResultArray();
+
+        $data = [
+            'judul' => 'Laporan Pemesanan',
+            'laporan' => $laporan
+        ];
+        return view('admin/cetakLaporanPemesanan', $data);
+    }
+
 }

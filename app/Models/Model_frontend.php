@@ -42,12 +42,12 @@ class Model_frontend extends Model
         $db = \Config\Database::connect();
         $builder = $db->table('detail_pemesanan');
         $builder->join('pemesanan','pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan');
-        $builder->Where('pemesanan.status_pemesanan !=','terkonfirmasi');
+        $builder->where('pemesanan.status_pemesanan =','terkonfirmasi');
         $builder->select('id_kamar');
 
         if ($params['input_masuk'] != '') {
-            $builder->where('detail_pemesanan.tanggal_keluar <', $params['input_masuk']);
-            $builder->where('detail_pemesanan.tanggal_keluar >', $params['input_masuk']);
+            $builder->where('detail_pemesanan.tanggal_masuk <=', $params['input_masuk']);
+            $builder->where('detail_pemesanan.tanggal_keluar >=', $params['input_masuk']);
         } 
         return $builder->get();
     }

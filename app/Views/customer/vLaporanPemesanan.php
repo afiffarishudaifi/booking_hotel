@@ -75,37 +75,43 @@
                         <!-- end panel-heading -->
                         <!-- begin panel-body -->
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label>Tanggal</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="far fa-calendar-alt"></i>
-                                            </span>
+                            <form method="post" action="<?= base_url('') ?>/Customer/Laporan/data_cetak">
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label>Tanggal</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control float-right" id="tanggal" name="tanggal">
                                         </div>
-                                        <input type="text" class="form-control float-right" id="tanggal" name="tanggal">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Kategori</label>
+                                        <select id="select_kategori" name="kategori" class="form-control select2" style="width: 100%;" onchange="ganti(this.value,$('#select_status').val())">
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Status Pemesanan</label>
+                                        <select id="select_status" name="status" class="form-control" style="width: 100%;" onchange="ganti($('#select_kategori').val(), this.value)">
+                                            <option value="null">Pilih Status Pemesanan</option>
+                                            <option value="pengajuan">Pengajuan</option>
+                                            <option value="terkonfirmasi">Laporan Terkonfirmasi</option>
+                                            <option value="selesai">Selesai</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <label style="color: white;">Status</label>
+                                        <button type="button" class="form-control btn btn-sm btn-danger" id="btn_reset">Reset</button>
+                                    </div>
+                                    <div class="form-group col-md-1">
+                                        <label style="color: white;">Status</label>
+                                        <button type="submit" class="form-control btn btn-sm btn-primary">Cetak</button>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-3">
-                                    <label>Kategori</label>
-                                    <select id="select_kategori" name="kategori" class="form-control select2" style="width: 100%;" onchange="ganti(this.value,$('#select_status').val())">
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label>Status Pemesanan</label>
-                                    <select id="select_status" name="status" class="form-control" style="width: 100%;" onchange="ganti($('#select_kategori').val(), this.value)">
-                                        <option value="null">Pilih Status Pemesanan</option>
-                                        <option value="pengajuan">Pengajuan</option>
-                                        <option value="terkonfirmasi">Laporan Terkonfirmasi</option>
-                                        <option value="selesai">Selesai</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label style="color: white;">Status Pemesanan</label>
-                                    <button type="button" class="form-control btn btn-sm btn-danger" id="btn_reset">Reset</button>
-                                </div>
-                            </div>
+                            </form>
                             <table id="data-table-combine table" style="width: 100%" class="table table-stripe table-responsive table-bordered table-td-valign-middle" width="100%">
                                 <thead>
                                     <tr>
@@ -141,19 +147,10 @@
     <!-- ================== END BASE JS ================== -->
 
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-keytable-bs4/js/keyTable.bootstrap4.min.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/pdfmake/build/pdfmake.min.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/pdfmake/build/vfs_fonts.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/jszip/dist/jszip.min.js"></script>
