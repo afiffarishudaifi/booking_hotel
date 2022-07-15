@@ -75,54 +75,62 @@
                         <!-- end panel-heading -->
                         <!-- begin panel-body -->
                         <div class="panel-body">
-                            <form method="post" action="<?= base_url('') ?>/Customer/Laporan/data_cetak">
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <label>Tanggal</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="far fa-calendar-alt"></i>
-                                                </span>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form method="post" action="<?= base_url('') ?>/Customer/Laporan/data_cetak">
+                                        <div class="row">
+                                            <div class="form-group col-md-4">
+                                                <label>Tanggal</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control float-right" id="tanggal" name="tanggal">
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control float-right" id="tanggal" name="tanggal">
+                                            <div class="form-group col-md-3">
+                                                <label>Kategori</label>
+                                                <select id="select_kategori" name="kategori" class="form-control select2" style="width: 100%;" onchange="ganti(this.value,$('#select_status').val())">
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Status Pemesanan</label>
+                                                <select id="select_status" name="status" class="form-control" style="width: 100%;" onchange="ganti($('#select_kategori').val(), this.value)">
+                                                    <option value="null">Pilih Status Pemesanan</option>
+                                                    <option value="pengajuan">Pengajuan</option>
+                                                    <option value="terkonfirmasi">Laporan Terkonfirmasi</option>
+                                                    <option value="selesai">Selesai</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-1">
+                                                <label style="color: white;">Status</label>
+                                                <button type="button" class="form-control btn btn-sm btn-danger" id="btn_reset">Reset</button>
+                                            </div>
+                                            <div class="form-group col-md-1">
+                                                <label style="color: white;">Status</label>
+                                                <button type="submit" class="form-control btn btn-sm btn-primary">Cetak</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label>Kategori</label>
-                                        <select id="select_kategori" name="kategori" class="form-control select2" style="width: 100%;" onchange="ganti(this.value,$('#select_status').val())">
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label>Status Pemesanan</label>
-                                        <select id="select_status" name="status" class="form-control" style="width: 100%;" onchange="ganti($('#select_kategori').val(), this.value)">
-                                            <option value="null">Pilih Status Pemesanan</option>
-                                            <option value="pengajuan">Pengajuan</option>
-                                            <option value="terkonfirmasi">Laporan Terkonfirmasi</option>
-                                            <option value="selesai">Selesai</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-1">
-                                        <label style="color: white;">Status</label>
-                                        <button type="button" class="form-control btn btn-sm btn-danger" id="btn_reset">Reset</button>
-                                    </div>
-                                    <div class="form-group col-md-1">
-                                        <label style="color: white;">Status</label>
-                                        <button type="submit" class="form-control btn btn-sm btn-primary">Cetak</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <table id="data-table-combine table" style="width: 100%" class="table table-stripe table-responsive table-bordered table-td-valign-middle" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th width="1%">ID</th>
-                                        <th class="text-nowrap">Nama Pemesan</th>
-                                        <th class="text-nowrap">Nama Kamar</th>
-                                        <th class="text-nowrap">Tanggal Pesan</th>
-                                        <th class="text-nowrap">Status Pemesanan</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table id="data-table-responsive table" class="table table-stripe table-responsive table-bordered table-td-valign-middle" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th width="1%">ID</th>
+                                            <th class="text-nowrap">Nama Pemesan</th>
+                                            <th class="text-nowrap">Nama Kamar</th>
+                                            <th class="text-nowrap">Tanggal Pesan</th>
+                                            <th class="text-nowrap">Status Pemesanan</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                         <!-- end panel-body -->
                     </div>
@@ -147,6 +155,7 @@
     <!-- ================== END BASE JS ================== -->
 
     <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="<?= base_url() ?>/docs/dashboard/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
